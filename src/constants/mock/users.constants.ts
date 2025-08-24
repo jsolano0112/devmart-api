@@ -1,6 +1,6 @@
-import { UserResponse } from "../interfaces/users";
+import { IUserResponse } from "../../interfaces/users";
 
-export const users: UserResponse[] = [
+export const users: IUserResponse[] = [
   {
     id: 1,
     firstName: "Juana",
