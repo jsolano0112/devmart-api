@@ -1,5 +1,10 @@
 import { IResponse } from "../interfaces/response";
 
+export const statusCode400: IResponse = {
+  statusCode: 400,
+  message: "Invalid Parameters.",
+};
+
 export const statusCode401: IResponse = {
   statusCode: 401,
   message: "Bad or expired token.",
