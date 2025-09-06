@@ -1,4 +1,4 @@
-import { IUserRequest, IUserResponse } from "../../interfaces/users";
+import { IUserRequest, IUserResponse } from "../../user/application/interfaces/users";
 
 export const users: IUserResponse[] = [
   {

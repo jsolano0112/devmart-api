@@ -1,6 +1,6 @@
 import express, {Router, Request, Response} from 'express'
-import userRouter from './users.route';
-import orderRouter from './orders.route';
+// import orderRouter from './order/orders.route';
+import { userRouter } from './user/application/routes/user-route';
 const appRouter: Router = Router();
 
 appRouter.get('/', (req:Request, res: Response)=>{
@@ -11,6 +11,6 @@ res.status(200).json({
 });
 
 appRouter.use('/api/users', userRouter);
-appRouter.use('/api/orders', orderRouter);
+// appRouter.use('/api/orders', orderRouter);
 
 export default appRouter;
