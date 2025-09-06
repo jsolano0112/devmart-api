@@ -5,6 +5,11 @@ export const userStatusCode200: IResponse = {
   message: "User created succesfully.",
 };
 
+export const userUpdatedStatusCode200: IResponse = {
+  statusCode: 200,
+  message: "User updated succesfully.",
+};
+
 export const userStatusCode400ErrorParameters: IResponse = {
   statusCode: 400,
   message:

@@ -7,8 +7,6 @@ export class GetUserById {
   constructor() {}
 
   async run(id: string): Promise<IUserResponse> {
-    if (!id) throw userStatusCode400ErrorParameters;
-
     //TODO: get from database
     const user = users.find((u) => u.id === parseInt(id));
     if (!user) throw statusCode404;
