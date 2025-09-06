@@ -1,4 +1,4 @@
-import { IResponse } from "../interfaces/response";
+import { IResponse } from "./response";
 
 export const statusCode400ErrorParameters: IResponse = {
   statusCode: 400,

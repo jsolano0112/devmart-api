@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import appRouter from "./routes/app-route";
+import appRouter from "./app-route";
 
 const PORT: number = 4001;
 const app: Application = express();
