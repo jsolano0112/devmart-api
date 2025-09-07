@@ -1,4 +1,4 @@
-import { IOrderResponse, IProduct } from "../interfaces/orders";
+import { IOrderResponse, IProduct } from "../order/application/interfaces/orders";
 
 
 export const paymentMethodTypes = {
