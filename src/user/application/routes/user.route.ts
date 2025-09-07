@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { UserController } from "../controller/users-controller";
 import { validateUpdate } from "../middlewares/update-user.validator";
-import { validateUserId } from "../middlewares/user-id.validator";
-const { validateCreate } = require("../middlewares/create-user.validator");
+import { validateId } from "../../../helper/get-id.validator";
+import { validateCreate } from "../middlewares/create-user.validator";
 const controller = new UserController();
 const userRouter: Router = Router();
 
-userRouter.get("/:id", validateUserId, controller.getById);
+userRouter.get("/:id", validateId, controller.getById);
 userRouter.post("/", validateCreate, controller.create);
 userRouter.put("/", validateUpdate, controller.update);
-userRouter.get("/:id/orders", validateUserId, controller.getOrdersById);
+userRouter.get("/:id/orders", validateId, controller.getOrdersById);
 
 export { userRouter };
