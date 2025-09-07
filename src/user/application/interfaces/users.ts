@@ -16,11 +16,11 @@ export interface IUserRequest {
     firstName: string,
     lastName: string,
     email: string,
-    address?: string,
-    mobilePhone?: string,
-    city?: string,
-    zipCode?: number,
+    address: string,
+    mobilePhone: string,
+    city: string,
+    zipCode: number,
     isActive: boolean,
-    password?: string,
+    password: string,
     isAdmin: boolean
 }
