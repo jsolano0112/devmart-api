@@ -6,11 +6,9 @@ import { UpdateUser } from "../domain/use-cases/update-user.use-case";
 //TODO: for database
 // const userRepository 
 
-export const ServiceContainer = {
-  user: {
+export const UserServiceContainer = {
     getUserById: new GetUserById(),
     createUser: new CreateUser(),
     updateUser: new UpdateUser(),
     getUserOrders: new GetUserOrders()
-  },
 };

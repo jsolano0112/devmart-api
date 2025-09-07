@@ -1,4 +1,19 @@
-import { IResponse } from "./response";
+import { IResponse } from "../../../interfaces/response";
+
+export const orderCreatedStatus: IResponse = {
+  statusCode: 200,
+  message: "Order created succesfully.",
+};
+
+export const orderUpdatedStatus: IResponse = {
+  statusCode: 200,
+  message: "Order updated succesfully.",
+};
+
+export const orderDeletedStatus: IResponse = {
+  statusCode: 200,
+  message: "Order deleted succesfully.",
+};
 
 export const statusCode400ErrorParameters: IResponse = {
   statusCode: 400,

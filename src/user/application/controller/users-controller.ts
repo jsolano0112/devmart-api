@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ServiceContainer } from "../../infraestructure/user-service-container";
+import { UserServiceContainer } from "../../infraestructure/user-service-container";
 import { IUserRequest } from "../interfaces/users";
 import { userStatusCode200, userUpdatedStatusCode200 } from "../interfaces/user-response";
 
@@ -11,7 +11,7 @@ export class UserController {
   ) {
     try {
       const { id } = request.params;
-      const user = await ServiceContainer.user.getUserById.run(id);
+      const user = await UserServiceContainer.getUserById.run(Number(id));
       return response.status(200).json(user);
     } catch (error) {
       next(error);
@@ -24,7 +24,7 @@ export class UserController {
     next: NextFunction
   ) {
     try {
-      await ServiceContainer.user.createUser.run(request.body);
+      await UserServiceContainer.createUser.run(request.body);
       return response.status(200).json(userStatusCode200);
     } catch (error) {
       next(error);
@@ -37,7 +37,7 @@ export class UserController {
     next: NextFunction
   ) {
     try {
-      await ServiceContainer.user.updateUser.run(request.body);
+      await UserServiceContainer.updateUser.run(request.body);
       return response.status(200).json(userUpdatedStatusCode200);
     } catch (error) {
       next(error);
@@ -51,7 +51,7 @@ export class UserController {
   ) {
     try {
       const { id } = request.params;
-      const userOrders = await ServiceContainer.user.getUserOrders.run(id);
+      const userOrders = await UserServiceContainer.getUserOrders.run(Number(id));
       if (userOrders.length === 0) {
         return response.status(204).json();
       }

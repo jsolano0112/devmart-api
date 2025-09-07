@@ -9,6 +9,14 @@ export interface IOrderResponse {
   lastUpdated: Date;
 }
 
+export interface IOrderRequest {
+  id: number;
+  userId: number;
+  products: IProduct[];
+  paymentMethod: number;
+  address: string;
+}
+
 export interface IProduct {
   id: number;
   count: number;
