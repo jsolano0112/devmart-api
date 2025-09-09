@@ -1,7 +1,7 @@
 import express, { Application } from "express";
 import appRouter from "./app-route";
 
-const PORT: number = 4001;
+const PORT: number = 3000;
 const app: Application = express();
 
 app.use(express.json());
@@ -18,5 +18,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`SERVER RUNNING - http://localhost:4001/`)
+  console.log(`SERVER RUNNING - http://localhost:3000/`)
 })
