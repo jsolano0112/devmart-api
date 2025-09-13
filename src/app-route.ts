@@ -10,7 +10,7 @@ res.status(200).json({
 });
 });
 
-appRouter.use('/api/users', userRouter);
-appRouter.use('/api/orders', orderRouter);
+appRouter.use('/api/v1/users', userRouter);
+appRouter.use('/api/v1/orders', orderRouter);
 
 export default appRouter;
