@@ -1,5 +1,5 @@
-import { statusCode404 } from "../../../interfaces/general-response";
-import { orders } from "../../../mock/orders.constants";
+import { statusCode404 } from '../../../interfaces/general-response';
+import { orders } from '../../../mock/orders.constants';
 
 export class DeleteOrder {
   constructor() {}

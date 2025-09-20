@@ -1,14 +1,13 @@
-import { statusCode404 } from "../../../interfaces/general-response";
-import { users } from "../../../mock/users.constants";
-import { userStatusCode400ErrorParameters } from "../../application/interfaces/user-response";
-import { IUserResponse } from "../../application/interfaces/users";
+import { statusCode404 } from '../../../interfaces/general-response';
+import { IUserResponse } from '../models/interfaces/users';
+import { UserRepository } from '../repositories/user-repository';
 
 export class GetUserById {
-  constructor() {}
+  constructor(private repository: UserRepository) {}
 
   async run(id: number): Promise<IUserResponse> {
     //TODO: get from database
-    const user = users.find((u) => u.id === Number(id));
+    const user = this.repository.getUserById(id);
     if (!user) throw statusCode404;
 
     return user;
