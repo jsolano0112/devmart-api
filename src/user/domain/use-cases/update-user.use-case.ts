@@ -1,7 +1,6 @@
-import { statusCode404 } from "../../../interfaces/general-response";
-import { usersFromDatabase } from "../../../mock/users.constants";
-import { userStatusCode400ErrorParameters } from "../../application/interfaces/user-response";
-import { IUserRequest } from "../../application/interfaces/users";
+import { statusCode404 } from '../../../interfaces/general-response';
+import { usersFromDatabase } from '../../../mock/users.constants';
+import { IUserRequest } from '../../application/interfaces/users';
 
 export class UpdateUser {
   constructor() {}

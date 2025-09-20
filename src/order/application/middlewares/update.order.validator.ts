@@ -1,35 +1,35 @@
-import { body } from "express-validator";
-import { validateResult } from "../../../helper/validate.helper";
+import { body } from 'express-validator';
+import { validateResult } from '../../../helper/validate.helper';
 
 export const validateUpdateOrder = [
-  body("id")
+  body('id')
     .notEmpty()
-    .withMessage("Order ID is required.")
+    .withMessage('Order ID is required.')
     .isInt()
-    .withMessage("Order ID must be an integer."),
-  body("userId")
+    .withMessage('Order ID must be an integer.'),
+  body('userId')
     .notEmpty()
-    .withMessage("User ID is required.")
+    .withMessage('User ID is required.')
     .isInt()
-    .withMessage("User ID must be an integer."),
-  body("products")
+    .withMessage('User ID must be an integer.'),
+  body('products')
     .isArray({ min: 1 })
-    .withMessage("Products must be a non-empty array."),
-  body("products.*.id")
+    .withMessage('Products must be a non-empty array.'),
+  body('products.*.id')
     .notEmpty()
-    .withMessage("Product ID is required.")
+    .withMessage('Product ID is required.')
     .isInt()
-    .withMessage("Product ID must be an integer."),
-  body("products.*.count")
+    .withMessage('Product ID must be an integer.'),
+  body('products.*.count')
     .notEmpty()
-    .withMessage("Product count is required.")
+    .withMessage('Product count is required.')
     .isInt({ min: 1 })
-    .withMessage("Product count must be at least 1."),
-  body("products.*.sellerId")
+    .withMessage('Product count must be at least 1.'),
+  body('products.*.sellerId')
     .notEmpty()
-    .withMessage("Seller ID is required.")
+    .withMessage('Seller ID is required.')
     .isInt()
-    .withMessage("Seller ID must be an integer."),
+    .withMessage('Seller ID must be an integer.'),
   (req, res, next) => {
     validateResult(req, res, next);
   },
