@@ -1,2 +1,3 @@
 node_modules/
-mongodb.ts
+src/db/config/mongodb.ts
+
