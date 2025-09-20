@@ -1,4 +1,4 @@
-import { IResponse } from '../../../interfaces/response';
+import { IResponse } from '../../../../interfaces/response';
 
 export const userStatusCode200: IResponse = {
   statusCode: 200,
@@ -29,6 +29,11 @@ export const userStatusCode400PhoneFormat: IResponse = {
 export const userStatusCode400ZipCodeFormat: IResponse = {
   statusCode: 400,
   message: 'The postal code must be 6 or 9 digits long.',
+};
+
+export const userStatusCode409ExistingUser: IResponse = {
+  statusCode: 409,
+  message: 'The user already exists.',
 };
 
 export const userStatusCode422: IResponse = {

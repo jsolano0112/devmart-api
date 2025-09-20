@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserServiceContainer } from '../../infraestructure/user-service-container';
-import { IUserRequest } from '../interfaces/users';
+import { IUserRequest } from '../../domain/models/interfaces/users';
 import {
   userStatusCode200,
   userUpdatedStatusCode200,
-} from '../interfaces/user-response';
+} from '../../domain/models/interfaces/user-response';
 
 export class UserController {
   public async getById(

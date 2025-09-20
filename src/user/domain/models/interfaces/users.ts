@@ -11,7 +11,7 @@ export interface IUserResponse {
   isAdmin: boolean;
 }
 
-export interface IUserRequest {
+export interface IUser {
   id: number;
   firstName: string;
   lastName: string;
