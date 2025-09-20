@@ -1,10 +1,15 @@
-import { IUserRequest } from '../../application/interfaces/users';
+import { userStatusCode409ExistingUser } from '../models/interfaces/user-response';
+import { IUser } from '../models/interfaces/users';
+import { UserRepository } from '../repositories/user-repository';
 
 export class CreateUser {
-  constructor() {}
+  constructor(private repository: UserRepository) {}
 
-  async run(user: IUserRequest): Promise<void> {
+  async run(user: IUser): Promise<void> {
     //TODO: Validate email if exists and the domain
-    //TODO: save en database
+    const existingUser = this.repository.getUserByEmail(user.email);
+    if (existingUser) throw userStatusCode409ExistingUser;
+
+    this.repository.createUser(user);
   }
 }

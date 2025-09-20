@@ -2,9 +2,10 @@ import { statusCode404 } from '../../../interfaces/general-response';
 import { IOrderResponse } from '../../../order/application/interfaces/orders';
 import { orders } from '../../../mock/orders.constants';
 import { usersFromDatabase } from '../../../mock/users.constants';
+import { UserRepository } from '../repositories/user-repository';
 
 export class GetUserOrders {
-  constructor() {}
+  constructor(private repository: UserRepository) {}
 
   async run(id: number): Promise<IOrderResponse[]> {
     //TODO: get from database

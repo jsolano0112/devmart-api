@@ -16,8 +16,6 @@ export default defineConfig([
         'error',
         {
           singleQuote: true,
-          tabWidth: 2,
-          useTabs: false,
         },
       ],
     },

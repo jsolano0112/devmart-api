@@ -1,11 +1,12 @@
 import { statusCode404 } from '../../../interfaces/general-response';
 import { usersFromDatabase } from '../../../mock/users.constants';
-import { IUserRequest } from '../../application/interfaces/users';
+import { IUser } from '../models/interfaces/users';
+import { UserRepository } from '../repositories/user-repository';
 
 export class UpdateUser {
-  constructor() {}
+  constructor(private repository: UserRepository) {}
 
-  async run(user: IUserRequest): Promise<void> {
+  async run(user: IUser): Promise<void> {
     //TODO: get from database
     let dbUser = usersFromDatabase.find((u) => u.id === Number(user.id));
     if (!dbUser) throw statusCode404;

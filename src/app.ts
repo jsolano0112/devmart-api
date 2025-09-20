@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import appRouter from './app-route';
 import { Server } from 'socket.io';
+import { dbConnection } from './db/config/mongodb';
 
 const PORT: number = 3000;
 const app: Application = express();
@@ -18,6 +19,10 @@ app.use((err, req, res, next) => {
     message: message,
   });
 });
+
+//DB CONNECTION
+dbConnection();
+//END - DB CONNECTION
 
 //SOCKET
 io.on('connection', (socket) => {
