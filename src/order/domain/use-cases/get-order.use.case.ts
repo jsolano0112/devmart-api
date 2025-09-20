@@ -1,6 +1,6 @@
-import { statusCode404 } from "../../../interfaces/general-response";
-import { orders } from "../../../mock/orders.constants";
-import { IOrderResponse } from "../../application/interfaces/orders";
+import { statusCode404 } from '../../../interfaces/general-response';
+import { orders } from '../../../mock/orders.constants';
+import { IOrderResponse } from '../../application/interfaces/orders';
 
 export class GetOrderById {
   constructor() {}

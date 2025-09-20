@@ -1,41 +1,37 @@
-import { IResponse } from "../../../interfaces/response";
+import { IResponse } from '../../../interfaces/response';
 
 export const orderCreatedStatus: IResponse = {
   statusCode: 200,
-  message: "Order created succesfully.",
+  message: 'Order created succesfully.',
 };
 
 export const orderUpdatedStatus: IResponse = {
   statusCode: 200,
-  message: "Order updated succesfully.",
+  message: 'Order updated succesfully.',
 };
 
 export const orderDeletedStatus: IResponse = {
   statusCode: 200,
-  message: "Order deleted succesfully.",
+  message: 'Order deleted succesfully.',
 };
 
 export const statusCode400ErrorParameters: IResponse = {
   statusCode: 400,
   message:
-    "Missing one of the following parameters: userId, products, paymentMethod or address.",
+    'Missing one of the following parameters: userId, products, paymentMethod or address.',
 };
 
 export const statusCode400ErrorParametersUpdated: IResponse = {
   statusCode: 400,
-  message:
-    "Nothing has been updated because no data has been provided.",
+  message: 'Nothing has been updated because no data has been provided.',
 };
 
 export const statusCode400ErrorProduct: IResponse = {
   statusCode: 400,
-  message:
-    "The count for the product is zero.",
+  message: 'The count for the product is zero.',
 };
-
 
 export const statusCode400OutStock: IResponse = {
   statusCode: 400,
-  message:
-    "The product is out of stock.",
+  message: 'The product is out of stock.',
 };

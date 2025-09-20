@@ -1,7 +1,6 @@
-import { statusCode404 } from "../../../interfaces/general-response";
-import { users } from "../../../mock/users.constants";
-import { userStatusCode400ErrorParameters } from "../../application/interfaces/user-response";
-import { IUserResponse } from "../../application/interfaces/users";
+import { statusCode404 } from '../../../interfaces/general-response';
+import { users } from '../../../mock/users.constants';
+import { IUserResponse } from '../../application/interfaces/users';
 
 export class GetUserById {
   constructor() {}
