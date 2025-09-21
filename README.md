@@ -1,23 +1,84 @@
-# devmart-api
+# 🛒 DEVMART API  
 
-E-commerce Platform with Real-Time Shipment Tracking.
+A modern **Node.js API** built with **TypeScript**, designed for a real-time e-commerce platform.  
+This project follows a **Hexagonal Architecture**, emphasizing separation of concerns and scalability.  
 
-<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" /> <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge" />
+---
 
-Members: Wesley Alirio Vanegas Bolívar, Wilson Estrada y Juana Valentina Solano Enciso
+## 🛠️ Tech Stack
 
-## Instructions
+Node.js + TypeScript
 
-### Clone the repository.
+Express.js (API framework)
 
+Mongoose (MongoDB ODM)
+
+Swagger (API documentation)
+
+Hexagonal Architecture
+
+ESLint + Prettier (code quality and formatting)
+
+---
+
+## 🚀 Features  
+- **Hexagonal structure**: Domain-driven folders (e.g., `users`, `orders`, `products`).  
+- **Swagger Documentation**: Available at [http://localhost:3000/doc](http://localhost:3000/doc).  
+- **MongoDB with Mongoose**: Flexible schema definitions and database access.  
+- **Real-time shipping updates**.  
+- **TypeScript**: Strong typing for reliability and maintainability.  
+
+---
+
+## 🏗️ Project Structure  
+
+```bash
+src/
+ ├── app.ts              # Application entrypoint
+ ├── routes/             # API routes
+ ├── db/
+ │   └── config/
+ │       └── mongodb.ts  # Database configuration
+ ├── domains/            # Hexagonal structure by domain
+ │   ├── users/          # User domain
+ │   ├── orders/         # Orders domain
+ │   └── products/       # Products domain
+ └── ...
+```
+---
+
+## ⚙️ Configuration
+
+The MongoDB connection requires credentials and the MongoDB Atlas URL.
+Update the following file:
+src/db/config/mongodb.ts
+```bash
+const DB_PASSWORD = '';
+const DB_USERNAME = '';
+const MONGOATLAS_URL: string = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.bbdjdbp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const DB_NAME: string = '';
+```
+
+---
+
+## 📦 Installation
+
+Clone the repository
 ```
 https://github.com/jsolano0112/devmart-api.git
 ```
+Navigate into the project and install dependencies
+```
+npm install
+```
+---
+## ▶️ Running the Project
 
-### Run `npm install`.
-
-### Set up variables
-
-TODO
-
-### Run `npm start` to start the application.
+```
+npm start
+```
+---
+## 🧹 Linting & Formatting
+```
+npm run format
+```
