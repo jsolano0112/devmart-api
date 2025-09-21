@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-const DB_PASSWORD = 'uXJ1DgIM24DxrloM'
-const DB_USERNAME = 'devmart-api'
+const DB_PASSWORD = ''
+const DB_USERNAME = ''
 const MONGOATLAS_URL: string = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.bbdjdbp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const DB_NAME: string = '';
 
