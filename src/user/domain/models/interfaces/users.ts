@@ -1,5 +1,15 @@
 export interface IUserResponse {
-  id: number;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  mobilePhone: string;
+  city: string;
+  zipCode: number;
+}
+
+export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
@@ -8,11 +18,12 @@ export interface IUserResponse {
   city: string;
   zipCode: number;
   isActive: boolean;
+  password: string;
   isAdmin: boolean;
 }
 
-export interface IUser {
-  id: number;
+export interface IUpdateUser {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

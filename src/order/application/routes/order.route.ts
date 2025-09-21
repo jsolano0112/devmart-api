@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { OrderController } from '../controller/orders-controller';
-import { validateId } from '../../../helper/get-id.validator';
+import { validateId } from '../../../shared/helpers/get-id.validator';
 import { validateCreateOrder } from '../middlewares/create-order.validator';
 import { validateUpdateOrder } from '../middlewares/update.order.validator';
 
