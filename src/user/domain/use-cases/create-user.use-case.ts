@@ -1,15 +1,16 @@
-import { userStatusCode409ExistingUser } from '../models/interfaces/user-response';
+import { validateEmailDomain } from '../../../shared/helpers/email-domain-validator';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import {
+  userStatusCode409ExistingUser,
+} from '../models/interfaces/user-response';
 import { IUser } from '../models/interfaces/users';
-import { UserRepository } from '../repositories/user-repository';
-
 export class CreateUser {
-  constructor(private repository: UserRepository) {}
+  constructor(private repo: RepositoryContainer) {}
 
   async run(user: IUser): Promise<void> {
-    //TODO: Validate email if exists and the domain
-    const existingUser = this.repository.getUserByEmail(user.email);
+    const existingUser = await this.repo.users.getUserByEmail(user.email);
     if (existingUser) throw userStatusCode409ExistingUser;
-
-    this.repository.createUser(user);
+    await validateEmailDomain(user.email);
+    this.repo.users.createUser(user);
   }
 }

@@ -1,7 +1,7 @@
 import {
   IUserRequest,
   IUserResponse,
-} from '../user/domain/models/interfaces/users';
+} from '../../user/domain/models/interfaces/users';
 
 export const users: IUserResponse[] = [
   {

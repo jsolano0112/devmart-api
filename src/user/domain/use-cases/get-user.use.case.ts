@@ -1,15 +1,10 @@
-import { statusCode404 } from '../../../interfaces/general-response';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 import { IUserResponse } from '../models/interfaces/users';
-import { UserRepository } from '../repositories/user-repository';
 
 export class GetUserById {
-  constructor(private repository: UserRepository) {}
+  constructor(private repo: RepositoryContainer) {}
 
-  async run(id: number): Promise<IUserResponse> {
-    //TODO: get from database
-    const user = this.repository.getUserById(id);
-    if (!user) throw statusCode404;
-
-    return user;
+  async run(id: string): Promise<IUserResponse> {
+   return await this.repo.users.getUserById(id);
   }
 }

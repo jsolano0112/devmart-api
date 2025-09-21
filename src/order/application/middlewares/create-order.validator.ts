@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import { validateResult } from '../../../helper/validate.helper';
+import { validateResult } from '../../../shared/helpers/validate.helper';
 
 export const validateCreateOrder = [
   body('userId')

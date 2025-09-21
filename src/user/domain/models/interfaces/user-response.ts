@@ -1,4 +1,4 @@
-import { IResponse } from '../../../../interfaces/response';
+import { IResponse } from '../../../../shared/interfaces/response';
 
 export const userStatusCode200: IResponse = {
   statusCode: 200,
