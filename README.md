@@ -49,9 +49,13 @@ src/
 
 ## ⚙️ Configuration
 
-The MongoDB connection requires credentials and the MongoDB Atlas URL.
+The MongoDB connection requires credentials.
+
 Update the following file:
+
+```bash
 src/db/config/mongodb.ts
+```
 ```bash
 const DB_PASSWORD = '';
 const DB_USERNAME = '';
@@ -71,6 +75,7 @@ Navigate into the project and install dependencies
 ```
 npm install
 ```
+
 ---
 ## ▶️ Running the Project
 
