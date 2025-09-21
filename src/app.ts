@@ -2,11 +2,14 @@ import express, { Application } from 'express';
 import appRouter from './app-route';
 import { Server } from 'socket.io';
 import { dbConnection } from './db/config/mongodb';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocumentation from './swagger.json' assert { type: 'json' };
 
 const PORT: number = 3000;
 const app: Application = express();
 const io = new Server(3001);
 
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
 app.use(express.json());
 app.use('/', appRouter);
 
