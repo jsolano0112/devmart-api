@@ -1,7 +1,7 @@
 import {
   IOrderResponse,
   IProduct,
-} from '../order/application/interfaces/orders';
+} from '../../order/application/interfaces/orders';
 
 export const paymentMethodTypes = {
   1: 'cash',

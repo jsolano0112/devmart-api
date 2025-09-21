@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserServiceContainer } from '../../infraestructure/user-service-container';
-import { IUserRequest } from '../../domain/models/interfaces/users';
 import {
   userStatusCode200,
   userUpdatedStatusCode200,
 } from '../../domain/models/interfaces/user-response';
+import { IUpdateUser, IUser } from '../../domain/models/interfaces/users';
 
 export class UserController {
   public async getById(
@@ -14,7 +14,7 @@ export class UserController {
   ) {
     try {
       const { id } = request.params;
-      const user = await UserServiceContainer.getUserById.run(Number(id));
+      const user = await UserServiceContainer.getUserById.run(id);
       return response.status(200).json(user);
     } catch (error) {
       next(error);
@@ -22,7 +22,7 @@ export class UserController {
   }
 
   public async create(
-    request: Request<{}, {}, IUserRequest>,
+    request: Request<{}, {}, IUser>,
     response: Response,
     next: NextFunction,
   ) {
@@ -35,7 +35,7 @@ export class UserController {
   }
 
   public async update(
-    request: Request<{}, {}, IUserRequest>,
+    request: Request<null, void, IUpdateUser>,
     response: Response,
     next: NextFunction,
   ) {

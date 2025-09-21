@@ -1,12 +1,17 @@
 import { body } from 'express-validator';
-import { validateResult } from '../../../helper/validate.helper';
+import { validateResult } from '../../../shared/helpers/validate.helper';
+import mongoose from 'mongoose';
 
 export const validateUpdate = [
   body('id')
     .notEmpty()
-    .withMessage('The user ID is required.')
-    .isInt()
-    .withMessage('The user ID must be a number.'),
+    .withMessage('The ID is required.')
+    .custom((value) => {
+      if (!mongoose.Types.ObjectId.isValid(value)) {
+        throw new Error('The ID must be a valid 24-character hex string.');
+      }
+      return true;
+    }),
   body('email')
     .notEmpty()
     .withMessage('The email is required.')

@@ -1,11 +1,12 @@
-# 🛒 DEVMART API  
+# 🛒 DEVMART API
 
 A modern **Node.js API** built with **TypeScript**, designed for a real-time e-commerce platform.  
-This project follows a **Hexagonal Architecture**, emphasizing separation of concerns and scalability.  
+This project follows a **Hexagonal Architecture**, emphasizing separation of concerns and scalability.
 
 ---
 
 ## 🛠️ Tech Stack
+
 - Node.js + TypeScript
 - Express.js (API framework)
 - Mongoose (MongoDB ODM)
@@ -15,16 +16,17 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 
 ---
 
-## 🚀 Features  
-- **Hexagonal structure**: Domain-driven folders (e.g., `users`, `orders`, `products`).  
-- **Swagger Documentation**: Available at [http://localhost:3000/doc](http://localhost:3000/doc).  
-- **MongoDB with Mongoose**: Flexible schema definitions and database access.  
-- **Real-time shipping updates**.  
-- **TypeScript**: Strong typing for reliability and maintainability.  
+## 🚀 Features
+
+- **Hexagonal structure**: Domain-driven folders (e.g., `users`, `orders`, `products`).
+- **Swagger Documentation**: Available at [http://localhost:3000/doc](http://localhost:3000/doc).
+- **MongoDB with Mongoose**: Flexible schema definitions and database access.
+- **Real-time shipping updates**.
+- **TypeScript**: Strong typing for reliability and maintainability.
 
 ---
 
-## 🏗️ Project Structure  
+## 🏗️ Project Structure
 
 ```bash
 src/
@@ -39,6 +41,7 @@ src/
  │   └── products/       # Products domain
  └── ...
 ```
+
 ---
 
 ## ⚙️ Configuration
@@ -50,6 +53,7 @@ Update the following file:
 ```bash
 src/db/config/mongodb.ts
 ```
+
 ```bash
 const DB_PASSWORD = '';
 const DB_USERNAME = '';
@@ -62,22 +66,29 @@ const DB_NAME: string = '';
 ## 📦 Installation
 
 Clone the repository
+
 ```
 https://github.com/jsolano0112/devmart-api.git
 ```
+
 Navigate into the project and install dependencies
+
 ```
 npm install
 ```
 
 ---
+
 ## ▶️ Running the Project
 
 ```
 npm start
 ```
+
 ---
+
 ## 🧹 Linting & Formatting
+
 ```
 npm run format
 ```
