@@ -9,7 +9,10 @@ const PORT: number = 3000;
 const app: Application = express();
 const io = new Server(3001);
 
+// SWAGGER
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
+// END - SWAGGER
+
 app.use(express.json());
 app.use('/', appRouter);
 
