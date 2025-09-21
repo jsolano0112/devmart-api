@@ -1,5 +1,5 @@
-import { statusCode404 } from '../../../interfaces/general-response';
-import { orders } from '../../../mock/orders.constants';
+import { statusCode404 } from '../../../shared/interfaces/general-response';
+import { orders } from '../../../shared/mock/orders.constants';
 import { IOrderResponse } from '../../application/interfaces/orders';
 
 export class GetOrderById {
