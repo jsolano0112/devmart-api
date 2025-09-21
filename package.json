@@ -6,9 +6,8 @@
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/app.ts",
     "lint": "eslint . --ext .js,.ts",
-    "lint-fix": "eslint . --ext .js,.ts --fix",
-    "format": "prettier --write .",
-    "check": "npm run lint && npm run format"
+    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "format": "prettier --write \"**/*.{js,ts,json,css,md}\""
   },
   "keywords": [],
   "author": "",
