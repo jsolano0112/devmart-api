@@ -6,18 +6,12 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 ---
 
 ## 🛠️ Tech Stack
-
-Node.js + TypeScript
-
-Express.js (API framework)
-
-Mongoose (MongoDB ODM)
-
-Swagger (API documentation)
-
-Hexagonal Architecture
-
-ESLint + Prettier (code quality and formatting)
+- Node.js + TypeScript
+- Express.js (API framework)
+- Mongoose (MongoDB ODM)
+- Swagger (API documentation)
+- Hexagonal Architecture
+- ESLint + Prettier (code quality and formatting)
 
 ---
 
