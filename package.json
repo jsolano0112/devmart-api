@@ -23,6 +23,7 @@
     "globals": "^16.4.0",
     "jiti": "^2.5.1",
     "prettier": "^3.6.2",
+    "swagger-autogen": "^2.23.7",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.0"
@@ -31,6 +32,7 @@
     "express-validator": "^7.2.1",
     "mongoose": "^8.18.1",
     "rxjs": "^7.8.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "swagger-ui-express": "^5.0.1"
   }
 }
