@@ -5,8 +5,17 @@ export interface IOrderResponse {
   paymentMethod: number;
   total: number;
   address: string;
-  created: Date;
-  lastUpdated: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IUserOrderResponse {
+  id: string;
+  userId: string;
+  count: number
+  total: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IOrder {
@@ -14,10 +23,12 @@ export interface IOrder {
   products: IProduct[];
   paymentMethod: number;
   address: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface IUpdateOrder {
-  id: string
+  id: string;
   products: IProduct[];
   paymentMethod: number;
   address: string;
