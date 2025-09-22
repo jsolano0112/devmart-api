@@ -15,9 +15,7 @@ export const validateCreateOrder = [
   body('products')
     .isArray({ min: 1 })
     .withMessage('Products must be a non-empty array.'),
-  body('products.*.id')
-    .notEmpty()
-    .withMessage('Product ID is required.'),
+  body('products.*.id').notEmpty().withMessage('Product ID is required.'),
   body('products.*.count')
     .notEmpty()
     .withMessage('Product count is required.')
