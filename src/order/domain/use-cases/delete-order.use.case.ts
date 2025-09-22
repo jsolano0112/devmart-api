@@ -1,13 +1,10 @@
-import { statusCode404 } from '../../../shared/interfaces/general-response';
-import { orders } from '../../../shared/mock/orders.constants';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 
 export class DeleteOrder {
-  constructor() {}
+  constructor(private repo: RepositoryContainer) {}
 
-  async run(id: number): Promise<void> {
-    const order = orders.find((u) => u.id === Number(id));
-    if (!order) throw statusCode404;
-
-    //TODO: delete
+  async run(id: string): Promise<void> {
+    await this.repo.orders.getOrder(id);
+    await this.repo.orders.deleteOrder(id);
   }
 }

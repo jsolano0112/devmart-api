@@ -1,25 +1,21 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
+import mongoose from 'mongoose';
 
 export const validateUpdateOrder = [
   body('id')
     .notEmpty()
-    .withMessage('Order ID is required.')
-    .isInt()
-    .withMessage('Order ID must be an integer.'),
-  body('userId')
-    .notEmpty()
-    .withMessage('User ID is required.')
-    .isInt()
-    .withMessage('User ID must be an integer.'),
+    .withMessage('The order ID is required.')
+    .custom((value) => {
+      if (!mongoose.Types.ObjectId.isValid(value)) {
+        throw new Error('The ID must be a valid 24-character hex string.');
+      }
+      return true;
+    }),
   body('products')
     .isArray({ min: 1 })
     .withMessage('Products must be a non-empty array.'),
-  body('products.*.id')
-    .notEmpty()
-    .withMessage('Product ID is required.')
-    .isInt()
-    .withMessage('Product ID must be an integer.'),
+  body('products.*.id').notEmpty().withMessage('Product ID is required.'),
   body('products.*.count')
     .notEmpty()
     .withMessage('Product count is required.')
@@ -27,9 +23,13 @@ export const validateUpdateOrder = [
     .withMessage('Product count must be at least 1.'),
   body('products.*.sellerId')
     .notEmpty()
-    .withMessage('Seller ID is required.')
-    .isInt()
-    .withMessage('Seller ID must be an integer.'),
+    .withMessage('The Seller ID is required.')
+    .custom((value) => {
+      if (!mongoose.Types.ObjectId.isValid(value)) {
+        throw new Error('The ID must be a valid 24-character hex string.');
+      }
+      return true;
+    }),
   (req, res, next) => {
     validateResult(req, res, next);
   },

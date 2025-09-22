@@ -54,9 +54,7 @@ export class UserController {
   ) {
     try {
       const { id } = request.params;
-      const userOrders = await UserServiceContainer.getUserOrders.run(
-        Number(id),
-      );
+      const userOrders = await UserServiceContainer.getUserOrders.run(id);
       if (userOrders.length === 0) {
         return response.status(204).json();
       }

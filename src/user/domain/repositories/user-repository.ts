@@ -1,9 +1,8 @@
 import { statusCode404 } from '../../../shared/interfaces/general-response';
-import { IUserRepository } from '../contracts/user-repository.contract';
 import { IUser, IUserResponse } from '../models/interfaces/users';
 import { User } from '../models/user.schema';
 
-export class UserRepository implements IUserRepository {
+export class UserRepository {
   public async getUserById(id: string): Promise<IUserResponse> {
     try {
       const user = await User.findById(id);
