@@ -1,8 +1,9 @@
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 import { statusCode404 } from '../../../shared/interfaces/general-response';
 import { orders } from '../../../shared/mock/orders.constants';
 
 export class DeleteOrder {
-  constructor() {}
+  constructor(private repo: RepositoryContainer) {}
 
   async run(id: number): Promise<void> {
     const order = orders.find((u) => u.id === Number(id));
