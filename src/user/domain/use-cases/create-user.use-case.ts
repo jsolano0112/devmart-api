@@ -1,8 +1,6 @@
 import { validateEmailDomain } from '../../../shared/helpers/email-domain-validator';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import {
-  userStatusCode409ExistingUser,
-} from '../models/interfaces/user-response';
+import { userStatusCode409ExistingUser } from '../models/interfaces/user-response';
 import { IUser } from '../models/interfaces/users';
 export class CreateUser {
   constructor(private repo: RepositoryContainer) {}

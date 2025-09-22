@@ -1,12 +1,11 @@
-import { IOrderResponse } from '../../../order/application/interfaces/orders';
-import { orders } from '../../../shared/mock/orders.constants';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import { IUserOrderResponse } from '../../../order/domain/models/interfaces/orders';
 
 export class GetUserOrders {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(id: string): Promise<IOrderResponse[]> {
-    // const user = await this.repo.users.getUserById(id);
-    return orders.filter((u) => u.userId === Number(id));
+  async run(id: string): Promise<IUserOrderResponse[]> {
+    await this.repo.users.getUserById(id);
+    return this.repo.orders.getOrders(id);
   }
 }
