@@ -1,5 +1,5 @@
-import { OrderRepository } from "../../order/domain/repositories/order-repository";
-import { UserRepository } from "../../user/domain/repositories/user-repository";
+import { OrderRepository } from '../../order/domain/repositories/order-repository';
+import { UserRepository } from '../../user/domain/repositories/user-repository';
 
 export class RepositoryContainer {
   public readonly users: UserRepository;

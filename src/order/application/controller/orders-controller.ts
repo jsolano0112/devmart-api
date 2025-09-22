@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderServiceContainer } from '../../infraestructure/order-service-container';
 import { IOrder, IUpdateOrder } from '../../domain/models/interfaces/orders';
-import { orderCreatedStatus, orderDeletedStatus, orderUpdatedStatus } from '../../domain/models/interfaces/order-response';
-
+import {
+  orderCreatedStatus,
+  orderDeletedStatus,
+  orderUpdatedStatus,
+} from '../../domain/models/interfaces/order-response';
 
 export class OrderController {
   public async getById(
@@ -12,7 +15,7 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      const order = await OrderServiceContainer.getOrderById.run(Number(id));
+      const order = await OrderServiceContainer.getOrderById.run(id);
       return response.status(200).json(order);
     } catch (error) {
       next(error);
@@ -52,7 +55,7 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      await OrderServiceContainer.deleteOrder.run(Number(id));
+      await OrderServiceContainer.deleteOrder.run(id);
       return response.status(200).json(orderDeletedStatus);
     } catch (error) {
       next(error);

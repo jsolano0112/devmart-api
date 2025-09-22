@@ -12,7 +12,7 @@ export interface IOrderResponse {
 export interface IUserOrderResponse {
   id: string;
   userId: string;
-  count: number
+  count: number;
   total: number;
   createdAt: Date;
   updatedAt: Date;
