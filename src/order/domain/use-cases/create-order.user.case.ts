@@ -1,9 +1,10 @@
-import { IOrderRequest } from '../../application/interfaces/orders';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import { IOrder } from '../models/interfaces/orders';
 
 export class CreateOrder {
-  constructor() {}
+  constructor(private repo: RepositoryContainer) {}
 
-  async run(user: IOrderRequest): Promise<void> {
-    //TODO: save en database
+  async run(order: IOrder): Promise<void> {
+    await this.repo.orders.createOrder(order);
   }
 }

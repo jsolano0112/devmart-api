@@ -1,13 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderServiceContainer } from '../../infraestructure/order-service-container';
-import { IOrderRequest } from '../interfaces/orders';
-import {
-  orderCreatedStatus,
-  orderDeletedStatus,
-  orderUpdatedStatus,
-} from '../interfaces/order-response';
+import { IOrder, IUpdateOrder } from '../../domain/models/interfaces/orders';
+import { orderCreatedStatus, orderDeletedStatus, orderUpdatedStatus } from '../../domain/models/interfaces/order-response';
 
-//TODO: review the response of every one
+
 export class OrderController {
   public async getById(
     request: Request,
@@ -24,7 +20,7 @@ export class OrderController {
   }
 
   public async create(
-    request: Request<{}, {}, IOrderRequest>,
+    request: Request<{}, {}, IOrder>,
     response: Response,
     next: NextFunction,
   ) {
@@ -37,12 +33,12 @@ export class OrderController {
   }
 
   public async update(
-    request: Request<{}, {}, IOrderRequest>,
+    request: Request<{}, {}, IUpdateOrder>,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await OrderServiceContainer.createOrder.run(request.body);
+      await OrderServiceContainer.updateOrder.run(request.body);
       return response.status(200).json(orderUpdatedStatus);
     } catch (error) {
       next(error);

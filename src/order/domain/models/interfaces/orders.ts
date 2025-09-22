@@ -1,6 +1,6 @@
 export interface IOrderResponse {
-  id: number;
-  userId: number;
+  id: string;
+  userId: string;
   products: IProduct[];
   paymentMethod: number;
   total: number;
@@ -9,16 +9,22 @@ export interface IOrderResponse {
   lastUpdated: Date;
 }
 
-export interface IOrderRequest {
-  id: number;
-  userId: number;
+export interface IOrder {
+  userId: string;
+  products: IProduct[];
+  paymentMethod: number;
+  address: string;
+}
+
+export interface IUpdateOrder {
+  id: string
   products: IProduct[];
   paymentMethod: number;
   address: string;
 }
 
 export interface IProduct {
-  id: number;
+  id: string;
   count: number;
   sellerId: number;
 }
