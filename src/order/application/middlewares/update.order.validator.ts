@@ -13,9 +13,7 @@ export const validateUpdateOrder = [
     .withMessage('Products must be a non-empty array.'),
   body('products.*.id')
     .notEmpty()
-    .withMessage('Product ID is required.')
-    .isInt()
-    .withMessage('Product ID must be an integer.'),
+    .withMessage('Product ID is required.'),
   body('products.*.count')
     .notEmpty()
     .withMessage('Product count is required.')

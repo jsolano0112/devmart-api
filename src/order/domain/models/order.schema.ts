@@ -12,7 +12,7 @@ const productSchema = new Schema<IProduct>(
 
 const orderSchema = new Schema<IOrder>(
   {
-    userId: { type: Number, required: true },
+    userId: { type: String, required: true },
     products: { type: [productSchema], required: true },
     paymentMethod: { type: Number, required: false },
     address: { type: String, required: false },
