@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { userRouter } from './user/application/routes/user.route';
 import { orderRouter } from './order/application/routes/order.route';
+import { notificationRouter } from './notification/application/routes/notification.route';
 const appRouter: Router = Router();
 
 appRouter.get('/', (req: Request, res: Response) => {
@@ -12,5 +13,6 @@ appRouter.get('/', (req: Request, res: Response) => {
 
 appRouter.use('/api/v1/users', userRouter);
 appRouter.use('/api/v1/orders', orderRouter);
+appRouter.use('/api/v1/notifications', notificationRouter);
 
 export default appRouter;
