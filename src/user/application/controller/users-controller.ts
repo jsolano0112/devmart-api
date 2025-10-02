@@ -4,7 +4,11 @@ import {
   userStatusCode200,
   userUpdatedStatusCode200,
 } from '../../domain/models/interfaces/user-response';
-import { IUpdateUser, IUser } from '../../domain/models/interfaces/users';
+import {
+  IUpdateUser,
+  IUser,
+  IUserCredentials,
+} from '../../domain/models/interfaces/users';
 
 export class UserController {
   public async getById(
@@ -59,6 +63,21 @@ export class UserController {
         return response.status(204).json();
       }
       return response.status(200).json(userOrders);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async auth(
+    request: Request<{}, {}, IUserCredentials>,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const credentials = await UserServiceContainer.authenticateUser.run(
+        request.body,
+      );
+      return response.status(200).json(credentials);
     } catch (error) {
       next(error);
     }

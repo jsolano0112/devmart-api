@@ -1,4 +1,5 @@
 import { RepositoryContainer } from '../../shared/infraestructure/respository-container';
+import { AuthenticateUser } from '../domain/use-cases/authenticate-user.use.case';
 import { CreateUser } from '../domain/use-cases/create-user.use-case';
 import { GetUserOrders } from '../domain/use-cases/get-user-orders.use.case';
 import { GetUserById } from '../domain/use-cases/get-user.use.case';
@@ -11,4 +12,5 @@ export const UserServiceContainer = {
   createUser: new CreateUser(repositories),
   updateUser: new UpdateUser(repositories),
   getUserOrders: new GetUserOrders(repositories),
+  authenticateUser: new AuthenticateUser(repositories),
 };

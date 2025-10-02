@@ -64,11 +64,11 @@ export class UserRepository {
     }
   }
 
-  public async getUserByEmail(email: string): Promise<boolean> {
+  public async getUserByEmail(email: string) {
     try {
       const user = await User.findOne({ email: email });
       if (!user) throw statusCode404;
-      return true;
+      return user;
     } catch (error) {
       console.error(error);
       throw error;
