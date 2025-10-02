@@ -45,3 +45,8 @@ export const userStatusCode550: IResponse = {
   statusCode: 550,
   message: 'The email provided does not exist',
 };
+
+export const userStatusCode422Password: IResponse = {
+  statusCode: 422,
+  message: 'The password provided is incorrect',
+};

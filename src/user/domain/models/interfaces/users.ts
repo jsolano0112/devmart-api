@@ -35,3 +35,14 @@ export interface IUpdateUser {
   password: string;
   isAdmin: boolean;
 }
+
+export interface IUserCredentials {
+  email: string;
+  password: string;
+}
+
+export interface IUserCredentialsResponse {
+  email: string;
+  id: string;
+  token: string;
+}
