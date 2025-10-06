@@ -1,9 +1,9 @@
-import { statusCode404 } from '../../../shared/interfaces/general-response';
+import { Exception } from '../../../shared/helpers/exception-message';
 import {
   IOrder,
   IOrderResponse,
   IUserOrderResponse,
-} from '../models/interfaces/orders';
+} from '../../../shared/interfaces/orders';
 import { OrderSchema } from '../models/order.schema';
 
 export class OrderRepository {
@@ -38,7 +38,7 @@ export class OrderRepository {
   public async getOrder(id: string): Promise<IOrderResponse> {
     try {
       const order = await OrderSchema.findById(id);
-      if (!order) throw statusCode404;
+      if (!order) throw new Exception('Order not found.', 404);
 
       const { userId, products, paymentMethod, address, createdAt, updatedAt } =
         order;

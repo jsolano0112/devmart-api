@@ -1,5 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IOrderResponse } from '../models/interfaces/orders';
+import { IOrderResponse } from '../../../shared/interfaces/orders';
 
 export class GetOrderById {
   constructor(private repo: RepositoryContainer) {}

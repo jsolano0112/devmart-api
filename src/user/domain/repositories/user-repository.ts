@@ -1,12 +1,12 @@
-import { statusCode404 } from '../../../shared/interfaces/general-response';
-import { IUser, IUserResponse } from '../models/interfaces/users';
+import { Exception } from '../../../shared/helpers/exception-message';
+import { IUser, IUserResponse } from '../../../shared/interfaces/users';
 import { User } from '../models/user.schema';
 
 export class UserRepository {
   public async getUserById(id: string): Promise<IUserResponse> {
     try {
       const user = await User.findById(id);
-      if (!user) throw statusCode404;
+      if (!user) throw new Exception('User not found.', 404);
       const {
         firstName,
         lastName,
@@ -34,7 +34,7 @@ export class UserRepository {
   public async getAllUserDataById(id: string): Promise<IUser> {
     try {
       const user = await User.findById(id);
-      if (!user) throw statusCode404;
+      if (!user) throw new Exception('User not found.', 404);
       const {
         firstName,
         lastName,
@@ -60,6 +60,7 @@ export class UserRepository {
         isAdmin,
       };
     } catch (error) {
+      console.log(error)
       throw error;
     }
   }
@@ -67,7 +68,6 @@ export class UserRepository {
   public async getUserByEmail(email: string) {
     try {
       const user = await User.findOne({ email: email });
-      if (!user) throw statusCode404;
       return user;
     } catch (error) {
       console.error(error);
