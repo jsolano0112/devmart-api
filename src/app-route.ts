@@ -11,9 +11,9 @@ appRouter.get('/', (req: Request, res: Response) => {
   });
 });
 
-appRouter.use('/api/v1/users', userRouter);
-appRouter.use('/api/v1/auth', authRouter);
-appRouter.use('/api/v1/orders', orderRouter);
-appRouter.use('/api/v1/notifications', notificationRouter);
+appRouter.use('/users', userRouter);
+appRouter.use('/auth', authRouter);
+appRouter.use('/orders', orderRouter);
+appRouter.use('/notifications', notificationRouter);
 
 export default appRouter;

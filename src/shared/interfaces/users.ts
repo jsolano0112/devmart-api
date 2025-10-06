@@ -45,4 +45,7 @@ export interface IUserCredentialsResponse {
   email: string;
   id: string;
   token: string;
+  firstname: string;
+  lastname: string;
+  isAdmin: boolean;
 }

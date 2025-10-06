@@ -1,4 +1,4 @@
-import { INotification } from '../models/interfaces/notifications';
+import { INotification } from '../../../shared/interfaces/notifications';
 import { NotificationSchema } from '../models/notification.schema';
 
 export class NotificationRepository {
