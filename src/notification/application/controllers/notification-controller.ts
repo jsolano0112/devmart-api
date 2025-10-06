@@ -1,11 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { NotificationServiceContainer } from '../../infraestructure/notification-service-container';
-import { INotification } from '../../domain/models/interfaces/notifications';
-import {
-  notificationCreatedStatus,
-  notificationDeletedStatus,
-} from '../../domain/models/interfaces/notification-response';
-
+import { INotification } from '../../../shared/interfaces/notifications';
 export class NotificationController {
   public async getByUser(
     request: Request,
@@ -29,7 +24,7 @@ export class NotificationController {
   ) {
     try {
       await NotificationServiceContainer.create.run(request.body);
-      return response.status(200).json(notificationCreatedStatus);
+      return response.status(200).json('Notification created.');
     } catch (error) {
       next(error);
     }
@@ -43,7 +38,7 @@ export class NotificationController {
     try {
       const { id } = request.params;
       await NotificationServiceContainer.delete.run(id);
-      return response.status(200).json(notificationDeletedStatus);
+      return response.status(200).json('Notification deleted.');
     } catch (error) {
       next(error);
     }
