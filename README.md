@@ -19,7 +19,7 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 ## 🚀 Features
 
 - **Hexagonal structure**: Domain-driven folders (e.g., `users`, `orders`, `products`).
-- **Swagger Documentation**: Available at [http://localhost:3000/doc](http://localhost:3000/doc).
+- **Swagger Documentation**: Available at [http://localhost:3000/swagger](http://localhost:3000/swagger).
 - **MongoDB with Mongoose**: Flexible schema definitions and database access.
 - **Real-time shipping updates**.
 - **TypeScript**: Strong typing for reliability and maintainability.

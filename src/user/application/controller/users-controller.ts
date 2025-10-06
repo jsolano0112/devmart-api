@@ -1,14 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserServiceContainer } from '../../infraestructure/user-service-container';
 import {
-  userStatusCode200,
-  userUpdatedStatusCode200,
-} from '../../domain/models/interfaces/user-response';
-import {
   IUpdateUser,
   IUser,
   IUserCredentials,
-} from '../../domain/models/interfaces/users';
+} from '../../../shared/interfaces/users';
 
 export class UserController {
   public async getById(
@@ -30,9 +26,34 @@ export class UserController {
     response: Response,
     next: NextFunction,
   ) {
+    const {
+      firstName,
+      lastName,
+      email,
+      address,
+      mobilePhone,
+      city,
+      zipCode,
+      isActive,
+      password,
+      isAdmin,
+    } = request.body;
+
     try {
-      await UserServiceContainer.createUser.run(request.body);
-      return response.status(200).json(userStatusCode200);
+      const user: IUser = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        address: address,
+        mobilePhone: mobilePhone,
+        city: city,
+        zipCode: zipCode,
+        isActive: isActive,
+        password: password,
+        isAdmin: isAdmin,
+      };
+      await UserServiceContainer.createUser.run(user);
+      return response.status(200).json('User created.');
     } catch (error) {
       next(error);
     }
@@ -45,7 +66,7 @@ export class UserController {
   ) {
     try {
       await UserServiceContainer.updateUser.run(request.body);
-      return response.status(200).json(userUpdatedStatusCode200);
+      return response.status(200).json('User updated.');
     } catch (error) {
       next(error);
     }

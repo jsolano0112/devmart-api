@@ -1,5 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IUserResponse } from '../models/interfaces/users';
+import { IUserResponse } from '../../../shared/interfaces/users';
 
 export class GetUserById {
   constructor(private repo: RepositoryContainer) {}

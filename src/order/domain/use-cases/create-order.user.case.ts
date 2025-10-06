@@ -1,5 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IOrder } from '../models/interfaces/orders';
+import { IOrder } from '../../../shared/interfaces/orders';
 
 export class CreateOrder {
   constructor(private repo: RepositoryContainer) {}

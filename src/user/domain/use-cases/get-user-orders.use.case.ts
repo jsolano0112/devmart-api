@@ -1,5 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IUserOrderResponse } from '../../../order/domain/models/interfaces/orders';
+import { IUserOrderResponse } from '../../../shared/interfaces/orders';
 
 export class GetUserOrders {
   constructor(private repo: RepositoryContainer) {}
