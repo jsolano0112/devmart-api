@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { userRouter } from './user/application/routes/user.route';
+import { authRouter, userRouter } from './user/application/routes/user.route';
 import { orderRouter } from './order/application/routes/order.route';
+import { notificationRouter } from './notification/application/routes/notification.route';
 const appRouter: Router = Router();
 
 appRouter.get('/', (req: Request, res: Response) => {
@@ -10,7 +11,9 @@ appRouter.get('/', (req: Request, res: Response) => {
   });
 });
 
-appRouter.use('/api/v1/users', userRouter);
-appRouter.use('/api/v1/orders', orderRouter);
+appRouter.use('/users', userRouter);
+appRouter.use('/auth', authRouter);
+appRouter.use('/orders', orderRouter);
+appRouter.use('/notifications', notificationRouter);
 
 export default appRouter;
