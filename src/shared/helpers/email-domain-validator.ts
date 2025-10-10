@@ -1,5 +1,5 @@
 import emailExistence from 'email-existence';
-import { userStatusCode550 } from '../../user/domain/models/interfaces/user-response';
+import { Exception } from './exception-message';
 
 export const validateEmailDomain = async (email: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export const validateEmailDomain = async (email: string): Promise<boolean> => {
       }
 
       if (!res) {
-        return reject(userStatusCode550);
+        return reject(new Exception('The email provided does not exist.', 550));
       }
 
       return resolve(true);

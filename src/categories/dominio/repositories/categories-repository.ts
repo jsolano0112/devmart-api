@@ -1,6 +1,7 @@
 import { ICategories } from '../models/interfaces/categories';
 import { Category } from '../models/categories.schema';
-import { statusCode404 } from '../../../shared/interfaces/general-response';
+import { Exception } from '../../../shared/helpers/exception-message';
+
 
 export class CategoriesRepository {
 
@@ -17,7 +18,7 @@ export class CategoriesRepository {
     public async getCategoryByName(name: string): Promise<ICategories> {
         try {
             const category = await Category.findOne({ name });
-            if (category === null) throw statusCode404;
+            if (category === null) throw new Exception('Category not found.', 404);
             const {
                 id } = category;
             return {
@@ -35,7 +36,7 @@ export class CategoriesRepository {
     public async getAllCategoriesData(): Promise<ICategories[]> {
         try {
             const categories = await Category.find();
-            if (categories.length === 0) throw statusCode404;
+            if (categories.length === 0) throw new Exception('No categories found.', 404);
             return categories.map((c) => ({
                 id: c.id,
                 name: c.name

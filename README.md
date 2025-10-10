@@ -19,7 +19,7 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 ## 🚀 Features
 
 - **Hexagonal structure**: Domain-driven folders (e.g., `users`, `orders`, `products`).
-- **Swagger Documentation**: Available at [http://localhost:3000/doc](http://localhost:3000/doc).
+- **Swagger Documentation**: Available at [http://localhost:3000/swagger](http://localhost:3000/swagger).
 - **MongoDB with Mongoose**: Flexible schema definitions and database access.
 - **Real-time shipping updates**.
 - **TypeScript**: Strong typing for reliability and maintainability.
@@ -55,10 +55,22 @@ src/db/config/mongodb.ts
 ```
 
 ```bash
+import mongoose from 'mongoose';
 const DB_PASSWORD = '';
 const DB_USERNAME = '';
 const MONGOATLAS_URL: string = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.bbdjdbp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const DB_NAME: string = '';
+
+
+export const dbConnection = async () => {
+  try {
+    await mongoose.connect(`${MONGOATLAS_URL}/${DB_NAME}`);
+    console.log('[DB-STATUS] MongoDB is online');
+  } catch (error) {
+    console.error(error);
+    throw new Error('[DB-ERROR] it is not possible to connect');
+  }
+};
 ```
 
 ---

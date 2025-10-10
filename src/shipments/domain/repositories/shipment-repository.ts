@@ -1,14 +1,15 @@
-import { statusCode404 } from "../../../shared/interfaces/general-response";
+
 import { IShipment, IShipmentsResponse, IShipmentUpdate } from "../models/interfaces/shipments";
 import { Shipment } from "../models/shipments.schema";
 import { generateUniqueTrackingNumber } from '../../../shared/helpers/generate-tracking.helper';
+import { Exception } from "../../../shared/helpers/exception-message";
 
 export class ShipmentRepository {
     public async getShipmentBytrackingId(trackingId: string): Promise<IShipmentsResponse> {
         try {
             const shipment = await Shipment.findOne({ trackingId });
 
-            if (!shipment) throw statusCode404;
+            if (!shipment) throw new Exception('Shipment not found.', 404);
             const { id, orderId, status, carrier, createdAt, updatedAt } = shipment;
             return {
                 id,
@@ -29,7 +30,7 @@ export class ShipmentRepository {
     public async getAllShipmentsData(): Promise<IShipmentsResponse[]> {
         try {
             const shipments = await Shipment.find();
-            if (shipments.length === 0) throw statusCode404;
+            if (shipments.length === 0) throw new Exception('No shipments found.', 404);
 
             return shipments.map((s) => ({
                 id: s.id,
@@ -92,7 +93,7 @@ export class ShipmentRepository {
                 { status: shipment.status, updatedAt: new Date() },
                 { new: true }
             );
-            if (!updatedShipment) throw statusCode404;
+            if (!updatedShipment) throw new Exception('Shipment not found.', 404);
         } catch (error) {
             console.error(error);
             throw error;
