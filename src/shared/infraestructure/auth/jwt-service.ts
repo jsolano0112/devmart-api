@@ -18,7 +18,6 @@ export const generateToken = (payload: JWTPayload): string => {
       algorithm: 'HS256',
       expiresIn: JWT_EXPIRE_IN,
     });
-
   } catch (error) {
     throw new Exception('By generate token has ocurred error: ' + error, 401);
   }
@@ -26,7 +25,7 @@ export const generateToken = (payload: JWTPayload): string => {
 
 export const verifyToken = (token: string): JWTPayload => {
   try {
-   return jwt.verify(token, JWT_SECRET, {
+    return jwt.verify(token, JWT_SECRET, {
       algorithms: ['HS256'],
     }) as JWTPayload;
   } catch (error) {

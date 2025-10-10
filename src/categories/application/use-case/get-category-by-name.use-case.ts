@@ -1,9 +1,9 @@
-import { RepositoryContainer } from "../../../shared/infraestructure/respository-container";
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 
 export class GetCategoryByName {
-    constructor(private repo: RepositoryContainer) { }
+  constructor(private repo: RepositoryContainer) {}
 
-    async run(name: string) {
-        return this.repo.categories.getCategoryByName(name);
-    }
+  async run(name: string) {
+    return this.repo.categories.getCategoryByName(name);
+  }
 }

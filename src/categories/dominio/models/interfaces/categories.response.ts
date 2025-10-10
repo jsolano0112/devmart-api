@@ -12,10 +12,8 @@ export const cateogoriesStatusCode400ErrorParameters: IResponse = {
 
 export const cateogoriesStatusCode400ErrorPass: IResponse = {
   statusCode: 400,
-  message:
-    'The Category must be at least 3 characters long,',
+  message: 'The Category must be at least 3 characters long,',
 };
-
 
 export const cateogoriesStatusCode409ExistingProduct: IResponse = {
   statusCode: 409,

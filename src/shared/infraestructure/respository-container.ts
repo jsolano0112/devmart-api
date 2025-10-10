@@ -10,7 +10,7 @@ export class RepositoryContainer {
   public readonly orders: OrderRepository;
   public readonly products: ProductRepository;
   public readonly categories: CategoriesRepository;
-  public readonly shipments: ShipmentRepository ;
+  public readonly shipments: ShipmentRepository;
   public readonly notifications: NotificationRepository;
 
   constructor() {

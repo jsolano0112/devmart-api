@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProductServiceContainer} from '../../infraestructure/product-service-container';
-import { IProduct, IUpdateProduct } from '../../domain/models/interfaces/products';
+import { ProductServiceContainer } from '../../infraestructure/product-service-container';
+import {
+  IProduct,
+  IUpdateProduct,
+} from '../../domain/models/interfaces/products';
 import { productStatusCode200 } from '../../domain/models/interfaces/product-response';
 
 export class ProductController {

@@ -16,7 +16,7 @@ const authRouter: Router = Router();
  *     summary: Get user by ID
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []   
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -76,7 +76,7 @@ userRouter.post('/', validateCreate, controller.create);
  *     summary: Update an existing user
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []   
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -136,7 +136,7 @@ userRouter.get(
 
 /**
  * @swagger
- * /auth:
+ * /auth/login:
  *   post:
  *     summary: Authenticate user and return JWT token
  *     tags: [Auth]
@@ -159,6 +159,10 @@ userRouter.get(
  *               lastname: Doe
  *               isAdmin: false
  */
-authRouter.post('/', validateAuthentication, controller.auth);
+authRouter.post('/login', validateAuthentication, controller.auth);
+
+//TODO
+// authRouter.post('/logout', validateAuthentication, controller.auth);
+// authRouter.post('/refresh', validateAuthentication, controller.auth);
 
 export { userRouter, authRouter };
