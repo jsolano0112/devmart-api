@@ -3,7 +3,6 @@ import { IProduct, IProductResponse } from '../models/interfaces/products';
 import { Product } from '../models/product.schema';
 
 export class ProductRepository {
-
   public async createProduct(product: IProduct): Promise<void> {
     try {
       const newProduct = new Product(product);
@@ -34,7 +33,6 @@ export class ProductRepository {
     } catch (error) {
       throw error;
     }
-
   }
 
   public async getProductBySku(sku: string): Promise<IProductResponse> {
@@ -52,7 +50,7 @@ export class ProductRepository {
         stock,
         images,
         sku,
-        category
+        category,
       };
     } catch (error) {
       throw error;
@@ -71,7 +69,8 @@ export class ProductRepository {
   public async deleteProduct(sku: string): Promise<void> {
     try {
       const result = await Product.deleteOne({ sku });
-      if (result.deletedCount === 0) throw new Exception('Product not found.', 404);
+      if (result.deletedCount === 0)
+        throw new Exception('Product not found.', 404);
     } catch (error) {
       console.error(error);
       throw error;

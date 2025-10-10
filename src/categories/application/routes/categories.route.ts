@@ -1,8 +1,6 @@
-import { Router } from "express";
-import { ProductController } from "../../../product/application/controller/product-controller";
-import { validateCreateCategory } from "../middlewares/create-category.validator";
-import { categoriesController } from "../controller/categories-controller";
-
+import { Router } from 'express';
+import { validateCreateCategory } from '../middlewares/create-category.validator';
+import { categoriesController } from '../controller/categories-controller';
 
 const controller = new categoriesController();
 const productRouter: Router = Router();

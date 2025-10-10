@@ -21,7 +21,6 @@ export const productStatusCode400ErrorPass: IResponse = {
     'The password must be at least 8 characters long, with uppercase, lowercase, numbers, and symbols.',
 };
 
-
 export const productStatusCode409ExistingProduct: IResponse = {
   statusCode: 409,
   message: 'The product already exists.',

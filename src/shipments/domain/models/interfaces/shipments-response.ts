@@ -15,7 +15,6 @@ export const shipmentStatusCode400ErrorParameters: IResponse = {
   message: 'Missing required parameters',
 };
 
-
 export const trackingNumberStatusCode409ExistingTrackingNumber: IResponse = {
   statusCode: 409,
   message: 'The trackingNumber already exists.',

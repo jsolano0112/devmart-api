@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ShipmentServiceContainer } from '../../infraestructure/shipment-service-container';
-import { IShipment, IShipmentUpdate } from '../../domain/models/interfaces/shipments';
+import {
+  IShipment,
+  IShipmentUpdate,
+} from '../../domain/models/interfaces/shipments';
 import { shipmentStatusCode200 } from '../../domain/models/interfaces/shipments-response';
 
 export class ShipmentController {
@@ -11,7 +14,8 @@ export class ShipmentController {
   ) {
     try {
       const { trackingId } = request.params;
-      const tracking = await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingId);
+      const tracking =
+        await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingId);
       if (tracking === null) {
         return response.status(204).json();
       }
