@@ -1,13 +1,16 @@
-import { RepositoryContainer } from "../../../shared/infraestructure/respository-container";
-import { productStatusCode409ExistingProduct} from "../../domain/models/interfaces/product-response";
-import { IProduct } from "../../domain/models/interfaces/products";
+import { Exception } from '../../../shared/helpers/exception-message';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import { IProduct } from '../../../shared/interfaces/products';
 
 export class CreateProduct {
   constructor(private repo: RepositoryContainer) {}
 
   async run(product: IProduct): Promise<void> {
-    const existingProduct = await this.repo.products.getProductBySku(product.sku);
-    if (existingProduct) throw productStatusCode409ExistingProduct;
+    const existingProduct = await this.repo.products.getProductBySku(
+      product.sku,
+    );
+    if (existingProduct)
+      throw new Exception('The product already exists.', 409);
     this.repo.products.createProduct(product);
   }
 }

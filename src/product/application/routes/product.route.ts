@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductController } from '../controller/product-controller';
+import { ProductController } from '../controller/product.controller';
 import { validateSku } from '../../../shared/helpers/get-sku.validator';
 import { validateCreateProduct } from '../middlewares/create-product.validator';
 import { validateUpdateProduct } from '../middlewares/update-product.validator';

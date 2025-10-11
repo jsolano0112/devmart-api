@@ -7,10 +7,13 @@ import { ShipmentController } from '../controller/shipment-controller';
 const shipment = new ShipmentController();
 const shipmentRouter: Router = Router();
 
-shipmentRouter.get('/:trackingNumber', validateTrackingNumber, shipment.getByTrackingId);
+shipmentRouter.get(
+  '/:trackingNumber',
+  validateTrackingNumber,
+  shipment.getByTrackingId,
+);
 shipmentRouter.post('/', validateCreateShipment, shipment.create);
 shipmentRouter.get('/', shipment.getShipments);
 shipmentRouter.put('/:trackingNumber', validateUpdateShipment, shipment.update);
-
 
 export { shipmentRouter };

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProductServiceContainer} from '../../infraestructure/product-service-container';
-import { IProduct, IUpdateProduct } from '../../domain/models/interfaces/products';
-import { productStatusCode200 } from '../../domain/models/interfaces/product-response';
+import { ProductServiceContainer } from '../../infraestructure/product-service-container';
+import { IProduct, IUpdateProduct } from '../../../shared/interfaces/products';
 
 export class ProductController {
   public async getBySku(
@@ -28,7 +27,7 @@ export class ProductController {
   ) {
     try {
       await ProductServiceContainer.createProduct.run(request.body);
-      return response.status(200).json(productStatusCode200);
+      return response.status(200).json('Product created succesfully.');
     } catch (error) {
       next(error);
     }
@@ -41,7 +40,7 @@ export class ProductController {
   ) {
     try {
       await ProductServiceContainer.updateProduct.run(request.body);
-      return response.status(200).json(productStatusCode200);
+      return response.status(200).json('Product updated succesfully.');
     } catch (error) {
       next(error);
     }
@@ -71,7 +70,7 @@ export class ProductController {
     try {
       const { sku } = request.params;
       await ProductServiceContainer.deleteProduct.run(sku);
-      return response.status(200).json(productStatusCode200);
+      return response.status(200).json('Product deleted succesfully.');
     } catch (error) {
       next(error);
     }

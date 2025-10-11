@@ -1,9 +1,9 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 
-export class GetShipmentByTrackingId {
+export class GetCategoryByName {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(trackingId: string) {
-    return this.repo.shipments.getShipmentBytrackingId(trackingId);
+  async run(name: string) {
+    return this.repo.categories.getCategoryByName(name);
   }
 }
