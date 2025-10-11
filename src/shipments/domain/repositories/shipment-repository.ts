@@ -1,5 +1,4 @@
 import {
-  IShipment,
   IShipmentsResponse,
   IShipmentUpdate,
 } from '../../../shared/interfaces/shipments';

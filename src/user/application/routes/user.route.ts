@@ -136,7 +136,7 @@ userRouter.get(
 
 /**
  * @swagger
- * /auth:
+ * /auth/login:
  *   post:
  *     summary: Authenticate user and return JWT token
  *     tags: [Auth]
@@ -159,6 +159,10 @@ userRouter.get(
  *               lastname: Doe
  *               isAdmin: false
  */
-authRouter.post('/', validateAuthentication, controller.auth);
+authRouter.post('/login', validateAuthentication, controller.auth);
+
+//TODO
+// authRouter.post('/logout', validateAuthentication, controller.auth);
+// authRouter.post('/refresh', validateAuthentication, controller.auth);
 
 export { userRouter, authRouter };
