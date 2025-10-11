@@ -1,6 +1,6 @@
 import { model, Schema, connection } from 'mongoose';
-import { ICategories } from './interfaces/categories';
 import * as AutoIncrementFactory from 'mongoose-sequence';
+import { ICategories } from '../../../shared/interfaces/categories';
 
 const AutoIncrement = AutoIncrementFactory(connection);
 

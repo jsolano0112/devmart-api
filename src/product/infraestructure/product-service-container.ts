@@ -5,7 +5,6 @@ import { GetProductsBySku } from '../application/use-cases/get-product-by-sku.us
 import { GetProducts } from '../application/use-cases/get-produtcs.use-case';
 import { updateProduct } from '../application/use-cases/update-product.use-case';
 
-
 const repositories = new RepositoryContainer();
 
 export const ProductServiceContainer = {

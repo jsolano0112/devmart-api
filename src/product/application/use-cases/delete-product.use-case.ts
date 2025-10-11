@@ -1,4 +1,4 @@
-import { RepositoryContainer } from "../../../shared/infraestructure/respository-container";
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 
 export class DeleteProduct {
   constructor(private repositories: RepositoryContainer) {}

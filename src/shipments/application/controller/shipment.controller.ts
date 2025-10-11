@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ShipmentServiceContainer } from '../../infraestructure/shipment-service-container';
-import { IShipment, IShipmentUpdate } from '../../domain/models/interfaces/shipments';
-import { shipmentStatusCode200 } from '../../domain/models/interfaces/shipments-response';
+import {
+  IShipment,
+  IShipmentUpdate,
+} from '../../../shared/interfaces/shipments';
 
 export class ShipmentController {
   public async getByTrackingId(
@@ -11,7 +13,8 @@ export class ShipmentController {
   ) {
     try {
       const { trackingId } = request.params;
-      const tracking = await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingId);
+      const tracking =
+        await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingId);
       if (tracking === null) {
         return response.status(204).json();
       }
@@ -28,7 +31,7 @@ export class ShipmentController {
   ) {
     try {
       await ShipmentServiceContainer.createShipment.run(request.body);
-      return response.status(200).json(shipmentStatusCode200);
+      return response.status(200).json('Shipment created succesfully.');
     } catch (error) {
       next(error);
     }
@@ -41,7 +44,7 @@ export class ShipmentController {
   ) {
     try {
       await ShipmentServiceContainer.updateShipment.run(request.body);
-      return response.status(200).json(shipmentStatusCode200);
+      return response.status(200).json('Shipment updated succesfully.');
     } catch (error) {
       next(error);
     }
