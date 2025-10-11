@@ -29,16 +29,27 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 ## 🏗️ Project Structure
 
 ```bash
-src/
- ├── app.ts              # Application entrypoint
- ├── routes/             # API routes
- ├── db/
- │   └── config/
- │       └── mongodb.ts  # Database configuration
- ├── domains/            # Hexagonal structure by domain
- │   ├── users/          # User domain
- │   ├── orders/         # Orders domain
- │   └── products/       # Products domain
+├── src/                        
+│   ├── categories/              # Domain module (same structure as other domains)
+│   │   ├── application/         # Application layer
+│   │   │   ├── controller/      # HTTP controllers
+│   │   │   ├── middlewares/     # Module-specific middlewares
+│   │   │   ├── routes/          # Route definitions
+│   │   │   └── use-cases/       # Business use cases
+│   │   ├── dominio/             # Domain layer
+│   │   │   ├── models/          # Schemas or entities (Mongoose)
+│   │   │   └── repositories/    # Data access repositories (Mongoose)
+│   │   └── infrastructure/      # Infrastructure layer
+│   │       └── categories-service-container.ts # Service container for dependency injection
+│   │
+│   ├── shared/                  # Shared resources across all modules
+│   │   ├── helpers/             # Utility and helper functions
+│   │   ├── infrastructure/      # Global infrastructure and configuration
+│   │   │   ├── auth/            # Authentication and JWT handling
+│   │   │   ├── db/              # Database configuration
+│   │   │   │   └── mongodb.config.ts
+│   │   │   └── repository-container.ts  # Centralized repository registration
+│   │   └── interfaces/          # Shared TypeScript interfaces and types
  └── ...
 ```
 
