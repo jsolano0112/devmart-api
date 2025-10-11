@@ -1,7 +1,7 @@
 import { CategoriesRepository } from '../../categories/dominio/repositories/categories-repository';
 import { NotificationRepository } from '../../notification/domain/repositories/notification.repository';
-import { OrderRepository } from '../../order/domain/repositories/order-repository';
-import { ProductRepository } from '../../product/domain/repositories/product-repository';
+import { OrderRepository } from '../../order/domain/repositories/order.repository';
+import { ProductRepository } from '../../product/domain/repositories/product.repository';
 import { ShipmentRepository } from '../../shipments/domain/repositories/shipment-repository';
 import { UserRepository } from '../../user/domain/repositories/user-repository';
 

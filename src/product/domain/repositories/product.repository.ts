@@ -1,5 +1,8 @@
 import { Exception } from '../../../shared/helpers/exception-message';
-import { IProduct, IProductResponse } from '../models/interfaces/products';
+import {
+  IProduct,
+  IProductResponse,
+} from '../../../shared/interfaces/products';
 import { Product } from '../models/product.schema';
 
 export class ProductRepository {

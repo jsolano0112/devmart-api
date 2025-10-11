@@ -1,6 +1,6 @@
+import { Exception } from '../../../shared/helpers/exception-message';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IShipment } from '../../domain/models/interfaces/shipments';
-import { trackingNumberStatusCode409ExistingTrackingNumber } from '../../domain/models/interfaces/shipments-response';
+import { IShipment } from '../../../shared/interfaces/shipments';
 
 export class CreateShipment {
   constructor(private repo: RepositoryContainer) {}
@@ -10,7 +10,7 @@ export class CreateShipment {
       shipment.trackingId,
     );
     if (existingShipment)
-      throw trackingNumberStatusCode409ExistingTrackingNumber;
+      throw new Exception('The trackingNumber already exists.', 409);
     this.repo.shipments.createShipment(shipment);
   }
 }

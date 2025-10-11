@@ -1,14 +1,16 @@
-import { model, Schema, connection } from 'mongoose';
-import { ICategories } from './interfaces/categories';
-import * as AutoIncrementFactory from 'mongoose-sequence';
+import { Schema, model, connection } from 'mongoose';
+import AutoIncrementFactory from 'mongoose-sequence';
+import { ICategories } from '../../../shared/interfaces/categories';
 
 const AutoIncrement = AutoIncrementFactory(connection);
 
-const categorySchema = new Schema<ICategories>({
+const CategorySchema = new Schema<ICategories>({
   id: { type: Number, unique: true },
   name: { type: String, required: true },
 });
 
-categorySchema.plugin(AutoIncrement, { inc_field: 'id' });
+CategorySchema.plugin(AutoIncrement, { inc_field: 'id', id: 'category_id_counter' });
 
-export const Category = model<ICategories>('Category', categorySchema);
+export const Category =
+  connection.models.Category ||
+  model<ICategories>('Category', CategorySchema);

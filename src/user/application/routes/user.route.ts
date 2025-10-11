@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { UserController } from '../controller/users-controller';
 import { validateUpdate } from '../middlewares/update-user.validator';
 import { validateId } from '../../../shared/helpers/get-id.validator';
 import { validateCreate } from '../middlewares/create-user.validator';
 import { validateAuthentication } from '../middlewares/authenticate-user.validator';
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
+import { UserController } from '../controller/users.controller';
 const controller = new UserController();
 const userRouter: Router = Router();
 const authRouter: Router = Router();

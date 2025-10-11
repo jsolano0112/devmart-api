@@ -1,6 +1,6 @@
+import { Exception } from '../../../shared/helpers/exception-message';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { statusCode404 } from '../../../shared/interfaces/general-response';
-import { IShipmentUpdate } from '../../domain/models/interfaces/shipments';
+import { IShipmentUpdate } from '../../../shared/interfaces/shipments';
 
 export class updateShipment {
   constructor(private repo: RepositoryContainer) {}
@@ -9,7 +9,7 @@ export class updateShipment {
     const dbShipment = await this.repo.shipments.getShipmentBytrackingId(
       shipment.trackingId,
     );
-    if (!dbShipment) throw statusCode404;
+    if (!dbShipment) new Exception('Shipment not found', 404);
 
     const shipmentUpdated: IShipmentUpdate = {
       trackingId: shipment.trackingId
