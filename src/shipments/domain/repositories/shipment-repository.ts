@@ -1,8 +1,7 @@
 import {
-  IShipment,
   IShipmentsResponse,
   IShipmentUpdate,
-} from '../models/interfaces/shipments';
+} from '../../../shared/interfaces/shipments';
 import { Shipment } from '../models/shipments.schema';
 import { generateUniqueTrackingNumber } from '../../../shared/helpers/generate-tracking.helper';
 import { Exception } from '../../../shared/helpers/exception-message';

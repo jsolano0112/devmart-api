@@ -1,5 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IShipment } from '../../domain/models/interfaces/shipments';
+import { IShipment } from '../../../shared/interfaces/shipments';
 
 export class GetShipments {
   constructor(private repo: RepositoryContainer) {}

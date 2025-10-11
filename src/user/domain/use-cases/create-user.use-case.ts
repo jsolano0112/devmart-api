@@ -1,4 +1,4 @@
-import { validateEmailDomain } from '../../../shared/helpers/email-domain-validator';
+import { validateEmailDomain } from '../../../shared/helpers/email-domain.validator';
 import { Exception } from '../../../shared/helpers/exception-message';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 import { IUser } from '../../../shared/interfaces/users';

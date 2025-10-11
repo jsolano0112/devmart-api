@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CategoriesServiceContainer } from '../../infraestructure/categories-service-container';
-import { ICategories } from '../../dominio/models/interfaces/categories';
-import { cateogoriesStatusCode200 } from '../../dominio/models/interfaces/categories.response';
+import { ICategories } from '../../../shared/interfaces/categories';
 
 export class categoriesController {
   public async getAllCategories(
@@ -27,7 +26,7 @@ export class categoriesController {
   ) {
     try {
       await CategoriesServiceContainer.createCategory.run(request.body);
-      return response.status(200).json(cateogoriesStatusCode200);
+      return response.status(200).json('Category created.');
     } catch (error) {
       next(error);
     }
