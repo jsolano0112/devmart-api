@@ -3,6 +3,7 @@ export interface INotification {
   message: string;
   userId: string;
   createdAt: Date;
+  read: boolean;
 }
 
 export interface INotificationResponse {
@@ -11,4 +12,5 @@ export interface INotificationResponse {
   message: string;
   userId: string;
   createdAt: Date;
+  read: boolean;
 }
