@@ -3,6 +3,7 @@ import { NotificationRepository } from '../../notification/domain/repositories/n
 import { OrderRepository } from '../../order/domain/repositories/order.repository';
 import { ProductRepository } from '../../product/domain/repositories/product.repository';
 import { ShipmentRepository } from '../../shipments/domain/repositories/shipment-repository';
+import { SupplierRepository } from '../../supplier/domain/repositories/supplier-repository';
 import { UserRepository } from '../../user/domain/repositories/user-repository';
 
 export class RepositoryContainer {
@@ -12,6 +13,7 @@ export class RepositoryContainer {
   public readonly categories: CategoriesRepository;
   public readonly shipments: ShipmentRepository;
   public readonly notifications: NotificationRepository;
+  public readonly suppliers: SupplierRepository;
 
   constructor() {
     this.users = new UserRepository();
@@ -20,5 +22,6 @@ export class RepositoryContainer {
     this.categories = new CategoriesRepository();
     this.shipments = new ShipmentRepository();
     this.notifications = new NotificationRepository();
+    this.suppliers = new SupplierRepository();
   }
 }

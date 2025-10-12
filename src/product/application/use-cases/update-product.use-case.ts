@@ -8,7 +8,10 @@ export class updateProduct {
   async run(product: IUpdateProduct): Promise<void> {
     const dbProduct = await this.repo.products.getProductBySku(product.sku);
     if (!dbProduct) throw new Exception('The product already exists.', 409);
-
+    const existingSupplier = await this.repo.suppliers.getSupplierById(
+      product.supplierId,
+    );
+    if (!existingSupplier) throw new Exception('The supplier not found.', 404);
     const productUpdated: IProduct = {
       name: product.name ? product.name : dbProduct.name,
       description: product.description
@@ -19,6 +22,7 @@ export class updateProduct {
       images: product.images ? product.images : dbProduct.images,
       sku: product.sku ? product.sku : dbProduct.sku,
       category: product.category ? product.category : dbProduct.category,
+      supplierId: product.supplierId ? product.supplierId : dbProduct.supplierId,
     };
     await this.repo.products.updateProduct(product.sku, productUpdated);
   }

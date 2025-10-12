@@ -5,6 +5,7 @@ export interface IProductResponse {
   stock: number;
   images: string;
   sku: string;
+  supplierId: number;
   category: string;
 }
 
@@ -16,6 +17,7 @@ export interface IProduct {
   images: string;
   sku: string;
   category: string;
+  supplierId: number;
 }
 
 export interface IUpdateProduct {
@@ -27,4 +29,5 @@ export interface IUpdateProduct {
   images: string;
   sku: string;
   category: string;
+  supplierId: number;
 }
