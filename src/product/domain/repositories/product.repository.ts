@@ -32,7 +32,7 @@ export class ProductRepository {
         images: p.images,
         sku: p.sku,
         category: p.category,
-        supplierId: p.supplierId
+        supplierId: p.supplierId,
       }));
     } catch (error) {
       throw error;

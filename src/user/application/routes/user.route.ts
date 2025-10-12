@@ -151,18 +151,72 @@ userRouter.get(
  *       200:
  *         content:
  *           application/json:
- *             example:
- *               id: "64a8f6e2c123456789abcd01"
- *               email: john.doe@example.com
- *               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
- *               firstname: John
- *               lastname: Doe
- *               isAdmin: false
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "64a8f6e2c123456789abcd01"
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 isAdmin:
+ *                   type: boolean
+ *                   example: false
+ *                 accessToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 refreshToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  */
 authRouter.post('/login', validateAuthentication, controller.auth);
 
-//TODO
-// authRouter.post('/logout', validateAuthentication, controller.auth);
-// authRouter.post('/refresh', validateAuthentication, controller.auth);
+/**
+ * @swagger
+ * /auth/refresh:
+ *   post:
+ *     summary: Refresh JWT tokens using a valid refresh token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "64a8f6e2c123456789abcd01"
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 isAdmin:
+ *                   type: boolean
+ *                   example: false
+ *                 accessToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 refreshToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Missing refresh token
+ *       401:
+ *         description: Invalid or expired refresh token
+ */
+authRouter.post('/refresh', controller.refresh);
 
 export { userRouter, authRouter };

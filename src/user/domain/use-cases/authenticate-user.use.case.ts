@@ -17,7 +17,7 @@ export class AuthenticateUser {
     const isMatch = await bcrypt.compare(user.password, existingUser.password);
     if (!isMatch) throw new Exception('Invalid credentials', 401);
 
-    const token = generateToken({
+    const tokens = generateToken({
       uuid: existingUser._id.toString(),
       email: existingUser.email,
       isAdmin: existingUser.isAdmin,
@@ -29,7 +29,8 @@ export class AuthenticateUser {
       firstname: existingUser.firstName,
       lastname: existingUser.lastName,
       isAdmin: existingUser.isAdmin,
-      token,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 }
