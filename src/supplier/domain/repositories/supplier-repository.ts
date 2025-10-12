@@ -13,6 +13,16 @@ export class SupplierRepository {
     }
   }
 
+   public async getSupplierById(id: number): Promise<ISupplier> {
+    try {
+      const supplier = await Supplier.findOne(id);
+
+      return supplier;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   public async createSupplier(supplier: ISupplier): Promise<void> {
     try {
       const newUser = new Supplier(supplier);
