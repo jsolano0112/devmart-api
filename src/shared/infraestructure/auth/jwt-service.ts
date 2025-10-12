@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import 'dotenv/config';
 import { Exception } from '../../helpers/exception-message';
 
@@ -9,24 +9,24 @@ interface JWTPayload {
   uuid: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRE_IN = process.env.JWT_EXPIRE_IN;
+const JWT_SECRET = process.env.JWT_SECRET ?? '';
+const JWT_EXPIRE_IN = process.env.JWT_EXPIRE_IN ?? '1h'; //
 
 export const generateToken = (payload: JWTPayload): string => {
   try {
-    return jwt.sign(payload, JWT_SECRET, {
+    const options: SignOptions = {
       algorithm: 'HS256',
-      expiresIn: JWT_EXPIRE_IN,
-    });
-
+      expiresIn: JWT_EXPIRE_IN as unknown as number
+    };
+    return jwt.sign(payload, JWT_SECRET, options);
   } catch (error) {
-    throw new Exception('By generate token has ocurred error: ' + error, 401);
+    throw new Exception('By generate token has occurred error: ' + error, 401);
   }
 };
 
 export const verifyToken = (token: string): JWTPayload => {
   try {
-   return jwt.verify(token, JWT_SECRET, {
+    return jwt.verify(token, JWT_SECRET, {
       algorithms: ['HS256'],
     }) as JWTPayload;
   } catch (error) {
