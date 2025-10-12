@@ -217,3 +217,6 @@ supplierRouter.put('/:id', verifyAuthToken, controller.delete);
  *         description: No suppliers found
  */
 supplierRouter.get('/', verifyAuthToken, controller.getAll);
+
+
+export { supplierRouter };
