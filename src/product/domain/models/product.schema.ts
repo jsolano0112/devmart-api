@@ -9,7 +9,7 @@ const productSchema = new Schema<IProduct>({
   images: { type: String, required: true },
   sku: { type: String, required: true, unique: true },
   category: { type: String, required: true },
-  supplierId: {type: Number, required: true }
+  supplierId: { type: Number, required: true },
 });
 
 export const Product = model<IProduct>('Product', productSchema);

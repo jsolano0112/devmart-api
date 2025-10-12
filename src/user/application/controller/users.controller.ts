@@ -103,4 +103,19 @@ export class UserController {
       next(error);
     }
   }
+
+  public async refresh(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const credentials = await UserServiceContainer.refreshToken.run(
+        request.body,
+      );
+      return response.status(200).json(credentials);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
