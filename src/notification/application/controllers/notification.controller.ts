@@ -30,15 +30,15 @@ export class NotificationController {
     }
   }
 
-  public async delete(
+  public async markAsRead(
     request: Request,
     response: Response,
     next: NextFunction,
   ) {
     try {
       const { id } = request.params;
-      await NotificationServiceContainer.delete.run(id);
-      return response.status(200).json('Notification deleted.');
+      await NotificationServiceContainer.markAsRead.run(id);
+      return response.status(200).json('Notification marked as read.');
     } catch (error) {
       next(error);
     }
