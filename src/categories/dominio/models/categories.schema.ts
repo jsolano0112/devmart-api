@@ -9,8 +9,10 @@ const CategorySchema = new Schema<ICategories>({
   name: { type: String, required: true },
 });
 
-CategorySchema.plugin(AutoIncrement, { inc_field: 'id', id: 'category_id_counter' });
+CategorySchema.plugin(AutoIncrement, {
+  inc_field: 'id',
+  id: 'category_id_counter',
+});
 
 export const Category =
-  connection.models.Category ||
-  model<ICategories>('Category', CategorySchema);
+  connection.models.Category || model<ICategories>('Category', CategorySchema);

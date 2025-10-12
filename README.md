@@ -29,7 +29,7 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 ## 🏗️ Project Structure
 
 ```bash
-├── src/                        
+├── src/
 │   ├── categories/              # Domain module (same structure as other domains)
 │   │   ├── application/         # Application layer
 │   │   │   ├── controller/      # HTTP controllers

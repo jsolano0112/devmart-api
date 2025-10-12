@@ -11,6 +11,11 @@ export class CreateProduct {
     );
     if (existingProduct)
       throw new Exception('The product already exists.', 409);
+
+    const existingSupplier = await this.repo.suppliers.getSupplierById(
+      existingProduct.supplierId,
+    );
+    if (!existingSupplier) throw new Exception('The supplier not found.', 404);
     this.repo.products.createProduct(product);
   }
 }
