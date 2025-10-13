@@ -1,8 +1,7 @@
 import { connection, model, Schema } from "mongoose";
 import { IShipment } from "./interfaces/shipments";
-import * as AutoIncrementFactory from 'mongoose-sequence';
 
-const AutoIncrement = AutoIncrementFactory(connection);
+const AutoIncrement = require('mongoose-sequence')(connection);
 
 const shipmentsSchema = new Schema<IShipment>({
     id : { type: Number, unique: true },
@@ -14,6 +13,7 @@ const shipmentsSchema = new Schema<IShipment>({
     updatedAt: { type: Date, default: Date.now },
 });
 
-shipmentsSchema.plugin(AutoIncrement, { inc_field: 'id' });
+
+shipmentsSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'Shipment_id' });
 
 export const Shipment = model<IShipment>('Shipment', shipmentsSchema);
