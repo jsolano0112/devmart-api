@@ -3,7 +3,8 @@ import appRouter from './app-route';
 import { Server } from 'socket.io';
 import { dbConnection } from './shared/infraestructure/db/mongodb.config';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocumentation from './swagger.json' assert { type: 'json' };
+// @ts-ignore
+import swaggerDocumentation from './swagger.json';
 import { errorHandler } from './shared/helpers/error-handler';
 import { setupSwagger } from './swagger';
 
