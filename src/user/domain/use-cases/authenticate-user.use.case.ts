@@ -9,7 +9,7 @@ import bcrypt from 'bcryptjs';
 
 export class AuthenticateUser {
   private MAX_ATTEMPTS = 3;
-  private LOCK_TIME = 20 * 60 * 1000; // 20 min
+  private LOCK_TIME = 5 * 60 * 1000; // 5 min
 
   constructor(private repo: RepositoryContainer) {}
 

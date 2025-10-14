@@ -9,7 +9,7 @@ const notificationRouter: Router = Router();
 
 /**
  * @swagger
- * /notifications/getByUser/{id}:
+ * /notifications/getByUser/{userId}:
  *   get:
  *     summary: Get all notifications by user ID
  *     description: Returns all notifications associated with the given user ID.
@@ -18,7 +18,7 @@ const notificationRouter: Router = Router();
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
  *           type: string
