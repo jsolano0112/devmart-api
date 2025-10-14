@@ -46,8 +46,9 @@ export class ProductRepository {
       if (product.stock === 0) {
         throw new Exception('Product out of stock.', 404);
       }
-      const { name, description, price, stock, images, category } = product;
+      const { name, description, price, stock, images, category, supplierId } = product;
       return {
+        supplierId,
         name,
         description,
         price,

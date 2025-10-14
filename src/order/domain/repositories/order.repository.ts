@@ -1,3 +1,4 @@
+import { Product } from '../../../product/domain/models/product.schema';
 import { Exception } from '../../../shared/helpers/exception-message';
 import {
   IOrder,
@@ -43,9 +44,14 @@ export class OrderRepository {
       const { userId, products, paymentMethod, address, createdAt, updatedAt } =
         order;
 
-      //TODO: take total from products
+      let total = 0;
+      for (const item of products) {
+        const product = await Product.findById(item.id);
+        if (product) {
+          total += product.price * item.count;
+        }
+      }
 
-      const total = 0;
       return {
         id,
         userId,
@@ -65,14 +71,29 @@ export class OrderRepository {
   public async getOrders(userId: number): Promise<IUserOrderResponse[]> {
     try {
       const orders = await OrderSchema.find({ userId }).lean();
+      const allProductIds = orders.flatMap((o) => o.products.map((p) => p.id));
+
+      // Search Products
+      const products = await Product.find({
+        _id: { $in: allProductIds },
+      }).lean();
+
+      // Mapping
       return orders.map((order) => {
         const count = order.products.reduce(
           (acc: number, p: { count: number }) => acc + p.count,
           0,
         );
 
-        //TODO: take total from products
-        const total = 0;
+        const total = order.products.reduce(
+          (sum: number, p: { id: string; count: number }) => {
+            const product = products.find(
+              (prod) => prod._id.toString() === p.id,
+            );
+            return product ? sum + product.price * p.count : sum;
+          },
+          0,
+        );
 
         return {
           id: order._id.toString(),
