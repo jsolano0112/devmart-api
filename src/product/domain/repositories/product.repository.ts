@@ -46,7 +46,8 @@ export class ProductRepository {
       if (product.stock === 0) {
         throw new Exception('Product out of stock.', 404);
       }
-      const { name, description, price, stock, images, category, supplierId } = product;
+      const { name, description, price, stock, images, category, supplierId } =
+        product;
       return {
         supplierId,
         name,
@@ -58,6 +59,15 @@ export class ProductRepository {
         category,
       };
     } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getProductsBySkus(skus: string[]) {
+    try {
+      return await Product.find({ sku: { $in: skus } }).lean();
+    } catch (error) {
+      console.error(error);
       throw error;
     }
   }
