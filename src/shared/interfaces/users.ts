@@ -1,5 +1,5 @@
 export interface IUserResponse {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -7,9 +7,12 @@ export interface IUserResponse {
   mobilePhone: string;
   city: string;
   zipCode: number;
+  lockUntil?: Date;
+  failedLoginAttempts: number;
 }
 
 export interface IUser {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -20,10 +23,12 @@ export interface IUser {
   isActive: boolean;
   password: string;
   isAdmin: boolean;
+  lockUntil?: Date;
+  failedLoginAttempts: number;
 }
 
 export interface IUpdateUser {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -34,6 +39,8 @@ export interface IUpdateUser {
   isActive: boolean;
   password: string;
   isAdmin: boolean;
+  lockUntil?: Date;
+  failedLoginAttempts: number;
 }
 
 export interface IUserCredentials {
@@ -43,7 +50,7 @@ export interface IUserCredentials {
 
 export interface IUserCredentialsResponse {
   email: string;
-  id: string;
+  id: number;
   firstname: string;
   lastname: string;
   isAdmin: boolean;

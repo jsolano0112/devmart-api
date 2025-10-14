@@ -4,7 +4,7 @@ import { IUserResponse } from '../../../shared/interfaces/users';
 export class GetUserById {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(id: string): Promise<IUserResponse> {
+  async run(id: number): Promise<IUserResponse> {
     return await this.repo.users.getUserById(id);
   }
 }

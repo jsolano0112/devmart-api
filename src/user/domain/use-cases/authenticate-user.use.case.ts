@@ -8,14 +8,43 @@ import { Exception } from '../../../shared/helpers/exception-message';
 import bcrypt from 'bcryptjs';
 
 export class AuthenticateUser {
+  private MAX_ATTEMPTS = 3;
+  private LOCK_TIME = 20 * 60 * 1000; // 20 min
+
   constructor(private repo: RepositoryContainer) {}
 
   async run(user: IUserCredentials): Promise<IUserCredentialsResponse> {
     const existingUser = await this.repo.users.getUserByEmail(user.email);
     if (existingUser == null) throw new Exception('Invalid credentials', 401);
 
+    if (existingUser.lockUntil && existingUser.lockUntil > new Date()) {
+      const remaining = Math.ceil(
+        (existingUser.lockUntil.getTime() - Date.now()) / 60000,
+      );
+      throw new Exception(
+        `Account locked. Try again in ${remaining} minutes.`,
+        403,
+      );
+    }
+
     const isMatch = await bcrypt.compare(user.password, existingUser.password);
-    if (!isMatch) throw new Exception('Invalid credentials', 401);
+    if (!isMatch) {
+      existingUser.failedLoginAttempts =
+        (existingUser.failedLoginAttempts || 0) + 1;
+
+      if (existingUser.failedLoginAttempts >= this.MAX_ATTEMPTS) {
+        existingUser.lockUntil = new Date(Date.now() + this.LOCK_TIME);
+        existingUser.failedLoginAttempts = 0;
+      }
+
+      await this.repo.users.updateUser(existingUser.id, existingUser);
+
+      throw new Exception('Invalid credentials', 401);
+    } else {
+      existingUser.failedLoginAttempts = 0;
+      existingUser.lockUntil = null;
+      await this.repo.users.updateUser(existingUser.id, existingUser);
+    }
 
     const tokens = generateToken({
       uuid: existingUser._id.toString(),
@@ -25,7 +54,7 @@ export class AuthenticateUser {
 
     return {
       email: existingUser.email,
-      id: existingUser._id.toString(),
+      id: existingUser.id,
       firstname: existingUser.firstName,
       lastname: existingUser.lastName,
       isAdmin: existingUser.isAdmin,

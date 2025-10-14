@@ -18,7 +18,7 @@ export class OrderController {
   }
 
   public async create(
-    request: Request<{}, {}, IOrder>,
+    request: Request<null, void, IOrder>,
     response: Response,
     next: NextFunction,
   ) {
@@ -31,7 +31,7 @@ export class OrderController {
   }
 
   public async update(
-    request: Request<{}, {}, IUpdateOrder>,
+    request: Request<null, void, IUpdateOrder>,
     response: Response,
     next: NextFunction,
   ) {

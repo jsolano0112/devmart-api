@@ -3,7 +3,7 @@ import { IUser, IUserResponse } from '../../../shared/interfaces/users';
 import { User } from '../models/user.schema';
 
 export class UserRepository {
-  public async getUserById(id: string): Promise<IUserResponse> {
+  public async getUserById(id: number): Promise<IUserResponse> {
     try {
       const user = await User.findById(id);
       if (!user) throw new Exception('User not found.', 404);
@@ -15,6 +15,8 @@ export class UserRepository {
         mobilePhone,
         address,
         city,
+        lockUntil,
+        failedLoginAttempts,
       } = user;
       return {
         id,
@@ -25,13 +27,15 @@ export class UserRepository {
         mobilePhone,
         address,
         city,
+        lockUntil,
+        failedLoginAttempts,
       };
     } catch (error) {
       throw error;
     }
   }
 
-  public async getAllUserDataById(id: string): Promise<IUser> {
+  public async getAllUserDataById(id: number): Promise<IUser> {
     try {
       const user = await User.findById(id);
       if (!user) throw new Exception('User not found.', 404);
@@ -46,8 +50,11 @@ export class UserRepository {
         password,
         isActive,
         isAdmin,
+        lockUntil,
+        failedLoginAttempts,
       } = user;
       return {
+        id,
         firstName,
         lastName,
         email,
@@ -58,6 +65,8 @@ export class UserRepository {
         password,
         isActive,
         isAdmin,
+        lockUntil,
+        failedLoginAttempts,
       };
     } catch (error) {
       console.log(error);
@@ -85,7 +94,7 @@ export class UserRepository {
     }
   }
 
-  public async updateUser(id: string, user: IUser): Promise<void> {
+  public async updateUser(id: number, user: IUser): Promise<void> {
     try {
       await User.findByIdAndUpdate(id, { $set: user }, { new: true });
     } catch (error) {
