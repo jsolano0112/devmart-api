@@ -15,7 +15,7 @@ export class NotificationRepository {
         message,
         userId,
         createdAt,
-        read
+        read,
       };
     } catch (error) {
       console.error(error);

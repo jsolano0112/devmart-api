@@ -25,7 +25,7 @@ export class ShipmentController {
   }
 
   public async create(
-    request: Request<{}, {}, IShipment>,
+    request: Request<null, void, IShipment>,
     response: Response,
     next: NextFunction,
   ) {

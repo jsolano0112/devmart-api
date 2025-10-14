@@ -18,7 +18,7 @@ export class NotificationController {
   }
 
   public async create(
-    request: Request<{}, {}, INotification>,
+    request: Request<null, void, INotification>,
     response: Response,
     next: NextFunction,
   ) {

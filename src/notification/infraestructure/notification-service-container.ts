@@ -8,5 +8,5 @@ const repositories = new RepositoryContainer();
 export const NotificationServiceContainer = {
   getByUser: new getNotificationsByUser(repositories),
   create: new CreateNotification(repositories),
- markAsRead: new MarkNotificationAsRead(repositories)
+  markAsRead: new MarkNotificationAsRead(repositories),
 };

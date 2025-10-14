@@ -62,7 +62,7 @@ export class OrderRepository {
     }
   }
 
-  public async getOrders(userId: string): Promise<IUserOrderResponse[]> {
+  public async getOrders(userId: number): Promise<IUserOrderResponse[]> {
     try {
       const orders = await OrderSchema.find({ userId }).lean();
       return orders.map((order) => {
