@@ -9,8 +9,9 @@ export class NotificationController {
   ) {
     try {
       const { userId } = request.params;
-      const notifications =
-        await NotificationServiceContainer.getByUser.run(Number(userId));
+      const notifications = await NotificationServiceContainer.getByUser.run(
+        Number(userId),
+      );
       return response.status(200).json(notifications);
     } catch (error) {
       next(error);
