@@ -12,7 +12,7 @@ export class OrderRepository {
     }
   }
 
-  public async updateOrder(id: string, order: IOrder): Promise<void> {
+  public async updateOrder(id: number, order: IOrder): Promise<void> {
     try {
       await OrderSchema.findByIdAndUpdate(id, { $set: order }, { new: true });
     } catch (error) {
@@ -21,7 +21,7 @@ export class OrderRepository {
     }
   }
 
-  public async deleteOrder(id: string): Promise<void> {
+  public async deleteOrder(id: number): Promise<void> {
     try {
       await OrderSchema.findByIdAndDelete(id);
     } catch (error) {

@@ -10,7 +10,7 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      const order = await OrderServiceContainer.getOrderById.run(id);
+      const order = await OrderServiceContainer.getOrderById.run(Number(id));
       return response.status(200).json(order);
     } catch (error) {
       next(error);
@@ -50,8 +50,22 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      await OrderServiceContainer.deleteOrder.run(id);
+      await OrderServiceContainer.deleteOrder.run(Number(id));
       return response.status(200).json('Order deleted.');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+   public async cancel(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { id } = request.params;
+      await OrderServiceContainer.cancelOrder.run(Number(id));
+      return response.status(200).json('Order cancelled.');
     } catch (error) {
       next(error);
     }
