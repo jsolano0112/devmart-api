@@ -1,14 +1,15 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
 
-export const validateUpdate = [
+export const validateUserInfo = [
   body('email')
     .notEmpty()
     .withMessage('The email is required.')
     .isEmail()
     .withMessage('Not a valid e-mail address.'),
   body('password')
-    .optional()
+    .notEmpty()
+    .withMessage('The password is required.')
     .isLength({ min: 8 })
     .withMessage('The password must be at least 8 characters long.')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
@@ -25,8 +26,12 @@ export const validateUpdate = [
     .withMessage('The mobile phone must contain only numbers.'),
   body('zipCode')
     .optional()
-    .matches(/^[0-9]{6}$/)
-    .withMessage('The postal code must be exactly 6 digits.'),
+    .trim()
+    .isLength({ min: 6, max: 6 })
+    .withMessage('The postal code must be exactly 6 digits.')
+    .isNumeric({ no_symbols: true })
+    .withMessage('The postal code must contain only numbers.'),
+
   (req, res, next) => {
     validateResult(req, res, next);
   },

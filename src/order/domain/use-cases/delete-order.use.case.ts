@@ -6,7 +6,7 @@ export class DeleteOrder {
 
   async run(id: number): Promise<void> {
     const order = await this.repo.orders.getOrder(id);
-    if(!order) throw new Exception('Order not found.', 404)
+    if (!order) throw new Exception('Order not found.', 404);
     await this.repo.orders.deleteOrder(id);
   }
 }

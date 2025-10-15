@@ -88,7 +88,7 @@ export class UserController {
   ) {
     try {
       const credentials = await UserServiceContainer.refreshToken.run(
-       request.body.refreshToken
+        request.body.refreshToken,
       );
       return response.status(200).json(credentials);
     } catch (error) {

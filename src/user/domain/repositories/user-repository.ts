@@ -1,51 +1,11 @@
-import { Exception } from '../../../shared/helpers/exception-message';
 import { IUser } from '../../../shared/interfaces/users';
 import { User } from '../models/user.schema';
 
 export class UserRepository {
   public async getUserById(id: number) {
     try {
-      return await User.findById(id);
+      return await User.findOne({ id: id });
     } catch (error) {
-      throw error;
-    }
-  }
-
-  public async getAllUserDataById(id: number): Promise<IUser> {
-    try {
-      const user = await User.findById(id);
-      if (!user) throw new Exception('User not found.', 404);
-      const {
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-        password,
-        isActive,
-        isAdmin,
-        lockUntil,
-        failedLoginAttempts,
-      } = user;
-      return {
-        id,
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-        password,
-        isActive,
-        isAdmin,
-        lockUntil,
-        failedLoginAttempts,
-      };
-    } catch (error) {
-      console.log(error);
       throw error;
     }
   }

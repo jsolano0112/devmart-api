@@ -14,10 +14,7 @@ export const validateCreateNotification = [
     .isString()
     .withMessage('The message must be a string.'),
 
-  body('userId')
-    .notEmpty()
-    .withMessage('The userId is required.')
-,
+  body('userId').notEmpty().withMessage('The userId is required.'),
   body('createdAt')
     .optional({ nullable: true })
     .isISO8601()
