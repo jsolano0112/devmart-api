@@ -218,5 +218,4 @@ supplierRouter.put('/:id', verifyAuthToken, controller.delete);
  */
 supplierRouter.get('/', verifyAuthToken, controller.getAll);
 
-
 export { supplierRouter };

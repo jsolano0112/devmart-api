@@ -7,7 +7,6 @@ import { ShipmentController } from '../controller/shipment.controller';
 const shipment = new ShipmentController();
 const shipmentRouter: Router = Router();
 
-
 /**
  * @swagger
  * /shipments/{trackingNumber}:
@@ -43,7 +42,6 @@ shipmentRouter.get(
   validateTrackingNumber,
   shipment.getByTrackingId,
 );
-
 
 /**
  * @swagger

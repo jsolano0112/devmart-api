@@ -1,9 +1,5 @@
-import { Exception } from '../../../shared/helpers/exception-message';
-import {
-  IOrder,
-  IOrderResponse,
-  IUserOrderResponse,
-} from '../../../shared/interfaces/orders';
+import { OrderStatus } from '../../../shared/interfaces/order-status';
+import { IOrder, IOrderResponse } from '../../../shared/interfaces/orders';
 import { OrderSchema } from '../models/order.schema';
 
 export class OrderRepository {
@@ -17,7 +13,7 @@ export class OrderRepository {
     }
   }
 
-  public async updateOrder(id: string, order: IOrder): Promise<void> {
+  public async updateOrder(id: number, order: IOrder): Promise<void> {
     try {
       await OrderSchema.findByIdAndUpdate(id, { $set: order }, { new: true });
     } catch (error) {
@@ -26,7 +22,7 @@ export class OrderRepository {
     }
   }
 
-  public async deleteOrder(id: string): Promise<void> {
+  public async deleteOrder(id: number): Promise<void> {
     try {
       await OrderSchema.findByIdAndDelete(id);
     } catch (error) {
@@ -35,57 +31,28 @@ export class OrderRepository {
     }
   }
 
-  public async getOrder(id: string): Promise<IOrderResponse> {
+  public async getOrder(id: number): Promise<IOrderResponse> {
     try {
-      const order = await OrderSchema.findById(id);
-      if (!order) throw new Exception('Order not found.', 404);
-
-      const { userId, products, paymentMethod, address, createdAt, updatedAt } =
-        order;
-
-      //TODO: take total from products
-
-      const total = 0;
-      return {
-        id,
-        userId,
-        products,
-        paymentMethod,
-        address,
-        createdAt,
-        updatedAt,
-        total,
-      };
+      return await OrderSchema.findById(id);
     } catch (error) {
       console.error(error);
       throw error;
     }
   }
 
-  public async getOrders(userId: string): Promise<IUserOrderResponse[]> {
+  public async getOrders(userId: number) {
     try {
-      const orders = await OrderSchema.find({ userId }).lean();
-      return orders.map((order) => {
-        const count = order.products.reduce(
-          (acc: number, p: { count: number }) => acc + p.count,
-          0,
-        );
-
-        //TODO: take total from products
-        const total = 0;
-
-        return {
-          id: order._id.toString(),
-          userId: order.userId.toString(),
-          count,
-          total,
-          createdAt: order.createdAt,
-          updatedAt: order.updatedAt,
-        };
-      });
+      return await OrderSchema.find({ userId }).lean();
     } catch (error) {
       console.error(error);
       throw error;
     }
+  }
+
+  public async getPendingOrdersBefore(date: Date) {
+    return await OrderSchema.find({
+      status: OrderStatus.PENDIENTE,
+      createdAt: { $lte: date },
+    }).lean();
   }
 }

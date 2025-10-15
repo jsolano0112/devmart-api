@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { ProductController } from '../controller/product.controller';
 import { validateSku } from '../../../shared/helpers/get-sku.validator';
-import { validateCreateProduct } from '../middlewares/create-product.validator';
-import { validateUpdateProduct } from '../middlewares/update-product.validator';
+import { validateProductInfo } from '../middlewares/product.validator';
 
 const controller = new ProductController();
 const productRouter: Router = Router();
@@ -20,7 +19,7 @@ const productRouter: Router = Router();
  *         required: true
  *         schema:
  *           type: string
- *         example: "ABC12345"
+ *         example: "64b9e8f2c987654321"
  *     responses:
  *       200:
  *         description: Product retrieved successfully
@@ -32,7 +31,7 @@ const productRouter: Router = Router();
  *               price: 3800000
  *               stock: 25
  *               images: "https://example/products/example.jpg"
- *               sku: "ABC12345"
+ *               sku: "64b9e8f2c987654321"
  *               supplierId: 1
  *               category: "Laptops"
  *       404:
@@ -57,14 +56,14 @@ productRouter.get('/:sku', validateSku, controller.getBySku);
  *             price: 780000
  *             stock: 40
  *             images: "https://example/products/example.jpg"
- *             sku: "MONS24HD"
+ *             sku: "64b9e8f2c987654321"
  *             supplierId: 2
- *             category: "Monitors"
+ *             categoryId: 1
  *     responses:
  *       201:
  *         description: Product created successfully
  */
-productRouter.post('/', validateCreateProduct, controller.create);
+productRouter.post('/', validateProductInfo, controller.create);
 
 /**
  * @swagger
@@ -84,7 +83,7 @@ productRouter.post('/', validateCreateProduct, controller.create);
  *                 price: 3800000
  *                 stock: 25
  *                 images: "https://example/products/example.jpg"
- *                 sku: "ABC12345"
+ *                 sku: "64b9e8f2c987654321"
  *                 supplierId: 1
  *                 category: "Laptops"
  *               - name: "Mouse Logitech M170"
@@ -92,7 +91,7 @@ productRouter.post('/', validateCreateProduct, controller.create);
  *                 price: 75000
  *                 stock: 200
  *                 cimages: "https://example/products/example.jpg"
- *                 sku: "MOUSE170"
+ *                 sku: "64b9e8f2c987654321"
  *                 supplierId: 3
  *                 category: "Accessories"
  *       204:
@@ -125,7 +124,7 @@ productRouter.get('/', controller.getProducts);
  *             price: 4200000
  *             stock: 15
  *             images: "https://cdn.mystore.com/products/asus-vivobook-pro.jpg"
- *             sku: "ABC12345"
+ *             sku: "64b9e8f2c987654321"
  *             supplierId: 1
  *             category: "Laptops"
  *     responses:
@@ -140,13 +139,13 @@ productRouter.get('/', controller.getProducts);
  *               price: 4200000
  *               stock: 15
  *               images: "https://cdn.mystore.com/products/asus-vivobook-pro.jpg"
- *               sku: "ABC12345"
+ *               sku: "64b9e8f2c987654321"
  *               supplierId: 1
  *               category: "Laptops"
  *       404:
  *         description: Product not found
  */
-productRouter.put('/:sku', validateUpdateProduct, controller.update);
+productRouter.put('/:sku', validateProductInfo, controller.update);
 
 /**
  * @swagger
@@ -161,7 +160,7 @@ productRouter.put('/:sku', validateUpdateProduct, controller.update);
  *         required: true
  *         schema:
  *           type: string
- *         example: "ABC12345"
+ *         example: "64b9e8f2c987654321"
  *     responses:
  *       200:
  *         description: Product deleted successfully

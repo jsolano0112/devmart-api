@@ -5,7 +5,6 @@ import { categoriesController } from '../controller/categories.controller';
 const controller = new categoriesController();
 const categoryRouter: Router = Router();
 
-
 /**
  * @swagger
  * /categories/{name}:
@@ -51,7 +50,6 @@ categoryRouter.get('/:name', controller.getCategoryByName);
  *         description: Category created successfully
  */
 categoryRouter.post('/', validateCreateCategory, controller.createCatrgory);
-
 
 /**
  * @swagger
