@@ -12,12 +12,14 @@ const JWT_REFRESH_EXPIRE_IN = process.env.JWT_REFRESH_EXPIRE_IN;
 
 export const generateToken = (payload: JWTPayload): ITokens => {
   try {
-    const accessToken = jwt.sign(payload, JWT_SECRET, {
+  const { exp, iat, ...cleanPayload } = payload;
+
+    const accessToken = jwt.sign(cleanPayload, JWT_SECRET!, {
       algorithm: 'HS256',
       expiresIn: JWT_EXPIRE_IN,
     });
 
-    const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET, {
+    const refreshToken = jwt.sign(cleanPayload, JWT_REFRESH_SECRET!, {
       algorithm: 'HS256',
       expiresIn: JWT_REFRESH_EXPIRE_IN,
     });
