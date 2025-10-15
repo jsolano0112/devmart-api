@@ -57,7 +57,7 @@ export class OrderController {
     }
   }
 
-   public async cancel(
+  public async cancel(
     request: Request,
     response: Response,
     next: NextFunction,

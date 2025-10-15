@@ -93,9 +93,6 @@ export class ProductRepository {
   }
 
   public async incrementStock(sku: string, quantity: number) {
-  await Product.updateOne(
-    { sku },
-    { $inc: { stock: quantity } },
-  );
-}
+    await Product.updateOne({ sku }, { $inc: { stock: quantity } });
+  }
 }

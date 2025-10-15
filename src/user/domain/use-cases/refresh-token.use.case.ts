@@ -9,7 +9,7 @@ import { IUserCredentialsResponse } from '../../../shared/interfaces/users';
 export class RefreshToken {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(refreshToken: string): Promise<IUserCredentialsResponse> {    
+  async run(refreshToken: string): Promise<IUserCredentialsResponse> {
     if (!refreshToken) {
       throw new Exception('missing token', 400);
     }

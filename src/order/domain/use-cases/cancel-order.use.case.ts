@@ -9,7 +9,10 @@ export class CancelOrder {
     const order = await this.repo.orders.getOrder(orderId);
     if (!order) throw new Exception('Order not found', 404);
 
-    if (order.status === OrderStatus.CANCELADO || order.status === OrderStatus.ENTREGADO) {
+    if (
+      order.status === OrderStatus.CANCELADO ||
+      order.status === OrderStatus.ENTREGADO
+    ) {
       throw new Exception('Order cannot be cancelled', 400);
     }
 

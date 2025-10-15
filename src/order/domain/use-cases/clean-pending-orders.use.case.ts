@@ -7,7 +7,8 @@ export class CleanPendingOrders {
     const now = new Date();
     const fortyEightHoursAgo = new Date(now.getTime() - 48 * 60 * 60 * 1000);
 
-    const oldOrders = await this.repo.orders.getPendingOrdersBefore(fortyEightHoursAgo);
+    const oldOrders =
+      await this.repo.orders.getPendingOrdersBefore(fortyEightHoursAgo);
 
     for (const order of oldOrders) {
       for (const item of order.products) {
