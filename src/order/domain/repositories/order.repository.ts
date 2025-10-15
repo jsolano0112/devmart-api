@@ -1,3 +1,4 @@
+import { OrderStatus } from '../../../shared/interfaces/order-status';
 import { IOrder, IOrderResponse } from '../../../shared/interfaces/orders';
 import { OrderSchema } from '../models/order.schema';
 
@@ -50,7 +51,7 @@ export class OrderRepository {
 
   public async getPendingOrdersBefore(date: Date) {
     return await OrderSchema.find({
-      status: 'pending',
+      status: OrderStatus.PENDIENTE,
       createdAt: { $lte: date },
     }).lean();
   }

@@ -6,7 +6,7 @@ export interface IProductResponse {
   images: string;
   sku: string;
   supplierId: number;
-  category: string;
+  categoryId: number;
 }
 
 export interface IProduct {
@@ -16,7 +16,7 @@ export interface IProduct {
   stock: number;
   images: string;
   sku: string;
-  category: string;
+  categoryId: number;
   supplierId: number;
 }
 
@@ -28,6 +28,6 @@ export interface IUpdateProduct {
   stock: number;
   images: string;
   sku: string;
-  category: string;
+  categoryId: number;
   supplierId: number;
 }

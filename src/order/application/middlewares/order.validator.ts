@@ -1,8 +1,7 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
 
-export const validateUpdateOrder = [
-  body('id').notEmpty().withMessage('The order ID is required.'),
+export const validateOrderInformation = [
   body('products')
     .isArray({ min: 1 })
     .withMessage('Products must be a non-empty array.'),
