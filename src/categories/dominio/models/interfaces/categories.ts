@@ -7,3 +7,11 @@ export interface ICategories {
   id: number;
   name: string;
 }
+
+export interface ICategoriesParams {
+  id: number;
+}
+
+export interface IUpdateCategory {
+  name: string;
+}

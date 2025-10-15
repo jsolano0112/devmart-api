@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CategoriesServiceContainer } from '../../infraestructure/categories-service-container';
-import { ICategories } from '../../dominio/models/interfaces/categories';
+import { ICategories, ICategoriesParams, IUpdateCategory } from '../../dominio/models/interfaces/categories';
 import { cateogoriesStatusCode200 } from '../../dominio/models/interfaces/categories.response';
 
 export class categoriesController {
@@ -49,4 +49,32 @@ export class categoriesController {
            next(error);
          }
        }
+
+       public async updateCategory(
+         request: Request<ICategoriesParams, void, IUpdateCategory>,
+         response: Response,
+          next: NextFunction,
+        ) {
+          try {
+            const { id } = request.params;
+            await CategoriesServiceContainer.updateCategory.run(request.body, id);
+            return response.status(200).json(cateogoriesStatusCode200);
+          } catch (error) {
+            next(error);
+          }
+        }
+
+        public async deleteCategoryById(
+          request: Request<ICategoriesParams>,
+          response: Response,
+          next: NextFunction,
+        ) {
+          try {
+            const { id } = request.params;
+            await CategoriesServiceContainer.deleteCategory.run(id);
+            return response.status(200).json(cateogoriesStatusCode200);
+          } catch (error) {
+            next(error);
+          }
+        }
 }

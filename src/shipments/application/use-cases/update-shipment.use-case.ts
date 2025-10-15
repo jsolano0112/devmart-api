@@ -1,13 +1,13 @@
+import { Exception } from "../../../shared/helpers/exception-message";
 import { RepositoryContainer } from "../../../shared/infraestructure/respository-container";
-import { statusCode404 } from "../../../shared/interfaces/general-response";
 import { IShipmentUpdate } from "../../domain/models/interfaces/shipments";
 
 export class updateShipment {
     constructor(private repo: RepositoryContainer) { }
 
-    async run(shipment: IShipmentUpdate): Promise<void> {
-        const dbShipment = await this.repo.shipments.getShipmentBytrackingId(shipment.trackingId);
-        if (!dbShipment) throw statusCode404;
+    async run(shipment: IShipmentUpdate, trackingId: string): Promise<void> {
+        const dbShipment = await this.repo.shipments.getShipmentBytrackingId(trackingId);
+        if (!dbShipment) throw new Exception('The shipment does not exist.', 404);
 
         const shipmentUpdated: IShipmentUpdate = {
         trackingId: shipment.trackingId ? shipment.trackingId : dbShipment.trackingId,

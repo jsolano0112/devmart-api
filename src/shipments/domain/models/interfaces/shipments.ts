@@ -23,3 +23,13 @@ export interface IShipmentUpdate {
     status: string;
     updatedAt: Date;
 }
+
+export interface IShipmentUpdate {
+    trackingId: string;
+    status: string;
+    updatedAt: Date;
+}
+
+export interface IShipmentParams {
+  trackingId: string;
+}
