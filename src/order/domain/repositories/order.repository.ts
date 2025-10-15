@@ -47,4 +47,11 @@ export class OrderRepository {
       throw error;
     }
   }
+
+  public async getPendingOrdersBefore(date: Date) {
+    return await OrderSchema.find({
+      status: 'pending',
+      createdAt: { $lte: date },
+    }).lean();
+  }
 }

@@ -22,6 +22,9 @@ export class UpdateUser {
     }
 
     const userUpdated: IUser = {
+      id: user.id,
+      failedLoginAttempts: user.failedLoginAttempts,
+      lockUntil: user.lockUntil,
       email: user.email ? user.email : dbUser.email,
       firstName: user.firstName ? user.firstName : dbUser.firstName,
       lastName: user.lastName ? user.lastName : dbUser.lastName,
