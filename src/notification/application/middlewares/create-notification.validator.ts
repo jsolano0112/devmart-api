@@ -1,6 +1,5 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
-import mongoose from 'mongoose';
 
 export const validateCreateNotification = [
   body('type')
@@ -18,13 +17,7 @@ export const validateCreateNotification = [
   body('userId')
     .notEmpty()
     .withMessage('The userId is required.')
-    .custom((value) => {
-      if (!mongoose.Types.ObjectId.isValid(value)) {
-        throw new Error('The userId must be a valid 24-character hex string.');
-      }
-      return true;
-    }),
-
+,
   body('createdAt')
     .optional({ nullable: true })
     .isISO8601()

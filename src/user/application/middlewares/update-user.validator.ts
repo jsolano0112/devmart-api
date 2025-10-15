@@ -1,17 +1,7 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
-import mongoose from 'mongoose';
 
 export const validateUpdate = [
-  body('id')
-    .notEmpty()
-    .withMessage('The ID is required.')
-    .custom((value) => {
-      if (!mongoose.Types.ObjectId.isValid(value)) {
-        throw new Error('The ID must be a valid 24-character hex string.');
-      }
-      return true;
-    }),
   body('email')
     .notEmpty()
     .withMessage('The email is required.')
@@ -30,7 +20,9 @@ export const validateUpdate = [
   body('mobilePhone')
     .optional()
     .isLength({ min: 10, max: 10 })
-    .withMessage('The mobile phone must be exactly 10 digits.'),
+    .withMessage('The mobile phone must be exactly 10 digits.')
+    .matches(/^[0-9]+$/)
+    .withMessage('The mobile phone must contain only numbers.'),
   body('zipCode')
     .optional()
     .matches(/^[0-9]{6}$/)

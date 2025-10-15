@@ -21,7 +21,9 @@ export const validateCreate = [
   body('mobilePhone')
     .optional()
     .isLength({ min: 10, max: 10 })
-    .withMessage('The mobile phone must be exactly 10 digits.'),
+    .withMessage('The mobile phone must be exactly 10 digits.')
+    .matches(/^[0-9]+$/)
+    .withMessage('The mobile phone must contain only numbers.'),
   body('zipCode')
     .optional()
     .matches(/^[0-9]{6}$/)

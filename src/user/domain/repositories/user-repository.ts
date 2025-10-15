@@ -6,7 +6,6 @@ export class UserRepository {
   public async getUserById(id: number) {
     try {
       return await User.findById(id);
-      
     } catch (error) {
       throw error;
     }
@@ -73,7 +72,7 @@ export class UserRepository {
 
   public async updateUser(id: number, user: IUser): Promise<void> {
     try {
-      await User.findByIdAndUpdate(id, { $set: user }, { new: true });
+      await User.findOneAndUpdate({ id }, { $set: user }, { new: true });
     } catch (error) {
       console.error(error);
       throw error;
