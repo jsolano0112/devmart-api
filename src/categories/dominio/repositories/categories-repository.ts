@@ -1,4 +1,4 @@
-import { ICategories } from '../models/interfaces/categories';
+import { ICategories, IUpdateCategory } from '../models/interfaces/categories';
 import { Category } from '../models/categories.schema';
 import { Exception } from '../../../shared/helpers/exception-message';
 
@@ -15,12 +15,13 @@ export class CategoriesRepository {
         }
     }
 
-    public async getCategoryByName(name: string): Promise<ICategories> {
+    public async getCategoryById(id: number): Promise<ICategories> {
         try {
-            const category = await Category.findOne({ name });
+            const category = await Category.findById(id);
             if (category === null) throw new Exception('Category not found.', 404);
             const {
-                id } = category;
+                name
+            } = category;
             return {
                 id,
                 name
@@ -45,4 +46,22 @@ export class CategoriesRepository {
             throw error;
         }
     }
-}
+
+      public async updateCategory(id: number, category: IUpdateCategory): Promise<void> {
+        try {
+          await Category.findByIdAndUpdate(id, { $set: category }, { new: true });
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      }
+
+        public async deleteCategoryById(id: number): Promise<void> {
+          try {
+              await Category.findByIdAndDelete(id);
+          } catch (error) {
+              console.error(error);
+              throw error;
+          }
+      }
+    }

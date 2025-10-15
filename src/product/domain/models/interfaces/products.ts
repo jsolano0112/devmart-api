@@ -19,12 +19,14 @@ export interface IProduct {
 }
 
 export interface IUpdateProduct {
-  id: number;
   name: string;
   description: string;
   price: number;
   stock: number;
   images: string;
-  sku: string;
   category: string;
+}
+
+export interface IProducParams {
+  sku: string;
 }

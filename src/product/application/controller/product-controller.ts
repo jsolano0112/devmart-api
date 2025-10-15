@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductServiceContainer} from '../../infraestructure/product-service-container';
-import { IProduct, IUpdateProduct } from '../../domain/models/interfaces/products';
+import { IProduct, IUpdateProduct, IProducParams } from '../../domain/models/interfaces/products';
 import { productStatusCode200 } from '../../domain/models/interfaces/product-response';
 
 export class ProductController {
@@ -35,12 +35,13 @@ export class ProductController {
   }
 
   public async update(
-    request: Request<null, void, IUpdateProduct>,
+    request: Request<IProducParams, void, IUpdateProduct>,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await ProductServiceContainer.updateProduct.run(request.body);
+      const { sku } = request.params;
+      await ProductServiceContainer.updateProduct.run(request.body, sku);
       return response.status(200).json(productStatusCode200);
     } catch (error) {
       next(error);

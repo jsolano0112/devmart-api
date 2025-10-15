@@ -5,10 +5,12 @@ import { categoriesController } from "../controller/categories-controller";
 
 
 const controller = new categoriesController();
-const productRouter: Router = Router();
+const categoriesRouter: Router = Router();
 
-productRouter.get('/:name', controller.getCategoryByName);
-productRouter.post('/', validateCreateCategory, controller.createCatrgory);
-productRouter.get('/', controller.getAllCategories);
+categoriesRouter.get('/:name', controller.getCategoryByName);
+categoriesRouter.post('/', validateCreateCategory, controller.createCatrgory);
+categoriesRouter.get('/', controller.getAllCategories);
+categoriesRouter.put('/:id', controller.updateCategory);
+categoriesRouter.delete('/:id', controller.deleteCategoryById);
 
-export { productRouter };
+export { categoriesRouter };

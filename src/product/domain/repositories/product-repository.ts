@@ -1,5 +1,5 @@
 import { Exception } from '../../../shared/helpers/exception-message';
-import { IProduct, IProductResponse } from '../models/interfaces/products';
+import { IProduct, IProductResponse, IUpdateProduct } from '../models/interfaces/products';
 import { Product } from '../models/product.schema';
 
 export class ProductRepository {
@@ -59,7 +59,7 @@ export class ProductRepository {
     }
   }
 
-  public async updateProduct(sku: string, product: IProduct): Promise<void> {
+  public async updateProduct(sku: string, product: IUpdateProduct): Promise<void> {
     try {
       await Product.findByIdAndUpdate(sku, { $set: product }, { new: true });
     } catch (error) {
