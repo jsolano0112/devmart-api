@@ -20,7 +20,7 @@ export class categoriesController {
   }
 
   public async createCatrgory(
-    request: Request<{}, {}, ICategories>,
+    request: Request<null, void, ICategories>,
     response: Response,
     next: NextFunction,
   ) {

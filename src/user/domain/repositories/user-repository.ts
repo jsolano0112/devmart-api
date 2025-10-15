@@ -1,66 +1,11 @@
-import { Exception } from '../../../shared/helpers/exception-message';
-import { IUser, IUserResponse } from '../../../shared/interfaces/users';
+import { IUser } from '../../../shared/interfaces/users';
 import { User } from '../models/user.schema';
 
 export class UserRepository {
-  public async getUserById(id: string): Promise<IUserResponse> {
+  public async getUserById(id: number) {
     try {
-      const user = await User.findById(id);
-      if (!user) throw new Exception('User not found.', 404);
-      const {
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-      } = user;
-      return {
-        id,
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-      };
+      return await User.findOne({ id: id });
     } catch (error) {
-      throw error;
-    }
-  }
-
-  public async getAllUserDataById(id: string): Promise<IUser> {
-    try {
-      const user = await User.findById(id);
-      if (!user) throw new Exception('User not found.', 404);
-      const {
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-        password,
-        isActive,
-        isAdmin,
-      } = user;
-      return {
-        firstName,
-        lastName,
-        email,
-        zipCode,
-        mobilePhone,
-        address,
-        city,
-        password,
-        isActive,
-        isAdmin,
-      };
-    } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -85,9 +30,9 @@ export class UserRepository {
     }
   }
 
-  public async updateUser(id: string, user: IUser): Promise<void> {
+  public async updateUser(id: number, user: IUser): Promise<void> {
     try {
-      await User.findByIdAndUpdate(id, { $set: user }, { new: true });
+      await User.findOneAndUpdate({ id }, { $set: user }, { new: true });
     } catch (error) {
       console.error(error);
       throw error;

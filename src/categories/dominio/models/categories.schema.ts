@@ -14,5 +14,4 @@ CategorySchema.plugin(AutoIncrement, {
   id: 'category_id_counter',
 });
 
-export const Category =
-  connection.models.Category || model<ICategories>('Category', CategorySchema);
+export const Category = model<ICategories>('Category', CategorySchema);
