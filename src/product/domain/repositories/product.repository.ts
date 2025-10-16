@@ -31,8 +31,8 @@ export class ProductRepository {
         stock: p.stock,
         images: p.images,
         sku: p.sku,
-        category: p.category,
-        supplierId: p.supplierId
+        categoryId: p.categoryId,
+        supplierId: p.supplierId,
       }));
     } catch (error) {
       throw error;
@@ -41,22 +41,17 @@ export class ProductRepository {
 
   public async getProductBySku(sku: string): Promise<IProductResponse> {
     try {
-      const product = await Product.findOne({ sku });
-      if (!product) throw new Exception('Product not found.', 404);
-      if (product.stock === 0) {
-        throw new Exception('Product out of stock.', 404);
-      }
-      const { name, description, price, stock, images, category } = product;
-      return {
-        name,
-        description,
-        price,
-        stock,
-        images,
-        sku,
-        category,
-      };
+      return await Product.findOne({ sku });
     } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getProductsBySkus(skus: string[]) {
+    try {
+      return await Product.find({ sku: { $in: skus } }).lean();
+    } catch (error) {
+      console.error(error);
       throw error;
     }
   }
@@ -79,5 +74,9 @@ export class ProductRepository {
       console.error(error);
       throw error;
     }
+  }
+
+  public async incrementStock(sku: string, quantity: number) {
+    await Product.updateOne({ sku }, { $inc: { stock: quantity } });
   }
 }

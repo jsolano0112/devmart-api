@@ -31,7 +31,7 @@ export class SupplierController {
   }
 
   public async create(
-    request: Request<{}, {}, ISupplier>,
+    request: Request<null, void, ISupplier>,
     response: Response,
     next: NextFunction,
   ) {
@@ -44,7 +44,7 @@ export class SupplierController {
   }
 
   public async update(
-    request: Request<{}, {}, ISupplier>,
+    request: Request<null, void, ISupplier>,
     response: Response,
     next: NextFunction,
   ) {

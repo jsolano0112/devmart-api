@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
 
-export const validateUpdateProduct = [
+export const validateProductInfo = [
   body('price')
     .notEmpty()
     .withMessage('The price is required.')
@@ -13,13 +13,14 @@ export const validateUpdateProduct = [
       }
       return true;
     }),
+
   body('name').notEmpty().withMessage('The name is required.'),
 
   body('sku')
     .notEmpty()
-    .withMessage('The sku is required.')
+    .withMessage('The SKU is required.')
     .isLength({ min: 8, max: 20 })
-    .withMessage('The SKU must be beetwen 8 and 20 characters.')
+    .withMessage('The SKU must be between 8 and 20 characters.')
     .isString()
     .withMessage('The SKU must be a string.'),
 
@@ -31,12 +32,27 @@ export const validateUpdateProduct = [
 
   body('images')
     .notEmpty()
+    .withMessage('The image URL is required.')
     .matches(
-      /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))(?:\?.*)?(?:#.*)?$/i,
+      /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))(?:\?.*)?(?:#.*)?$/i
     )
     .withMessage(
-      'The images must be a valid URL and max size 2MB, min 800x600px .',
+      'The image must be a valid URL ending in .png, .jpg, .jpeg, .gif, .svg or .webp.'
     ),
+
+  // ✅ New fields required:
+  body('supplierId')
+    .notEmpty()
+    .withMessage('The supplierId is required.')
+    .isInt({ gt: 0 })
+    .withMessage('The supplierId must be a positive integer.'),
+
+  body('category')
+    .notEmpty()
+    .withMessage('The category is required.')
+     .isInt({ gt: 0 })
+    .withMessage('The category must be a positive integer.'),
+
   (req, res, next) => {
     validateResult(req, res, next);
   },

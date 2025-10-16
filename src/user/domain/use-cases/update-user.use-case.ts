@@ -8,11 +8,12 @@ export class UpdateUser {
   constructor(private repo: RepositoryContainer) {}
 
   async run(user: IUpdateUser): Promise<void> {
-    const dbUser = await this.repo.users.getAllUserDataById(user.id);
-    await validateEmailDomain(user.email);
+    const dbUser = await this.repo.users.getUserById(user.id);
+    if (!dbUser) throw new Exception('User not found.', 404);
     if (dbUser.email !== user.email) {
       const existingUser = await this.repo.users.getUserByEmail(user.email);
       if (existingUser) throw new Exception('The user already exists.', 409);
+      await validateEmailDomain(user.email);
     }
 
     if (user.password != '' && user.password != null) {
@@ -22,6 +23,9 @@ export class UpdateUser {
     }
 
     const userUpdated: IUser = {
+      id: user.id,
+      failedLoginAttempts: user.failedLoginAttempts,
+      lockUntil: user.lockUntil,
       email: user.email ? user.email : dbUser.email,
       firstName: user.firstName ? user.firstName : dbUser.firstName,
       lastName: user.lastName ? user.lastName : dbUser.lastName,
