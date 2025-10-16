@@ -13,9 +13,9 @@ export class SupplierRepository {
     }
   }
 
-  public async getSupplierById(id: number): Promise<ISupplier> {
+  public async getSupplierById(id: number): Promise<ISupplier | null> {
     try {
-      const supplier = await Supplier.findOne(id);
+      const supplier = await Supplier.findOne({ id });
 
       return supplier;
     } catch (error) {

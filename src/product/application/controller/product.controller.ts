@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductServiceContainer } from '../../infraestructure/product-service-container';
-import { IProduct, IUpdateProduct } from '../../../shared/interfaces/products';
+import { IProducParams, IProduct, IUpdateProduct } from '../../../shared/interfaces/products';
 
 export class ProductController {
   public async getBySku(
@@ -21,7 +21,7 @@ export class ProductController {
   }
 
   public async create(
-    request: Request<null, void, IProduct>,
+    request: Request<IProduct, void, IProduct>,
     response: Response,
     next: NextFunction,
   ) {
@@ -34,12 +34,13 @@ export class ProductController {
   }
 
   public async update(
-    request: Request<null, void, IUpdateProduct>,
+    request: Request<IProducParams, void, IUpdateProduct>,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await ProductServiceContainer.updateProduct.run(request.body);
+      const { sku } = request.params;
+      await ProductServiceContainer.updateProduct.run(request.body, sku);
       return response.status(200).json('Product updated succesfully.');
     } catch (error) {
       next(error);

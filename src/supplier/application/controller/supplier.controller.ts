@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { SupplierServiceContainer } from '../../infraestructure/supplier-service-container';
-import { ISupplier } from '../../../shared/interfaces/supplier';
+import { ISupplier, ISupplierParams } from '../../../shared/interfaces/supplier';
 
 export class SupplierController {
   public async getByNIT(
@@ -31,7 +31,7 @@ export class SupplierController {
   }
 
   public async create(
-    request: Request<null, void, ISupplier>,
+    request: Request< {}, void, ISupplier>,
     response: Response,
     next: NextFunction,
   ) {
@@ -43,13 +43,14 @@ export class SupplierController {
     }
   }
 
-  public async update(
-    request: Request<null, void, ISupplier>,
+  public async updateSupplier(
+    request: Request<ISupplierParams, void, ISupplier>,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await SupplierServiceContainer.UpdateSupplier.run(request.body);
+      const { nit } = request.params;
+      await SupplierServiceContainer.UpdateSupplier.run(request.body, nit);
       return response.status(200).json('Supplier updated.');
     } catch (error) {
       next(error);

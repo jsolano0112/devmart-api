@@ -4,8 +4,8 @@ import { orderRouter } from './order/application/routes/order.route';
 import { notificationRouter } from './notification/application/routes/notification.route';
 import { supplierRouter } from './supplier/application/routes/supplier.route';
 import { shipmentRouter } from './shipments/application/routes/shipment.route';
-import { categoryRouter } from './categories/application/routes/categories.route';
 import { productRouter } from './product/application/routes/product.route';
+import { categoryRouter } from './categories/application/routes/categories.route';
 const appRouter: Router = Router();
 
 appRouter.get('/', (req: Request, res: Response) => {

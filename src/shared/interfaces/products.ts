@@ -21,13 +21,15 @@ export interface IProduct {
 }
 
 export interface IUpdateProduct {
-  id: number;
   name: string;
   description: string;
   price: number;
   stock: number;
   images: string;
-  sku: string;
   categoryId: number;
   supplierId: number;
+}
+
+export interface IProducParams {
+  sku: string;
 }

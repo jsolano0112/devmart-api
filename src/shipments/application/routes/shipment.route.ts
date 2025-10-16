@@ -124,6 +124,7 @@ shipmentRouter.get('/', shipment.getShipments);
  *       200:
  *         description: Shipment updated successfully
  */
-shipmentRouter.put('/:trackingNumber', validateUpdateShipment, shipment.update);
+shipmentRouter.put('/:trackingId', validateUpdateShipment, shipment.update);
+shipmentRouter.delete('/:trackingNumber', validateTrackingNumber, shipment.delete);
 
 export { shipmentRouter };

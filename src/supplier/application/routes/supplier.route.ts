@@ -150,13 +150,7 @@ supplierRouter.post('/', validateSupplier, verifyAuthToken, controller.create);
  *       404:
  *         description: Supplier not found
  */
-supplierRouter.put(
-  '/',
-  validateSupplier,
-  validateIdNumberBody,
-  verifyAuthToken,
-  controller.update,
-);
+supplierRouter.put('/:nit', validateSupplier, verifyAuthToken, controller.updateSupplier);
 
 /**
  * @swagger
