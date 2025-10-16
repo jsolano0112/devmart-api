@@ -1,22 +1,13 @@
 import {
   INotification,
-  INotificationResponse,
 } from '../../../shared/interfaces/notifications';
 import { NotificationSchema } from '../models/notification.schema';
 
 export class NotificationRepository {
-  public async getById(id: string): Promise<INotificationResponse> {
+  public async getById(id: string) {
     try {
-      const notification = await NotificationSchema.findById(id).lean();
-      const { message, userId, type, createdAt, read } = notification;
-      return {
-        id,
-        type,
-        message,
-        userId,
-        createdAt,
-        read,
-      };
+      return await NotificationSchema.findById(id).lean();
+
     } catch (error) {
       console.error(error);
       throw error;
