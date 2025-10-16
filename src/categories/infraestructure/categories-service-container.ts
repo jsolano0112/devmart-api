@@ -1,11 +1,9 @@
 import { RepositoryContainer } from '../../shared/infraestructure/respository-container';
-import { CreateCategory } from '../application/use-case/create-category.use-case';
-import { DeleteCategory } from '../application/use-case/delete-category.use-case';
-import { GetCategories } from '../application/use-case/get-categories.use-case';
-import { GetCategoryByName } from '../application/use-case/get-category-by-name.use-case';
-import { UpdateCategory } from '../application/use-case/update-category.use-case';
-
-
+import { CreateCategory } from '../application/use-cases/create-category.use-case';
+import { DeleteCategory } from '../application/use-cases/delete-category.use-case';
+import { GetCategories } from '../application/use-cases/get-categories.use-case';
+import { GetCategoryByName } from '../application/use-cases/get-category-by-name.use-case';
+import { UpdateCategory } from '../application/use-cases/update-category.use-case';
 
 const repositories = new RepositoryContainer();
 

@@ -1,69 +1,71 @@
-import { Exception } from "../../../shared/helpers/exception-message";
-import { ISupplier, ISupplierResponse, IUpdateSupplier } from "../../../shared/interfaces/suppliers";
-import { Supplier } from "../models/supplier.schema";
+import { Exception } from '../../../shared/helpers/exception-message';
+import { ISupplier } from '../../../shared/interfaces/supplier';
+import { Supplier } from '../models/supplier.schema';
 
 export class SupplierRepository {
-    public async getSupplierById(id: number): Promise<ISupplierResponse> {
-        try {
-            const supplier = await Supplier.findById(id);
-            if (!supplier) throw new Exception('Supplier not found.', 404);
-            const { name, contactEmail, phoneNumber, address, city, country } = supplier;
-            return {
-                id,
-                name,
-                contactEmail,
-                phoneNumber,
-                address,
-                city,
-                country
-            };
-        } catch (error) {
-            throw new Exception('Error fetching supplier.', 500);
-        }
-    }
+  public async getSupplierByNIT(nit: string): Promise<ISupplier> {
+    try {
+      const supplier = await Supplier.findOne({ nit });
 
-    public async getAllSuppliers(): Promise<ISupplierResponse[]> {
-        try {
-            const suppliers = await Supplier.find();
-            if (suppliers.length === 0) throw new Exception('No suppliers found.', 404);
-            return suppliers.map((s) => ({
-                id: s.id,
-                name: s.name,
-                contactEmail: s.contactEmail,
-                phoneNumber: s.phoneNumber,
-                address: s.address,
-                city: s.city,
-                country: s.country
-            }));
-        } catch (error) {
-            throw new Exception('Error fetching suppliers.', 500);
-        }
+      return supplier;
+    } catch (error) {
+      throw error;
     }
+  }
 
-    public async createSupplier(supplierData: ISupplier): Promise<void> {
-        try {
-            const newSupplier = new Supplier(supplierData);
-            await newSupplier.save();
-        } catch (error) {
-            throw new Exception('Error creating supplier.', 500);
-        }
+  public async getSupplierById(id: number): Promise<ISupplier | null> {
+    try {
+      const supplier = await Supplier.findOne({ id });
+
+      return supplier;
+    } catch (error) {
+      throw error;
     }
+  }
 
-   public async updateSupplier(id: number, supplierData: IUpdateSupplier): Promise<void> {
-       try {
-         await Supplier.findByIdAndUpdate(id, { $set: supplierData }, { new: true });
-       } catch (error) {
-         console.error(error);
-         throw error;
-       }
-     }
-
-    public async deleteSupplier(id: number): Promise<void> {
-        try {
-            const deletedSupplier = await Supplier.findByIdAndDelete(id);
-            if (!deletedSupplier) throw new Exception('Supplier not found for deletion.', 404);
-        } catch (error) {
-            throw new Exception('Error deleting supplier.', 500);
-        }
+  public async createSupplier(supplier: ISupplier): Promise<void> {
+    try {
+      const newUser = new Supplier(supplier);
+      await newUser.save();
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
+  }
+
+  public async updateSupplier(id: number, supplier: ISupplier): Promise<void> {
+    try {
+      await Supplier.findByIdAndUpdate(id, { $set: supplier }, { new: true });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  public async deleteSupplier(id: number): Promise<void> {
+    try {
+      await Supplier.findByIdAndDelete(id);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  public async getAllSuppliers(): Promise<ISupplier[]> {
+    try {
+      const suppliers = await Supplier.find();
+      if (suppliers.length === 0)
+        throw new Exception('No suppliers found.', 404);
+      return suppliers.map((c) => ({
+        id: c.id,
+        nit: c.nit,
+        email: c.email,
+        isActive: c.isActive,
+        name: c.name,
+      }));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }

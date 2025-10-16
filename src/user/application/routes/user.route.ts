@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import { UserController } from '../controller/users-controller';
-import { validateUpdate } from '../middlewares/update-user.validator';
-import { validateId } from '../../../shared/helpers/get-id.validator';
-import { validateCreate } from '../middlewares/create-user.validator';
+import { validateUserInfo } from '../middlewares/user.validator';
 import { validateAuthentication } from '../middlewares/authenticate-user.validator';
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
+import { UserController } from '../controller/users.controller';
+import {
+  validateIdNumberBody,
+  validateIdNumberParameter,
+} from '../../../shared/helpers/get-id-number.validator';
 const controller = new UserController();
 const userRouter: Router = Router();
 const authRouter: Router = Router();
@@ -16,14 +18,14 @@ const authRouter: Router = Router();
  *     summary: Get user by ID
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []   
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
- *           type: string
- *         example: 64a8f6e2c123456789abcd01
+ *           type: number
+ *         example: 1
  *     responses:
  *       200:
  *         content:
@@ -34,11 +36,16 @@ const authRouter: Router = Router();
  *               lastName: Doe
  *               email: john.doe@example.com
  *               address: "123 Main Street"
- *               mobilePhone: "+1 555 123 4567"
+ *               mobilePhone: "312XXXXXXX"
  *               city: "New York"
  *               zipCode: 10001
  */
-userRouter.get('/:id', validateId, verifyAuthToken, controller.getById);
+userRouter.get(
+  '/:id',
+  validateIdNumberParameter,
+  verifyAuthToken,
+  controller.getById,
+);
 
 /**
  * @swagger
@@ -67,7 +74,7 @@ userRouter.get('/:id', validateId, verifyAuthToken, controller.getById);
  *         description: User created.
  */
 
-userRouter.post('/', validateCreate, controller.create);
+userRouter.post('/', validateUserInfo, controller.create);
 
 /**
  * @swagger
@@ -76,18 +83,18 @@ userRouter.post('/', validateCreate, controller.create);
  *     summary: Update an existing user
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []   
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           example:
- *             id: "64a8f6e2c123456789abcd01"
+ *             id: 1
  *             firstName: John
  *             lastName: Doe
  *             email: john.doe@example.com
  *             address: "123 Main Street"
- *             mobilePhone: "+1 555 123 4567"
+ *             mobilePhone: "312XXXXXXX"
  *             city: "New York"
  *             zipCode: 10001
  *             isActive: true
@@ -96,7 +103,13 @@ userRouter.post('/', validateCreate, controller.create);
  *       200:
  *         description: User updated.
  */
-userRouter.put('/', validateUpdate, verifyAuthToken, controller.update);
+userRouter.put(
+  '/',
+  validateUserInfo,
+  validateIdNumberBody,
+  verifyAuthToken,
+  controller.update,
+);
 
 /**
  * @swagger
@@ -111,15 +124,15 @@ userRouter.put('/', validateUpdate, verifyAuthToken, controller.update);
  *         name: id
  *         required: true
  *         schema:
- *           type: string
- *         example: 64a8f6e2c123456789abcd01
+ *           type: number
+ *         example: 1
  *     responses:
  *       200:
  *         content:
  *           application/json:
  *             example:
- *               - id: "64a8f6e2c123456789abcd01"
- *                 userId: "64a8f6e2c123456789abcd01"
+ *               - id: "1"
+ *                 userId: "1"
  *                 count: 3
  *                 total: 150000
  *                 createdAt: "2025-10-05T10:00:00Z"
@@ -129,14 +142,14 @@ userRouter.put('/', validateUpdate, verifyAuthToken, controller.update);
  */
 userRouter.get(
   '/:id/orders',
-  validateId,
+  validateIdNumberParameter,
   verifyAuthToken,
   controller.getOrdersById,
 );
 
 /**
  * @swagger
- * /auth:
+ * /auth/login:
  *   post:
  *     summary: Authenticate user and return JWT token
  *     tags: [Auth]
@@ -151,14 +164,72 @@ userRouter.get(
  *       200:
  *         content:
  *           application/json:
- *             example:
- *               id: "64a8f6e2c123456789abcd01"
- *               email: john.doe@example.com
- *               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
- *               firstname: John
- *               lastname: Doe
- *               isAdmin: false
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: "1"
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 isAdmin:
+ *                   type: boolean
+ *                   example: false
+ *                 accessToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 refreshToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  */
-authRouter.post('/', validateAuthentication, controller.auth);
+authRouter.post('/login', validateAuthentication, controller.auth);
+
+/**
+ * @swagger
+ * /auth/refresh:
+ *   post:
+ *     summary: Refresh JWT tokens using a valid refresh token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   example: "1"
+ *                 email:
+ *                   type: string
+ *                   example: john.doe@example.com
+ *                 isAdmin:
+ *                   type: boolean
+ *                   example: false
+ *                 accessToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *                 refreshToken:
+ *                   type: string
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *       400:
+ *         description: Missing refresh token
+ *       401:
+ *         description: Invalid or expired refresh token
+ */
+authRouter.post('/refresh', controller.refresh);
 
 export { userRouter, authRouter };

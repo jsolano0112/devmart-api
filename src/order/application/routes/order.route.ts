@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { OrderController } from '../controller/orders-controller';
-import { validateId } from '../../../shared/helpers/get-id.validator';
-import { validateCreateOrder } from '../middlewares/create-order.validator';
-import { validateUpdateOrder } from '../middlewares/update.order.validator';
+import { OrderController } from '../controller/orders.controller';
+import { validateOrderInformation } from '../middlewares/order.validator';
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
+import { validateIdNumberBody, validateIdNumberParameter } from '../../../shared/helpers/get-id-number.validator';
 
 const controller = new OrderController();
 const orderRouter: Router = Router();
@@ -28,13 +27,13 @@ const orderRouter: Router = Router();
  *         content:
  *           application/json:
  *             example:
- *               id: "64b9e8f2c987654321abcd09"
- *               userId: "64b9e8f2c987654321abcd01"
+ *               id: 1
+ *               userId: 1
  *               products:
- *                 - id: "p001"
+ *                 - id: 1
  *                   count: 2
  *                   sellerId: 101
- *                 - id: "p002"
+ *                 - id: 2
  *                   count: 1
  *                   sellerId: 202
  *               paymentMethod: 1
@@ -43,7 +42,7 @@ const orderRouter: Router = Router();
  *               createdAt: "2025-10-05T14:25:00Z"
  *               updatedAt: "2025-10-05T14:35:00Z"
  */
-orderRouter.get('/:id', validateId, verifyAuthToken, controller.getById);
+orderRouter.get('/:id', validateIdNumberParameter,verifyAuthToken,  controller.getById);
 
 /**
  * @swagger
@@ -61,12 +60,12 @@ orderRouter.get('/:id', validateId, verifyAuthToken, controller.getById);
  *           schema:
  *             $ref: '#/components/schemas/Order'
  *           example:
- *             userId: "64b9e8f2c987654321abcd01"
+ *             userId: 1
  *             products:
- *               - id: "p001"
+ *               - id: 1
  *                 count: 2
  *                 sellerId: 101
- *               - id: "p002"
+ *               - id: 2
  *                 count: 1
  *                 sellerId: 202
  *             paymentMethod: 1
@@ -75,7 +74,7 @@ orderRouter.get('/:id', validateId, verifyAuthToken, controller.getById);
  *       201:
  *         description: Order created.
  */
-orderRouter.post('/', validateCreateOrder, verifyAuthToken, controller.create);
+orderRouter.post('/', validateOrderInformation, verifyAuthToken,  controller.create);
 
 /**
  * @swagger
@@ -93,9 +92,9 @@ orderRouter.post('/', validateCreateOrder, verifyAuthToken, controller.create);
  *           schema:
  *             $ref: '#/components/schemas/UpdateOrder'
  *           example:
- *             id: "64b9e8f2c987654321abcd09"
+ *             id: 1
  *             products:
- *               - id: "p001"
+ *               - id: 1
  *                 count: 3
  *                 sellerId: 101
  *             paymentMethod: 2
@@ -104,7 +103,7 @@ orderRouter.post('/', validateCreateOrder, verifyAuthToken, controller.create);
  *       200:
  *         description: Order updated.
  */
-orderRouter.put('/', validateUpdateOrder, verifyAuthToken, controller.update);
+orderRouter.put('/', validateOrderInformation, validateIdNumberBody,verifyAuthToken,   controller.update);
 
 /**
  * @swagger
@@ -125,6 +124,6 @@ orderRouter.put('/', validateUpdateOrder, verifyAuthToken, controller.update);
  *       200:
  *         description: Order deleted.
  */
-orderRouter.delete('/:id', validateId, verifyAuthToken, controller.delete);
+orderRouter.delete('/:id', validateIdNumberParameter, verifyAuthToken,  controller.delete);
 
 export { orderRouter };
