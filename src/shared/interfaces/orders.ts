@@ -1,41 +1,48 @@
+import { OrderStatus } from './order-status';
+
 export interface IOrderResponse {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
   products: IProduct[];
   paymentMethod: number;
   total: number;
   address: string;
   createdAt: Date;
   updatedAt: Date;
+  status: OrderStatus;
 }
 
 export interface IUserOrderResponse {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
   count: number;
   total: number;
   createdAt: Date;
   updatedAt: Date;
+  status: OrderStatus;
 }
 
 export interface IOrder {
-  userId: string;
+  id: number;
+  userId: number;
   products: IProduct[];
   paymentMethod: number;
   address: string;
   createdAt?: Date;
   updatedAt?: Date;
+  status: OrderStatus;
 }
 
 export interface IUpdateOrder {
-  id: string;
+  id: number;
   products: IProduct[];
   paymentMethod: number;
   address: string;
+  status: OrderStatus;
 }
 
 export interface IProduct {
-  id: string;
+  sku: string;
   count: number;
   sellerId: number;
 }

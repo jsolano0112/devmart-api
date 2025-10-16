@@ -6,6 +6,7 @@ const notificationSchema = new Schema<INotification>(
     userId: { type: String, required: true },
     message: { type: String, required: true },
     type: { type: String, required: false },
+    read: { type: Boolean, default: false },
   },
   { timestamps: true },
 );

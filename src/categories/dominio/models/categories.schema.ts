@@ -1,15 +1,13 @@
-import { model, Schema, connection } from 'mongoose';
-import { ICategories } from './interfaces/categories';
+import { Schema, model, connection } from 'mongoose';
+import { ICategories } from '../../../shared/interfaces/categories';
 
-// mongoose-sequence exports a CommonJS factory. Use require(...) to obtain a callable function
 const AutoIncrement = require('mongoose-sequence')(connection);
 
-const categorySchema = new Schema<ICategories>({
+const CategorySchema = new Schema<ICategories>({
   id: { type: Number, unique: true },
   name: { type: String, required: true },
 });
 
-// Provide a unique `id` for the counter so different schemas don't collide
-categorySchema.plugin(AutoIncrement, { inc_field: 'id', id: 'Category_id' });
+CategorySchema.plugin(AutoIncrement, { inc_field: 'id' });
 
-export const Category = model<ICategories>('Category', categorySchema);
+export const Category = model<ICategories>('Category', CategorySchema);
