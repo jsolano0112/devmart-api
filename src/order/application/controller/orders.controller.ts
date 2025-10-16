@@ -10,7 +10,7 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      const order = await OrderServiceContainer.getOrderById.run(id);
+      const order = await OrderServiceContainer.getOrderById.run(Number(id));
       return response.status(200).json(order);
     } catch (error) {
       next(error);
@@ -18,7 +18,7 @@ export class OrderController {
   }
 
   public async create(
-    request: Request<{}, {}, IOrder>,
+    request: Request<null, void, IOrder>,
     response: Response,
     next: NextFunction,
   ) {
@@ -31,7 +31,7 @@ export class OrderController {
   }
 
   public async update(
-    request: Request<{}, {}, IUpdateOrder>,
+    request: Request<null, void, IUpdateOrder>,
     response: Response,
     next: NextFunction,
   ) {
@@ -50,8 +50,22 @@ export class OrderController {
   ) {
     try {
       const { id } = request.params;
-      await OrderServiceContainer.deleteOrder.run(id);
+      await OrderServiceContainer.deleteOrder.run(Number(id));
       return response.status(200).json('Order deleted.');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async cancel(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { id } = request.params;
+      await OrderServiceContainer.cancelOrder.run(Number(id));
+      return response.status(200).json('Order cancelled.');
     } catch (error) {
       next(error);
     }

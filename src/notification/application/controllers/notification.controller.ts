@@ -8,9 +8,10 @@ export class NotificationController {
     next: NextFunction,
   ) {
     try {
-      const { id } = request.params;
-      const notifications =
-        await NotificationServiceContainer.getByUser.run(id);
+      const { userId } = request.params;
+      const notifications = await NotificationServiceContainer.getByUser.run(
+        Number(userId),
+      );
       return response.status(200).json(notifications);
     } catch (error) {
       next(error);
@@ -18,7 +19,7 @@ export class NotificationController {
   }
 
   public async create(
-    request: Request<{}, {}, INotification>,
+    request: Request<null, void, INotification>,
     response: Response,
     next: NextFunction,
   ) {
@@ -30,15 +31,15 @@ export class NotificationController {
     }
   }
 
-  public async delete(
+  public async markAsRead(
     request: Request,
     response: Response,
     next: NextFunction,
   ) {
     try {
       const { id } = request.params;
-      await NotificationServiceContainer.delete.run(id);
-      return response.status(200).json('Notification deleted.');
+      await NotificationServiceContainer.markAsRead.run(id);
+      return response.status(200).json('Notification marked as read.');
     } catch (error) {
       next(error);
     }

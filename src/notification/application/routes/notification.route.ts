@@ -9,7 +9,7 @@ const notificationRouter: Router = Router();
 
 /**
  * @swagger
- * /notifications/getByUser/{id}:
+ * /notifications/getByUser/{userId}:
  *   get:
  *     summary: Get all notifications by user ID
  *     description: Returns all notifications associated with the given user ID.
@@ -18,7 +18,7 @@ const notificationRouter: Router = Router();
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
  *           type: string
@@ -79,28 +79,25 @@ notificationRouter.post(
 
 /**
  * @swagger
- * /notifications/{id}:
- *   delete:
- *     summary: Delete a notification by ID
+ * /notifications/{id}/read:
+ *   patch:
+ *     summary: Mark a notification as read
  *     tags: [Notifications]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
+ *         description: Notification ID
  *         schema:
  *           type: string
- *         description: Notification ID
  *     responses:
  *       200:
- *         description: Notification deleted.
+ *         description: Notification marked as read.
+ *       404:
+ *         description: Notification not found.
+ *       500:
+ *         description: Server error.
  */
-notificationRouter.delete(
-  '/:id',
-  validateId,
-  verifyAuthToken,
-  controller.delete,
-);
+notificationRouter.patch('/:id/read', controller.markAsRead);
 
 export { notificationRouter };

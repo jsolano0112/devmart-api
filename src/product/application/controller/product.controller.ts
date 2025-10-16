@@ -21,7 +21,7 @@ export class ProductController {
   }
 
   public async create(
-    request: Request<{}, {}, IProduct>,
+    request: Request<null, void, IProduct>,
     response: Response,
     next: NextFunction,
   ) {

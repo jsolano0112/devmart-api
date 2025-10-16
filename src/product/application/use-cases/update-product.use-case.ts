@@ -22,7 +22,9 @@ export class updateProduct {
       images: product.images ? product.images : dbProduct.images,
       sku: product.sku ? product.sku : dbProduct.sku,
       category: product.category ? product.category : dbProduct.category,
-      supplierId: product.supplierId ? product.supplierId : dbProduct.supplierId,
+      supplierId: product.supplierId
+        ? product.supplierId
+        : dbProduct.supplierId,
     };
     await this.repo.products.updateProduct(product.sku, productUpdated);
   }
