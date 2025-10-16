@@ -4,7 +4,6 @@ import { validateAuthentication } from '../middlewares/authenticate-user.validat
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
 import { UserController } from '../controller/users.controller';
 import {
-  validateIdNumberBody,
   validateIdNumberParameter,
 } from '../../../shared/helpers/get-id-number.validator';
 const controller = new UserController();
@@ -104,16 +103,16 @@ userRouter.post('/', validateUserInfo, controller.create);
  *         description: User updated.
  */
 userRouter.put(
-  '/',
+  '/:id',
   validateUserInfo,
-  validateIdNumberBody,
+  validateIdNumberParameter,
   verifyAuthToken,
   controller.update,
 );
 
 /**
  * @swagger
- * /users/{id}/orders:
+ * /users/{userId}/orders:
  *   get:
  *     summary: Get all orders for a specific user
  *     tags: [Users]
@@ -141,7 +140,7 @@ userRouter.put(
  *         description: No orders found
  */
 userRouter.get(
-  '/:id/orders',
+  '/:userId/orders',
   validateIdNumberParameter,
   verifyAuthToken,
   controller.getOrdersById,

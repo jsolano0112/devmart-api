@@ -6,7 +6,6 @@ const productSchema = new Schema<IProduct>(
   {
     sku: { type: String, required: true },
     count: { type: Number, required: true },
-    sellerId: { type: Number, required: true },
   },
   { _id: false },
 );

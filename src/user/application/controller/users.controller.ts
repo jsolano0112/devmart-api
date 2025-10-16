@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserServiceContainer } from '../../infraestructure/user-service-container';
 import {
-  IUpdateUser,
   IUser,
   IUserCredentials,
 } from '../../../shared/interfaces/users';
@@ -35,12 +34,13 @@ export class UserController {
   }
 
   public async update(
-    request: Request<null, void, IUpdateUser>,
+    request: Request,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await UserServiceContainer.updateUser.run(request.body);
+      const { id } = request.params;
+      await UserServiceContainer.updateUser.run(request.body, Number(id));
       return response.status(200).json('User updated.');
     } catch (error) {
       next(error);
@@ -53,9 +53,9 @@ export class UserController {
     next: NextFunction,
   ) {
     try {
-      const { id } = request.params;
+      const { userId } = request.params;
       const userOrders = await UserServiceContainer.getUserOrders.run(
-        Number(id),
+        Number(userId),
       );
       if (userOrders.length === 0) {
         return response.status(204).json();

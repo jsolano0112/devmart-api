@@ -7,7 +7,8 @@
     "start": "ts-node-dev --respawn --transpile-only src/app.ts",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "format": "prettier --write \"**/*.{js,ts,json,css,md}\""
+    "format": "prettier --write \"**/*.{js,ts,json,css,md}\"",
+    "seed": "ts-node src/shared/seeders/seeders.service.ts"
   },
   "keywords": [],
   "author": "",
