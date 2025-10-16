@@ -119,4 +119,14 @@ export class ShipmentRepository {
       throw error;
     }
   }
+
+  public async deleteShipment(trackingId: string): Promise<void> {
+    try {
+      const result = await Shipment.findOneAndDelete({ trackingId });
+      if (!result) throw new Exception('Shipment not found.', 404);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+    }
 }

@@ -2,6 +2,7 @@ import { Exception } from '../../../shared/helpers/exception-message';
 import {
   IProduct,
   IProductResponse,
+  IUpdateProduct,
 } from '../../../shared/interfaces/products';
 import { Product } from '../models/product.schema';
 
@@ -39,7 +40,7 @@ export class ProductRepository {
     }
   }
 
-  public async getProductBySku(sku: string): Promise<IProductResponse> {
+  public async getProductBySku(sku: string): Promise<IProductResponse | null> {
     try {
       return await Product.findOne({ sku });
     } catch (error) {
@@ -47,16 +48,7 @@ export class ProductRepository {
     }
   }
 
-  public async getProductsBySkus(skus: string[]) {
-    try {
-      return await Product.find({ sku: { $in: skus } }).lean();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-
-  public async updateProduct(sku: string, product: IProduct): Promise<void> {
+  public async updateProduct(sku: string, product: IUpdateProduct): Promise<void> {
     try {
       await Product.findByIdAndUpdate(sku, { $set: product }, { new: true });
     } catch (error) {

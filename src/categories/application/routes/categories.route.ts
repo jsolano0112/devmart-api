@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateCreateCategory } from '../middlewares/create-category.validator';
-import { categoriesController } from '../controller/categories.controller';
+import { categoriesController } from '../controller/categories-controller';
 
 const controller = new categoriesController();
 const categoryRouter: Router = Router();
@@ -49,7 +49,7 @@ categoryRouter.get('/:name', controller.getCategoryByName);
  *       200:
  *         description: Category created successfully
  */
-categoryRouter.post('/', validateCreateCategory, controller.createCatrgory);
+categoryRouter.post('/', validateCreateCategory, controller.createCategory);
 
 /**
  * @swagger
@@ -74,5 +74,7 @@ categoryRouter.post('/', validateCreateCategory, controller.createCatrgory);
  *         description: No categories found
  */
 categoryRouter.get('/', controller.getAllCategories);
+categoryRouter.put('/:id', controller.updateCategory);
+categoryRouter.delete('/:id', controller.deleteCategoryById);
 
 export { categoryRouter };

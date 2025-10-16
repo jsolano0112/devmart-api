@@ -5,9 +5,9 @@ import { IShipmentUpdate } from '../../../shared/interfaces/shipments';
 export class updateShipment {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(shipment: IShipmentUpdate): Promise<void> {
+  async run(shipment: IShipmentUpdate, trackingId: string): Promise<void> {
     const dbShipment = await this.repo.shipments.getShipmentBytrackingId(
-      shipment.trackingId,
+      trackingId,
     );
     if (!dbShipment) new Exception('Shipment not found', 404);
 

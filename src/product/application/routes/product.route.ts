@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { ProductController } from '../controller/product.controller';
 import { validateSku } from '../../../shared/helpers/get-sku.validator';
 import { validateProductInfo } from '../middlewares/product.validator';
+import { ProductController } from '../controller/product.controller';
 
 const controller = new ProductController();
 const productRouter: Router = Router();

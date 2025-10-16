@@ -5,8 +5,8 @@ import { ISupplier } from '../../../shared/interfaces/supplier';
 export class UpdateSupplier {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(supplier: ISupplier): Promise<ISupplier> {
-    const dbSupplier = await this.repo.suppliers.getSupplierByNIT(supplier.nit);
+  async run(supplier: ISupplier, nit: string): Promise<ISupplier> {
+    const dbSupplier = await this.repo.suppliers.getSupplierByNIT(nit);
 
     if (!dbSupplier) {
       throw new Exception('Supplier not found.', 404);
