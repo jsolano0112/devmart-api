@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import { dbConnection } from './shared/infraestructure/db/mongodb.config';
 import { errorHandler } from './shared/helpers/error-handler';
 import { setupSwagger } from './swagger';
+import { Scheduler } from './shared/helpers/scheduler/clean-pending-orders';
 
 const PORT: number = 3000;
 const app: Application = express();
@@ -20,6 +21,12 @@ app.use(errorHandler);
 //DB CONNECTION
 dbConnection();
 //END - DB CONNECTION
+
+
+//SCHEDULER
+const scheduler = new Scheduler();
+scheduler.start();
+//END - SCHEDULER
 
 //SOCKET
 io.on('connection', (socket) => {
