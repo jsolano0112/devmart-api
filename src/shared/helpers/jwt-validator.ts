@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { verifyToken } from '../infraestructure/auth/jwt-service';
+import { verifyAccessToken } from '../infraestructure/auth/jwt-service';
 import { Exception } from '../helpers/exception-message';
 
 export const verifyAuthToken = (
@@ -12,7 +12,7 @@ export const verifyAuthToken = (
     if (!header) throw new Exception('No token provided', 401);
 
     const token = header.replace(/^Bearer\s+/i, '');
-    verifyToken(token);
+    verifyAccessToken(token);
 
     next();
   } catch (error) {
