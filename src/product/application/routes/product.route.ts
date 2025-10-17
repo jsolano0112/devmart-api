@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { validateSku } from '../../../shared/helpers/get-sku.validator';
 import { validateProductInfo } from '../middlewares/product.validator';
 import { ProductController } from '../controller/product.controller';
+import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
 
 const controller = new ProductController();
 const productRouter: Router = Router();
@@ -63,7 +64,7 @@ productRouter.get('/:sku', validateSku, controller.getBySku);
  *       201:
  *         description: Product created successfully
  */
-productRouter.post('/', validateProductInfo, controller.create);
+productRouter.post('/', validateProductInfo, verifyAuthToken, controller.create);
 
 /**
  * @swagger
@@ -118,15 +119,13 @@ productRouter.get('/', controller.getProducts);
  *       content:
  *         application/json:
  *           example:
- *             id: 5
  *             name: "Laptop ASUS VivoBook Pro"
  *             description: "High-performance laptop with 16GB RAM"
  *             price: 4200000
  *             stock: 15
  *             images: "https://cdn.mystore.com/products/asus-vivobook-pro.jpg"
- *             sku: "64b9e8f2c987654321"
  *             supplierId: 1
- *             category: "Laptops"
+ *             categoryId: 1
  *     responses:
  *       200:
  *         description: Product updated successfully
@@ -141,11 +140,11 @@ productRouter.get('/', controller.getProducts);
  *               images: "https://cdn.mystore.com/products/asus-vivobook-pro.jpg"
  *               sku: "64b9e8f2c987654321"
  *               supplierId: 1
- *               category: "Laptops"
+ *               categoryId: 1
  *       404:
  *         description: Product not found
  */
-productRouter.put('/:sku', validateProductInfo, controller.update);
+productRouter.put('/:sku', validateProductInfo,verifyAuthToken, controller.update);
 
 /**
  * @swagger
@@ -171,6 +170,6 @@ productRouter.put('/:sku', validateProductInfo, controller.update);
  *       404:
  *         description: Product not found
  */
-productRouter.delete('/:sku', validateSku, controller.delete);
+productRouter.delete('/:sku', validateSku,verifyAuthToken, controller.delete);
 
 export { productRouter };

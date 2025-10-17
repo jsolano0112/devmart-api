@@ -125,6 +125,32 @@ shipmentRouter.get('/', shipment.getShipments);
  *         description: Shipment updated successfully
  */
 shipmentRouter.put('/:trackingId', validateUpdateShipment, shipment.update);
+
+
+/**
+ * @swagger
+ * /shipments/{trackingNumber}:
+ *   delete:
+ *     summary: Delete a shipment
+ *     description: Delete a shipment from the system using its unique tracking number.
+ *     tags: [Shipments]
+ *     parameters:
+ *       - in: path
+ *         name: trackingNumber
+ *         required: true
+ *         schema:
+ *           type: string
+ *         example: "TRK-20251011-00046"
+ *     responses:
+ *       200:
+ *         description: Shipment deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Shipment deleted."
+ *       404:
+ *         description: Shipment not found
+ */
 shipmentRouter.delete('/:trackingNumber', validateTrackingNumber, shipment.delete);
 
 export { shipmentRouter };
