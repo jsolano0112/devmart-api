@@ -8,7 +8,7 @@ import {
 
 export class ShipmentController {
 
-  public async getByTrackingId(
+  public async GetShipmentByTrackingId(
     request: Request,
     response: Response,
     next: NextFunction,
@@ -33,7 +33,7 @@ export class ShipmentController {
   ) {
     try {
       await ShipmentServiceContainer.createShipment.run(request.body);
-      return response.status(200).json('Shipment created succesfully.');
+      return response.status(200).json('Shipment created successfully.');
     } catch (error) {
       next(error);
     }
@@ -47,7 +47,7 @@ export class ShipmentController {
     try {
       const { trackingId } = request.params;
       await ShipmentServiceContainer.updateShipment.run(request.body, trackingId);
-      return response.status(200).json('Shipment updated succesfully.');
+      return response.status(200).json('Shipment updated successfully.');
     } catch (error) {
       next(error);
     }

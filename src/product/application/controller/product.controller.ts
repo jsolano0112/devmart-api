@@ -3,6 +3,7 @@ import { ProductServiceContainer } from '../../infraestructure/product-service-c
 import { IProducParams, IProduct, IUpdateProduct } from '../../../shared/interfaces/products';
 
 export class ProductController {
+
   public async getBySku(
     request: Request,
     response: Response,
@@ -27,7 +28,7 @@ export class ProductController {
   ) {
     try {
       await ProductServiceContainer.createProduct.run(request.body);
-      return response.status(200).json('Product created succesfully.');
+      return response.status(200).json('Product created successfully.');
     } catch (error) {
       next(error);
     }
@@ -41,7 +42,7 @@ export class ProductController {
     try {
       const { sku } = request.params;
       await ProductServiceContainer.updateProduct.run(request.body, sku);
-      return response.status(200).json('Product updated succesfully.');
+      return response.status(200).json('Product updated successfully.');
     } catch (error) {
       next(error);
     }
@@ -53,11 +54,28 @@ export class ProductController {
     next: NextFunction,
   ) {
     try {
-      const products = await ProductServiceContainer.getProducts.run();
-      if (products.length === 0) {
+      const page = parseInt(request.query.page as string) || 1;
+      const limit = parseInt(request.query.limit as string) || 10;
+      const search = (request.query.search as string) || '';
+
+      const offset = (page - 1) * limit;
+
+      const result  = await ProductServiceContainer.getProducts.run({
+        limit,
+        offset,
+        search,
+      });
+      if (result.products.length === 0) {
         return response.status(204).json();
       }
-      return response.status(200).json(products);
+      return response.status(200).json({
+        data: result.products,
+        pagination: {
+          currentPage: page,
+          totalPages: Math.ceil(result.total / limit),
+          totalItems: result.total,
+        },
+      });
     } catch (error) {
       next(error);
     }
@@ -71,7 +89,7 @@ export class ProductController {
     try {
       const { sku } = request.params;
       await ProductServiceContainer.deleteProduct.run(sku);
-      return response.status(200).json('Product deleted succesfully.');
+      return response.status(200).json('Product deleted successfully.');
     } catch (error) {
       next(error);
     }

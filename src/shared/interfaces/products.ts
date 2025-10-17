@@ -8,6 +8,10 @@ export interface IProductResponse {
   supplierId: number;
   categoryId: number;
 }
+export interface IGetProductsResult {
+  products: IProduct[];
+  total: number;
+}
 
 export interface IProduct {
   name: string;
@@ -32,4 +36,11 @@ export interface IUpdateProduct {
 
 export interface IProducParams {
   sku: string;
+}
+
+
+export interface IGetProductsPagination {
+  limit: number;
+  offset: number;
+  search?: string;
 }

@@ -34,7 +34,6 @@ export interface IOrder {
 }
 
 export interface IUpdateOrder {
-  id: number;
   products: IProduct[];
   paymentMethod: number;
   address: string;

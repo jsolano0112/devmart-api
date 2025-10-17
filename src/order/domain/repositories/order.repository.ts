@@ -1,5 +1,5 @@
 import { OrderStatus } from '../../../shared/interfaces/order-status';
-import { IOrder, IOrderResponse } from '../../../shared/interfaces/orders';
+import { IOrder, IOrderResponse, IUpdateOrder } from '../../../shared/interfaces/orders';
 import { OrderSchema } from '../models/order.schema';
 
 export class OrderRepository {
@@ -13,7 +13,7 @@ export class OrderRepository {
     }
   }
 
-  public async updateOrder(id: number, order: IOrder): Promise<void> {
+  public async updateOrder(id: number, order: IUpdateOrder): Promise<void> {
     try {
       await OrderSchema.findByIdAndUpdate(id, { $set: order }, { new: true });
     } catch (error) {
@@ -31,7 +31,7 @@ export class OrderRepository {
     }
   }
 
-  public async getOrder(id: number): Promise<IOrderResponse> {
+  public async getOrder(id: number): Promise<IOrderResponse > {
     try {
       return await OrderSchema.findById(id);
     } catch (error) {

@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { CategoriesServiceContainer } from '../../infraestructure/categories-service-container';
 import { ICategories, ICategoriesParams, IUpdateCategory } from '../../../shared/interfaces/categories';
 
-export class categoriesController {
+export class CategoriesController {
+
   public async getAllCategories(
     request: Request,
     response: Response,
@@ -19,7 +20,7 @@ export class categoriesController {
     }
   }
 
-  public async createCatrgory(
+  public async createCategory(
     request: Request<null, void, ICategories>,
     response: Response,
     next: NextFunction,
@@ -38,9 +39,9 @@ export class categoriesController {
     next: NextFunction,
   ) {
     try {
+
       const { name } = request.params;
-      const category =
-        await CategoriesServiceContainer.getCategoryByName.run(name);
+      const category = await CategoriesServiceContainer.getCategoryByName.run(name);
       if (category === null) {
         return response.status(204).json();
       }
@@ -58,7 +59,7 @@ export class categoriesController {
             try {
               const { id } = request.params;
               await CategoriesServiceContainer.updateCategory.run(request.body, id);
-              return response.status(200).json();
+              return response.status(200).json('Category updated.');
             } catch (error) {
               next(error);
             }
@@ -72,7 +73,7 @@ export class categoriesController {
             try {
               const { id } = request.params;
               await CategoriesServiceContainer.deleteCategory.run(id);
-              return response.status(200).json();
+              return response.status(200).json('Category deleted.');
             } catch (error) {
               next(error);
             }
