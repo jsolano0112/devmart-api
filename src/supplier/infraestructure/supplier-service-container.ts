@@ -1,9 +1,9 @@
 import { RepositoryContainer } from '../../shared/infraestructure/respository-container';
-import { CreateSupplier } from '../domain/use-cases/create-supplier.use.case';
-import { DeleteSupplier } from '../domain/use-cases/delete-supplier.use.case';
-import { GetSupplierByNIT } from '../domain/use-cases/get-supplier.use.case';
-import { GetAllSuppliers } from '../domain/use-cases/get-suppliers.use.case';
-import { UpdateSupplier } from '../domain/use-cases/update-supplier.use.case';
+import { CreateSupplier } from '../application/use-cases/create-supplier.use.case';
+import { DeleteSupplier } from '../application/use-cases/delete-supplier.use.case';
+import { GetSupplierByNIT } from '../application/use-cases/get-supplier.use.case';
+import { GetAllSuppliers } from '../application/use-cases/get-suppliers.use.case';
+import { UpdateSupplier } from '../application/use-cases/update-supplier.use.case';
 
 const repositories = new RepositoryContainer();
 
