@@ -128,10 +128,10 @@ npm run seed
 
 ---
 
-## 🌱 Seeds
+## 👁‍🗨 Tests
 
 ```
-npm run seed
+npm run test
 ```
 
 ```
