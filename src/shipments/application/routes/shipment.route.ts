@@ -40,7 +40,7 @@ const shipmentRouter: Router = Router();
 shipmentRouter.get(
   '/:trackingNumber',
   validateTrackingNumber,
-  shipment.getByTrackingId,
+  shipment.GetShipmentByTrackingId,
 );
 
 /**

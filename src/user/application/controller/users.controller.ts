@@ -4,6 +4,7 @@ import {
   IUpdateUser,
   IUser,
   IUserCredentials,
+  IUserParams,
 } from '../../../shared/interfaces/users';
 
 export class UserController {
@@ -35,12 +36,14 @@ export class UserController {
   }
 
   public async update(
-    request: Request<null, void, IUpdateUser>,
+    request: Request<IUserParams, void, IUpdateUser>,
     response: Response,
     next: NextFunction,
   ) {
     try {
-      await UserServiceContainer.updateUser.run(request.body);
+
+      const { id } = request.params;
+      await UserServiceContainer.updateUser.run(request.body, Number(id));
       return response.status(200).json('User updated.');
     } catch (error) {
       next(error);

@@ -115,3 +115,11 @@ npm start
 ```
 npm run format
 ```
+
+```
+npm install --save-dev jest
+```
+```
+npm install -D node-mocks-http
+
+````

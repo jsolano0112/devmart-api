@@ -36,7 +36,8 @@ export class OrderController {
     next: NextFunction,
   ) {
     try {
-      await OrderServiceContainer.updateOrder.run(request.body);
+      const { id } = request.params;
+      await OrderServiceContainer.updateOrder.run(request.body, id);
       return response.status(200).json('Order Updated');
     } catch (error) {
       next(error);

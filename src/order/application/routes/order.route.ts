@@ -103,7 +103,7 @@ orderRouter.post('/', validateOrderInformation, verifyAuthToken,  controller.cre
  *       200:
  *         description: Order updated.
  */
-orderRouter.put('/', validateOrderInformation, validateIdNumberBody,verifyAuthToken,   controller.update);
+orderRouter.put('/:id', validateOrderInformation, validateIdNumberBody,verifyAuthToken,   controller.update);
 
 /**
  * @swagger
