@@ -1,6 +1,7 @@
 import { param } from 'express-validator';
 import { validateResult } from './validate.helper';
 import mongoose from 'mongoose';
+import { Exception } from './exception-message';
 
 export const validateId = [
   param('id')
@@ -8,7 +9,10 @@ export const validateId = [
     .withMessage('The ID is required.')
     .custom((value) => {
       if (!mongoose.Types.ObjectId.isValid(value)) {
-        throw new Error('The ID must be a valid 24-character hex string.');
+        throw new Exception(
+          'The ID must be a valid 24-character hex string.',
+          422,
+        );
       }
       return true;
     }),

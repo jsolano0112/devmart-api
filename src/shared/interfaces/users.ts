@@ -28,7 +28,6 @@ export interface IUser {
 }
 
 export interface IUpdateUser {
-  id: number;
   firstName: string;
   lastName: string;
   email: string;

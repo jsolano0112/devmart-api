@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderServiceContainer } from '../../infraestructure/order-service-container';
-import { IOrder, IUpdateOrder } from '../../../shared/interfaces/orders';
+import { IOrder } from '../../../shared/interfaces/orders';
 
 export class OrderController {
   public async getById(
@@ -31,13 +31,13 @@ export class OrderController {
   }
 
   public async update(
-    request: Request<null, void, IUpdateOrder>,
+    request: Request,
     response: Response,
     next: NextFunction,
   ) {
     try {
       const { id } = request.params;
-      await OrderServiceContainer.updateOrder.run(request.body, id);
+      await OrderServiceContainer.updateOrder.run(request.body, Number(id));
       return response.status(200).json('Order Updated');
     } catch (error) {
       next(error);
@@ -67,6 +67,25 @@ export class OrderController {
       const { id } = request.params;
       await OrderServiceContainer.cancelOrder.run(Number(id));
       return response.status(200).json('Order cancelled.');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getOrdersByUserId(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { userId } = request.params;
+      const userOrders = await OrderServiceContainer.getUserOrders.run(
+        Number(userId),
+      );
+      if (userOrders.length === 0) {
+        return response.status(204).json();
+      }
+      return response.status(200).json(userOrders);
     } catch (error) {
       next(error);
     }

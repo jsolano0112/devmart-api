@@ -3,6 +3,7 @@ import { NotificationController } from '../controllers/notification.controller';
 import { validateId } from '../../../shared/helpers/get-id.validator';
 import { validateCreateNotification } from '../middlewares/create-notification.validator';
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
+import { validateUserIdNumberParameter } from '../../../shared/helpers/user-id.validator';
 
 const controller = new NotificationController();
 const notificationRouter: Router = Router();
@@ -21,7 +22,7 @@ const notificationRouter: Router = Router();
  *         name: userId
  *         required: true
  *         schema:
- *           type: string
+ *           type: number
  *         description: User ID
  *     responses:
  *       200:
@@ -29,21 +30,21 @@ const notificationRouter: Router = Router();
  *         content:
  *           application/json:
  *             example:
- *               - id: "64c8d7e2a123456789abcd01"
+ *               - id: 1
  *                 type: "info"
  *                 message: "Your order has been shipped."
- *                 userId: "64c8d7e2a123456789abcd99"
+ *                 userId: 1
  *                 createdAt: "2025-10-05T14:32:00Z"
- *               - id: "64c8d7e2a123456789abcd02"
+ *               - id: 2
  *                 type: "warning"
  *                 message: "Payment pending for your last order."
- *                 userId: "64c8d7e2a123456789abcd99"
+ *                 userId: 3
  *                 createdAt: "2025-10-04T10:15:00Z"
  */
 
 notificationRouter.get(
-  '/getByUser/:id',
-  validateId,
+  '/getByUser/:userId',
+  validateUserIdNumberParameter,
   verifyAuthToken,
   controller.getByUser,
 );
@@ -64,7 +65,7 @@ notificationRouter.get(
  *           example:
  *             type: "info"
  *             message: "Your order #12345 has been shipped."
- *             userId: "64c8d7e2a123456789abcd99"
+ *             userId: 3
  *             createdAt: "2025-10-05T14:32:00Z"
  *     responses:
  *       200:
@@ -95,9 +96,12 @@ notificationRouter.post(
  *         description: Notification marked as read.
  *       404:
  *         description: Notification not found.
- *       500:
- *         description: Server error.
  */
-notificationRouter.patch('/:id/read', controller.markAsRead);
+notificationRouter.patch(
+  '/:id/read',
+  validateId,
+  verifyAuthToken,
+  controller.markAsRead,
+);
 
 export { notificationRouter };

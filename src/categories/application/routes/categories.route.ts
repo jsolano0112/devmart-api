@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { validateCreateCategory } from '../middlewares/create-category.validator';
-import { categoriesController } from '../controller/categories-controller';
+import { CategoriesController } from '../controller/categories.controller';
 
-const controller = new categoriesController();
+const controller = new CategoriesController();
 const categoryRouter: Router = Router();
 
 /**

@@ -94,7 +94,6 @@ describe("UsersController test", () => {
     describe("PUT /users/:id update a user", () => {
         test("should update a user", async () => {
             const mocksUser: IUpdateUser = {
-                id: 1,
                 firstName: "Wilson",
                 lastName: "Estrada",
                 email: "wilson@example.com",

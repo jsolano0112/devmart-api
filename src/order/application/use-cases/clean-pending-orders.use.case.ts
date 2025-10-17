@@ -1,4 +1,5 @@
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import { OrderStatus } from '../../../shared/interfaces/order-status';
 
 export class CleanPendingOrders {
   constructor(private repo: RepositoryContainer) {}
@@ -15,7 +16,8 @@ export class CleanPendingOrders {
         await this.repo.products.incrementStock(item.sku, item.count);
       }
 
-      await this.repo.orders.deleteOrder(order.id);
+      order.status = OrderStatus.CANCELADO;
+      await this.repo.orders.updateOrder(order.id, order);
     }
   }
 }
