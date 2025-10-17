@@ -1,5 +1,5 @@
-import { body, param } from "express-validator";
-import { validateResult } from "./validate.helper";
+import { body, param } from 'express-validator';
+import { validateResult } from './validate.helper';
 
 export const validateUserIdNumberBody = [
   body('userId')
@@ -11,7 +11,6 @@ export const validateUserIdNumberBody = [
     validateResult(req, res, next);
   },
 ];
-
 
 export const validateUserIdNumberParameter = [
   param('userId')

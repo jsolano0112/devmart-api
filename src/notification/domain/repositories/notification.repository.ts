@@ -1,13 +1,10 @@
-import {
-  INotification,
-} from '../../../shared/interfaces/notifications';
+import { INotification } from '../../../shared/interfaces/notifications';
 import { NotificationSchema } from '../models/notification.schema';
 
 export class NotificationRepository {
   public async getById(id: string) {
     try {
       return await NotificationSchema.findById(id).lean();
-
     } catch (error) {
       console.error(error);
       throw error;

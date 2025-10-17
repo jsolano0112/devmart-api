@@ -28,7 +28,7 @@ export class CreateOrder {
 
     await this.repo.orders.createOrder(order);
 
-     for (const item of order.products) {
+    for (const item of order.products) {
       const product = await this.repo.products.getProductBySku(item.sku);
       product.stock -= item.count;
       await this.repo.products.updateProduct(product.sku, product);
