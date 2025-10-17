@@ -2,6 +2,7 @@ import { Exception } from '../../../shared/helpers/exception-message';
 import {
   IProduct,
   IProductResponse,
+  IUpdateProduct,
 } from '../../../shared/interfaces/products';
 import { Product } from '../models/product.schema';
 
@@ -16,9 +17,16 @@ export class ProductRepository {
     }
   }
 
-  public async getAllProductsData(): Promise<IProduct[]> {
+  public async getAllProductsData(limit: number, offset: number, search: string): Promise<IProductResponse[]> {
     try {
-      const products = await Product.find();
+      const filter = search
+        ? { name: { $regex: search, $options: 'i' } }
+        : {};
+
+      const products = await Product.find(filter)
+        .skip(offset)
+        .limit(limit);
+
       if (products.length === 0) throw new Exception('No products found.', 404);
 
       const availableProducts = products.filter((p) => p.stock > 0);
@@ -39,7 +47,15 @@ export class ProductRepository {
     }
   }
 
-  public async getProductBySku(sku: string): Promise<IProductResponse> {
+  public async countProducts(search: string): Promise<number> {
+    const filter = search
+      ? { name: { $regex: search, $options: 'i' } }
+      : {};
+
+    return await Product.countDocuments(filter);
+  }
+
+  public async getProductBySku(sku: string): Promise<IProductResponse | null> {
     try {
       return await Product.findOne({ sku });
     } catch (error) {
@@ -47,16 +63,7 @@ export class ProductRepository {
     }
   }
 
-  public async getProductsBySkus(skus: string[]) {
-    try {
-      return await Product.find({ sku: { $in: skus } }).lean();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-
-  public async updateProduct(sku: string, product: IProduct): Promise<void> {
+  public async updateProduct(sku: string, product: IUpdateProduct): Promise<void> {
     try {
       await Product.findOneAndUpdate({ sku }, { $set: product }, { new: true });
     } catch (error) {

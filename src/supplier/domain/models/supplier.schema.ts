@@ -1,4 +1,5 @@
 import { connection, Schema, model } from 'mongoose';
+// @ts-ignore
 import AutoIncrementFactory from 'mongoose-sequence';
 import { ISupplier } from '../../../shared/interfaces/supplier';
 

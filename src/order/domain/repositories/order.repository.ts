@@ -39,7 +39,7 @@ export class OrderRepository {
     }
   }
 
-  public async getOrder(id: number): Promise<IOrderResponse> {
+  public async getOrder(id: number): Promise<IOrderResponse > {
     try {
       return await OrderSchema.findOne({ id });
     } catch (error) {

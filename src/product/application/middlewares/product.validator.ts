@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
+import { Request, Response, NextFunction } from 'express';
 
 export const validateProductInfo = [
   body('price')
@@ -52,7 +53,7 @@ export const validateProductInfo = [
     .isInt({ gt: 0 })
     .withMessage('The category must be a positive integer.'),
 
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     validateResult(req, res, next);
   },
 ];

@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import { validateResult } from '../../../shared/helpers/validate.helper';
+import { Request, Response, NextFunction } from 'express';
 
 export const validateCreateShipment = [
   body('trackingNumber')
@@ -28,7 +29,7 @@ export const validateCreateShipment = [
     .withMessage('The carrier is required.')
     .isString()
     .withMessage('The carrier must be a string.'),
-  (req, res, next) => {
+  (req: Request, res: Response, next: NextFunction) => {
     validateResult(req, res, next);
   },
 ];
