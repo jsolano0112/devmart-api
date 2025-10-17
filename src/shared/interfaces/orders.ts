@@ -28,8 +28,6 @@ export interface IOrder {
   products: IProduct[];
   paymentMethod: number;
   address: string;
-  createdAt?: Date;
-  updatedAt?: Date;
   status: OrderStatus;
 }
 
@@ -43,5 +41,4 @@ export interface IUpdateOrder {
 export interface IProduct {
   sku: string;
   count: number;
-  sellerId: number;
 }

@@ -1,11 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserServiceContainer } from '../../infraestructure/user-service-container';
-import {
-  IUpdateUser,
-  IUser,
-  IUserCredentials,
-  IUserParams,
-} from '../../../shared/interfaces/users';
+import { IUser, IUserCredentials } from '../../../shared/interfaces/users';
 
 export class UserController {
   public async getById(
@@ -36,34 +31,14 @@ export class UserController {
   }
 
   public async update(
-    request: Request<IUserParams, void, IUpdateUser>,
-    response: Response,
-    next: NextFunction,
-  ) {
-    try {
-
-      const { id } = request.params;
-      await UserServiceContainer.updateUser.run(request.body, Number(id));
-      return response.status(200).json('User updated.');
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  public async getOrdersById(
     request: Request,
     response: Response,
     next: NextFunction,
   ) {
     try {
       const { id } = request.params;
-      const userOrders = await UserServiceContainer.getUserOrders.run(
-        Number(id),
-      );
-      if (userOrders.length === 0) {
-        return response.status(204).json();
-      }
-      return response.status(200).json(userOrders);
+      await UserServiceContainer.updateUser.run(request.body, Number(id));
+      return response.status(200).json('User updated.');
     } catch (error) {
       next(error);
     }

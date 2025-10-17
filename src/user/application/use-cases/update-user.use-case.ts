@@ -1,7 +1,7 @@
 import { validateEmailDomain } from '../../../shared/helpers/email-domain.validator';
 import { Exception } from '../../../shared/helpers/exception-message';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
-import { IUpdateUser, IUser } from '../../../shared/interfaces/users';
+import { IUpdateUser } from '../../../shared/interfaces/users';
 import bcrypt from 'bcryptjs';
 
 export class UpdateUser {
@@ -22,8 +22,7 @@ export class UpdateUser {
       user.password = hashedPassword;
     }
 
-    const userUpdated: IUser = {
-      id: user.id,
+    const userUpdated: IUpdateUser = {
       failedLoginAttempts: user.failedLoginAttempts,
       lockUntil: user.lockUntil,
       email: user.email ? user.email : dbUser.email,
@@ -37,6 +36,6 @@ export class UpdateUser {
       isAdmin: dbUser.isAdmin,
       password: user.password ? user.password : dbUser.password,
     };
-    await this.repo.users.updateUser(user.id, userUpdated);
+    await this.repo.users.updateUser(id, userUpdated);
   }
 }

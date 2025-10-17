@@ -1,4 +1,4 @@
-# 🛒 DEVMART API
+# 🛒 DEVMART API | by Wilson Estrada and Juana Solano
 
 A modern **Node.js API** built with **TypeScript**, designed for a real-time e-commerce platform.  
 This project follows a **Hexagonal Architecture**, emphasizing separation of concerns and scalability.
@@ -40,6 +40,7 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 │   │   │   ├── models/          # Schemas or entities (Mongoose)
 │   │   │   └── repositories/    # Data access repositories (Mongoose)
 │   │   └── infrastructure/      # Infrastructure layer
+│   │   │   ├── seeders/         # Seed data specific to this module
 │   │       └── categories-service-container.ts # Service container for dependency injection
 │   │
 │   ├── shared/                  # Shared resources across all modules
@@ -48,6 +49,7 @@ This project follows a **Hexagonal Architecture**, emphasizing separation of con
 │   │   │   ├── auth/            # Authentication and JWT handling
 │   │   │   ├── db/              # Database configuration
 │   │   │   │   └── mongodb.config.ts
+│   │   │   ├── seeders/         # Central entry point for running all seeders
 │   │   │   └── repository-container.ts  # Centralized repository registration
 │   │   └── interfaces/          # Shared TypeScript interfaces and types
  └── ...
@@ -114,6 +116,22 @@ npm start
 
 ```
 npm run format
+```
+
+---
+
+## 🌱 Seeds
+
+```
+npm run seed
+```
+
+---
+
+## 🌱 Seeds
+
+```
+npm run seed
 ```
 
 ```

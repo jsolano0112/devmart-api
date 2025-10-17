@@ -35,13 +35,12 @@ export const validateProductInfo = [
     .notEmpty()
     .withMessage('The image URL is required.')
     .matches(
-      /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))(?:\?.*)?(?:#.*)?$/i
+      /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))(?:\?.*)?(?:#.*)?$/i,
     )
     .withMessage(
-      'The image must be a valid URL ending in .png, .jpg, .jpeg, .gif, .svg or .webp.'
+      'The image must be a valid URL ending in .png, .jpg, .jpeg, .gif, .svg or .webp.',
     ),
 
-  // ✅ New fields required:
   body('supplierId')
     .notEmpty()
     .withMessage('The supplierId is required.')
@@ -51,7 +50,7 @@ export const validateProductInfo = [
   body('category')
     .notEmpty()
     .withMessage('The category is required.')
-     .isInt({ gt: 0 })
+    .isInt({ gt: 0 })
     .withMessage('The category must be a positive integer.'),
 
   (req: Request, res: Response, next: NextFunction) => {

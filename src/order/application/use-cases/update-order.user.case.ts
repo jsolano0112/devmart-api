@@ -1,15 +1,13 @@
-import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 import { Exception } from '../../../shared/helpers/exception-message';
-import { IOrder } from '../../../shared/interfaces/orders';
+import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
+import { IUpdateOrder } from '../../../shared/interfaces/orders';
 
-export class CreateOrder {
+export class UpdateOrder {
   constructor(private repo: RepositoryContainer) {}
 
-  public async run(order: IOrder): Promise<void> {
-    const user = await this.repo.users.getUserById(order.userId);
-    if (!user) {
-      throw new Exception('User not found.', 404);
-    }
+  async run(order: IUpdateOrder, id: number): Promise<void> {
+    const dbOrder = await this.repo.orders.getOrder(id);
+    if (!dbOrder) throw new Exception('Order not found.', 404);
 
     for (const item of order.products) {
       const product = await this.repo.products.getProductBySku(item.sku);
@@ -25,13 +23,19 @@ export class CreateOrder {
         );
       }
     }
+    const orderUpdated: IUpdateOrder = {
+      products: order.products,
+      paymentMethod: order.paymentMethod,
+      address: order.address,
+      status: order.status,
+    };
+
+    await this.repo.orders.updateOrder(id, orderUpdated);
 
     for (const item of order.products) {
       const product = await this.repo.products.getProductBySku(item.sku);
       product.stock -= item.count;
       await this.repo.products.updateProduct(product.sku, product);
     }
-
-    await this.repo.orders.createOrder(order);
   }
 }

@@ -1,10 +1,10 @@
-import { IUser } from '../../../shared/interfaces/users';
+import { IUpdateUser, IUser } from '../../../shared/interfaces/users';
 import { User } from '../models/user.schema';
 
 export class UserRepository {
   public async getUserById(id: number) {
     try {
-      return await User.findOne({ id: id });
+      return await User.findOne({ id });
     } catch (error) {
       throw error;
     }
@@ -30,7 +30,7 @@ export class UserRepository {
     }
   }
 
-  public async updateUser(id: number, user: IUser): Promise<void> {
+  public async updateUser(id: number, user: IUpdateUser): Promise<void> {
     try {
       await User.findOneAndUpdate({ id }, { $set: user }, { new: true });
     } catch (error) {
