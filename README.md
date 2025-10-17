@@ -116,7 +116,9 @@ npm start
 npm run format
 ```
 
-## 🌱 Implement Seeds
+---
+
+## 🌱 Seeds
 
 ```
 npm run seed
