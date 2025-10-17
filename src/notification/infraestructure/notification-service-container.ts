@@ -1,7 +1,7 @@
 import { RepositoryContainer } from '../../shared/infraestructure/respository-container';
-import { CreateNotification } from '../domain/use-cases/create-notification.use.case';
-import { getNotificationsByUser } from '../domain/use-cases/get-by-user.use.case';
-import { MarkNotificationAsRead } from '../domain/use-cases/mark-notification.use.case';
+import { CreateNotification } from '../application/use-cases/create-notification.use.case';
+import { getNotificationsByUser } from '../application/use-cases/get-by-user.use.case';
+import { MarkNotificationAsRead } from '../application/use-cases/mark-notification.use.case';
 
 const repositories = new RepositoryContainer();
 
