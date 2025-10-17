@@ -5,14 +5,14 @@ export const validateOrderInformation = [
   body('products')
     .isArray({ min: 1 })
     .withMessage('Products must be a non-empty array.'),
-  body('products.*.id').notEmpty().withMessage('Product ID is required.'),
+  body('products.*.sku').notEmpty().withMessage('Product SKU is required.'),
   body('products.*.count')
     .notEmpty()
     .withMessage('Product count is required.')
     .isInt({ min: 1 })
     .withMessage('Product count must be at least 1.'),
 
-     body('paymentMethod')
+  body('paymentMethod')
     .notEmpty()
     .withMessage('Payment method is required.')
     .isInt({ min: 1 })
@@ -24,7 +24,7 @@ export const validateOrderInformation = [
     .isString()
     .withMessage('Address must be a string.'),
 
-   body('status')
+  body('status')
     .notEmpty()
     .withMessage('Order status is required.')
     .isIn([
@@ -37,7 +37,7 @@ export const validateOrderInformation = [
       'RECHAZADO',
     ])
     .withMessage(
-      'Invalid order status. Must be one of: PENDIENTE, PREPARANDO, EN_TRANSITO, EN_ENTREGA, ENTREGADO, CANCELADO, RECHAZADO.'
+      'Invalid order status. Must be one of: PENDIENTE, PREPARANDO, EN_TRANSITO, EN_ENTREGA, ENTREGADO, CANCELADO, RECHAZADO.',
     ),
   (req, res, next) => {
     validateResult(req, res, next);

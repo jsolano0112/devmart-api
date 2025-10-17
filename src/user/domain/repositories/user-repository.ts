@@ -4,7 +4,7 @@ import { User } from '../models/user.schema';
 export class UserRepository {
   public async getUserById(id: number) {
     try {
-      return await User.findOne({ id: id });
+      return await User.findOne({ id });
     } catch (error) {
       throw error;
     }

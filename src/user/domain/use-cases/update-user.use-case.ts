@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs';
 export class UpdateUser {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(user: IUpdateUser, id:number): Promise<void> {
+  async run(user: IUpdateUser, id: number): Promise<void> {
     const dbUser = await this.repo.users.getUserById(id);
     if (!dbUser) throw new Exception('User not found.', 404);
     if (dbUser.email !== user.email) {

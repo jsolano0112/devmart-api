@@ -9,7 +9,7 @@ export class UpdateOrder {
     const dbOrder = await this.repo.orders.getOrder(id);
     if (!dbOrder) throw new Exception('Order not found.', 404);
 
-     for (const item of order.products) {
+    for (const item of order.products) {
       const product = await this.repo.products.getProductBySku(item.sku);
 
       if (!product) {
@@ -29,10 +29,10 @@ export class UpdateOrder {
       address: order.address,
       status: order.status,
     };
-    
+
     await this.repo.orders.updateOrder(id, orderUpdated);
 
-     for (const item of order.products) {
+    for (const item of order.products) {
       const product = await this.repo.products.getProductBySku(item.sku);
       product.stock -= item.count;
       await this.repo.products.updateProduct(product.sku, product);

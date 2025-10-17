@@ -9,7 +9,10 @@ export const validateId = [
     .withMessage('The ID is required.')
     .custom((value) => {
       if (!mongoose.Types.ObjectId.isValid(value)) {
-        throw new Exception('The ID must be a valid 24-character hex string.', 422);
+        throw new Exception(
+          'The ID must be a valid 24-character hex string.',
+          422,
+        );
       }
       return true;
     }),
