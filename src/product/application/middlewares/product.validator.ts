@@ -17,13 +17,6 @@ export const validateProductInfo = [
 
   body('name').notEmpty().withMessage('The name is required.'),
 
-  body('sku')
-    .notEmpty()
-    .withMessage('The SKU is required.')
-    .isLength({ min: 8, max: 20 })
-    .withMessage('The SKU must be between 8 and 20 characters.')
-    .isString()
-    .withMessage('The SKU must be a string.'),
 
   body('stock')
     .notEmpty()
@@ -47,9 +40,9 @@ export const validateProductInfo = [
     .isInt({ gt: 0 })
     .withMessage('The supplierId must be a positive integer.'),
 
-  body('category')
+  body('categoryId')
     .notEmpty()
-    .withMessage('The category is required.')
+    .withMessage('The categoryId is required.')
     .isInt({ gt: 0 })
     .withMessage('The category must be a positive integer.'),
 
