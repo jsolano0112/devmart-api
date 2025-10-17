@@ -125,3 +125,19 @@ npm run format
 ```
 npm run seed
 ```
+
+---
+
+## 🌱 Seeds
+
+```
+npm run seed
+```
+
+```
+npm install --save-dev jest
+```
+```
+npm install -D node-mocks-http
+
+````

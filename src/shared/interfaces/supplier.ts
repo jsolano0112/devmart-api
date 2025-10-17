@@ -11,3 +11,7 @@ export interface ISupplier {
   updatedAt?: Date;
   nit: string;
 }
+
+export interface ISupplierParams {
+  nit: string;
+}

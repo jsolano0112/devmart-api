@@ -1,8 +1,9 @@
 import { connection, Schema, model } from 'mongoose';
+// @ts-ignore
 import AutoIncrementFactory from 'mongoose-sequence';
 import { IShipment } from '../../../shared/interfaces/shipments';
 
-const AutoIncrement = AutoIncrementFactory(connection);
+const AutoIncrement = require('mongoose-sequence')(connection);
 
 const ShipmentsSchema = new Schema<IShipment>({
   id: { type: Number, unique: true },

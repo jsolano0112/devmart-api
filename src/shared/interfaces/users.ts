@@ -7,7 +7,7 @@ export interface IUserResponse {
   mobilePhone: string;
   city: string;
   zipCode: number;
-  lockUntil?: Date;
+  lockUntil?: Date | null;
   failedLoginAttempts: number;
 }
 
@@ -23,7 +23,7 @@ export interface IUser {
   isActive: boolean;
   password: string;
   isAdmin: boolean;
-  lockUntil?: Date;
+  lockUntil?: Date | null;
   failedLoginAttempts: number;
 }
 
@@ -55,4 +55,9 @@ export interface IUserCredentialsResponse {
   isAdmin: boolean;
   accessToken: string;
   refreshToken: string;
+}
+
+
+export interface IUserParams {
+  id: number;
 }

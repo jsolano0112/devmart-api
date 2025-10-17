@@ -5,27 +5,22 @@ import { IProduct, IUpdateProduct } from '../../../shared/interfaces/products';
 export class updateProduct {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(product: IUpdateProduct): Promise<void> {
-    const dbProduct = await this.repo.products.getProductBySku(product.sku);
-    if (!dbProduct) throw new Exception('The product already exists.', 409);
-    const existingSupplier = await this.repo.suppliers.getSupplierById(
-      product.supplierId,
-    );
+  async run(product: IUpdateProduct, sku: string): Promise<void> {
+    const dbProduct = await this.repo.products.getProductBySku(sku);
+    if (!dbProduct) throw new Exception('The product does not exist.', 404);
+    const existingSupplier = await this.repo.suppliers.getSupplierById(product.supplierId,);
     if (!existingSupplier) throw new Exception('The supplier not found.', 404);
-    const productUpdated: IProduct = {
+    const productUpdated: IUpdateProduct = {
       name: product.name ? product.name : dbProduct.name,
-      description: product.description
-        ? product.description
-        : dbProduct.description,
+      description: product.description ? product.description : dbProduct.description,
       price: product.price ? product.price : dbProduct.price,
       stock: product.stock ? product.stock : dbProduct.stock,
       images: product.images ? product.images : dbProduct.images,
-      sku: product.sku ? product.sku : dbProduct.sku,
-      category: product.category ? product.category : dbProduct.category,
+      categoryId: product.categoryId ? product.categoryId : dbProduct.categoryId,
       supplierId: product.supplierId
         ? product.supplierId
         : dbProduct.supplierId,
     };
-    await this.repo.products.updateProduct(product.sku, productUpdated);
+    await this.repo.products.updateProduct(sku, productUpdated);
   }
 }
