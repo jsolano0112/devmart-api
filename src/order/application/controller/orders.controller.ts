@@ -71,4 +71,23 @@ export class OrderController {
       next(error);
     }
   }
+
+  public async getOrdersByUserId(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { userId } = request.params;
+      const userOrders = await OrderServiceContainer.getUserOrders.run(
+        Number(userId),
+      );
+      if (userOrders.length === 0) {
+        return response.status(204).json();
+      }
+      return response.status(200).json(userOrders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

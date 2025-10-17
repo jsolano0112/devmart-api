@@ -1,4 +1,4 @@
-import { NotificationSchema } from "../models/notification.schema";
+import { NotificationSchema } from '../../domain/models/notification.schema';
 
 export const seedNotifications = async () => {
   console.log('Init notificaciones seeders...');
