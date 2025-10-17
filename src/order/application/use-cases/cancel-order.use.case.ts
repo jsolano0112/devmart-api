@@ -8,12 +8,10 @@ export class CancelOrder {
   async run(orderId: number): Promise<void> {
     const order = await this.repo.orders.getOrder(orderId);
     if (!order) throw new Exception('Order not found', 404);
-
-    if (
-      order.status === OrderStatus.CANCELADO ||
-      order.status === OrderStatus.ENTREGADO
-    ) {
-      throw new Exception('Order cannot be cancelled', 400);
+    
+    
+    if (order.status !== OrderStatus.PENDIENTE) {
+      throw new Exception('Only pending orders can be cancelled', 400);
     }
 
     for (const item of order.products) {
@@ -21,6 +19,7 @@ export class CancelOrder {
     }
 
     order.status = OrderStatus.CANCELADO;
+    //TODO: NOTIFICATION
     await this.repo.orders.updateOrder(orderId, order);
   }
 }
