@@ -58,7 +58,7 @@ export class ProductRepository {
 
   public async updateProduct(sku: string, product: IProduct): Promise<void> {
     try {
-      await Product.findByIdAndUpdate(sku, { $set: product }, { new: true });
+      await Product.findOneAndUpdate({ sku }, { $set: product }, { new: true });
     } catch (error) {
       console.error(error);
       throw error;
