@@ -5,6 +5,7 @@ import { dbConnection } from './shared/infraestructure/db/mongodb.config';
 import { errorHandler } from './shared/helpers/error-handler';
 import { setupSwagger } from './swagger';
 import { Scheduler } from './shared/helpers/scheduler/clean-pending-orders';
+import cors from "cors";
 
 const PORT: number = 3000;
 const app: Application = express();
@@ -13,6 +14,11 @@ const io = new Server(3001);
 // SWAGGER
 setupSwagger(app);
 // END - SWAGGER
+
+app.use(cors({
+  origin: "http://localhost:5173 ", //Front
+   credentials: false
+}));
 
 app.use(express.json());
 app.use('/', appRouter);

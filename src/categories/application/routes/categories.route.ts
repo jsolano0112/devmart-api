@@ -7,7 +7,7 @@ const categoryRouter: Router = Router();
 
 /**
  * @swagger
- * /categories/{name}:
+ * /api/v1/categories/{name}:
  *   get:
  *     summary: Get category by name
  *     description: Retrieve a specific product category by its name.
@@ -34,7 +34,7 @@ categoryRouter.get('/:name', controller.getCategoryByName);
 
 /**
  * @swagger
- * /categories:
+ * /api/v1/categories:
  *   post:
  *     summary: Create a new category
  *     description: Register a new product category in the system.
@@ -53,7 +53,7 @@ categoryRouter.post('/', validateCreateCategory, controller.createCategory);
 
 /**
  * @swagger
- * /categories:
+ * /api/v1/categories:
  *   get:
  *     summary: Get all categories
  *     description: Retrieve the list of all product categories available in the system.
@@ -75,7 +75,7 @@ categoryRouter.post('/', validateCreateCategory, controller.createCategory);
  */
 /**
  * @swagger
- * /categories:
+ * /api/v1/categories:
  *   get:
  *     summary: Get all categories
  *     description: Retrieve the list of all product categories available in the system.
@@ -124,7 +124,7 @@ categoryRouter.get('/', controller.getAllCategories);
 
 /**
  * @swagger
- * /categories/{id}:
+ * /api/v1/categories/{id}:
  *   put:
  *     summary: Update a category
  *     description: Update an existing product category by its ID.
@@ -164,7 +164,7 @@ categoryRouter.put('/:id', controller.updateCategory);
 
 /**
  * @swagger
- * /categories/{id}:
+ * /api/v1/categories/{id}:
  *   delete:
  *     summary: Delete a category
  *     description: Delete a product category by its ID.
