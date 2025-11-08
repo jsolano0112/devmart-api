@@ -12,7 +12,7 @@ const authRouter: Router = Router();
 
 /**
  * @swagger
- * /users/{id}:
+ * /api/v1/users/{id}:
  *   get:
  *     summary: Get user by ID
  *     tags: [Users]
@@ -48,7 +48,7 @@ userRouter.get(
 
 /**
  * @swagger
- *  /users:
+ *  /api/v1/users:
  *   post:
  *     summary: Create a new user
  *     tags: [Users]
@@ -82,7 +82,7 @@ userRouter.post(
 
 /**
  * @swagger
- * /users/{id}:
+ * /api/v1/users/{id}:
  *   put:
  *     summary: Update an existing user by ID
  *     tags: [Users]
@@ -127,7 +127,7 @@ userRouter.put(
 
 /**
  * @swagger
- * /auth/login:
+ * /api/v1/auth/login:
  *   post:
  *     summary: Authenticate user and return JWT token
  *     tags: [Auth]
@@ -165,7 +165,7 @@ authRouter.post('/login', validateAuthentication, controller.auth);
 
 /**
  * @swagger
- * /auth/refresh:
+ * /api/v1/auth/refresh:
  *   post:
  *     summary: Refresh JWT tokens using a valid refresh token
  *     tags: [Auth]
