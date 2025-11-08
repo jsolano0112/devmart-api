@@ -10,7 +10,7 @@ const notificationRouter: Router = Router();
 
 /**
  * @swagger
- * /notifications/getByUser/{userId}:
+ * /api/v1/notifications/getByUser/{userId}:
  *   get:
  *     summary: Get all notifications by user ID
  *     description: Returns all notifications associated with the given user ID.
@@ -51,7 +51,7 @@ notificationRouter.get(
 
 /**
  * @swagger
- * /notifications:
+ * /api/v1/notifications:
  *   post:
  *     summary: Create a new notification
  *     description: Creates a notification for a specific user.
@@ -80,7 +80,7 @@ notificationRouter.post(
 
 /**
  * @swagger
- * /notifications/{id}/read:
+ * /api/v1/notifications/{id}/read:
  *   patch:
  *     summary: Mark a notification as read
  *     tags: [Notifications]
