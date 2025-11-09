@@ -72,7 +72,7 @@ export class CategoriesRepository {
 
     public async deleteCategory(id: number): Promise<void> {
         try {
-            const result = await Category.findByIdAndDelete(id);
+            const result = await Category.findOneAndDelete({id});
             if (!result) throw new Exception('Category not found.', 404);
         } catch (error) {
             throw error;
