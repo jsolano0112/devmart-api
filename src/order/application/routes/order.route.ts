@@ -13,7 +13,7 @@ const orderRouter: Router = Router();
 
 /**
  * @swagger
- * /orders/{id}:
+ * /api/v1/orders/{id}:
  *   get:
  *     summary: Get order by ID
  *     tags: [Orders]
@@ -49,7 +49,7 @@ orderRouter.get('/:id', validateIdNumberParameter,verifyAuthToken, controller.ge
 
 /**
  * @swagger
- * /orders:
+ * /api/v1/orders:
  *   post:
  *     summary: Create a new order
  *     description: Creates a new order for the authenticated user.
@@ -86,7 +86,7 @@ orderRouter.post(
 
 /**
  * @swagger
- * /orders/{id}:
+ * /api/v1/orders/{id}:
  *   put:
  *     summary: Update an existing order
  *     description: Updates the details of an existing order for the authenticated user.
@@ -127,7 +127,7 @@ orderRouter.put(
 
 /**
  * @swagger
- * /orders/{id}:
+ * /api/v1/orders/{id}:
  *   delete:
  *     summary: Delete an order by ID
  *     tags: [Orders]
@@ -153,7 +153,7 @@ orderRouter.delete(
 
 /**
  * @swagger
- * /orders/{id}/cancel:
+ * /api/v1/orders/{id}/cancel:
  *   patch:
  *     summary: Cancel an order by ID
  *     tags: [Orders]
@@ -179,7 +179,7 @@ orderRouter.patch(
 
 /**
  * @swagger
- * /orders/user/{userId}:
+ * /api/v1/orders/user/{userId}:
  *   get:
  *     summary: Get all orders for a specific user
  *     tags: [Orders]

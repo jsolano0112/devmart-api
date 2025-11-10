@@ -9,7 +9,7 @@ const shipmentRouter: Router = Router();
 
 /**
  * @swagger
- * /shipments/{trackingNumber}:
+ * /api/v1/shipments/{trackingNumber}:
  *   get:
  *     summary: Get shipment by tracking number
  *     description: Retrieve detailed shipment information using its unique tracking number.
@@ -45,7 +45,7 @@ shipmentRouter.get(
 
 /**
  * @swagger
- * /shipments:
+ * /api/v1/shipments:
  *   post:
  *     summary: Create a new shipment
  *     description: Registers a new shipment in the system associated with an existing order.
@@ -67,7 +67,7 @@ shipmentRouter.post('/', validateCreateShipment, shipment.create);
 
 /**
  * @swagger
- * /shipments:
+ * /api/v1/shipments:
  *   get:
  *     summary: Get all shipments
  *     description: Retrieve the list of all registered shipments.
@@ -100,7 +100,7 @@ shipmentRouter.get('/', shipment.getShipments);
 
 /**
  * @swagger
- * /shipments/{trackingNumber}:
+ * /api/v1/shipments/{trackingNumber}:
  *   put:
  *     summary: Update shipment status
  *     description: Update shipment information or status based on its tracking number.
@@ -129,7 +129,7 @@ shipmentRouter.put('/:trackingId', validateUpdateShipment, shipment.update);
 
 /**
  * @swagger
- * /shipments/{trackingNumber}:
+ * /api/v1/shipments/{trackingNumber}:
  *   delete:
  *     summary: Delete a shipment
  *     description: Delete a shipment from the system using its unique tracking number.
