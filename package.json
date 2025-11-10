@@ -9,7 +9,7 @@
     "lint:fix": "eslint . --ext .js,.ts --fix",
     "format": "prettier --write \"**/*.{js,ts,json,css,md}\"",
     "seed": "ts-node src/shared/infraestructure/seeders/seeders.service.ts",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
