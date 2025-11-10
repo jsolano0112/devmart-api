@@ -9,7 +9,7 @@ const supplierRouter: Router = Router();
 
 /**
  * @swagger
- * /suppliers/{nit}:
+ * /api/v1/suppliers/{nit}:
  *   get:
  *     summary: Get a supplier by NIT
  *     description: Retrieves supplier information based on the provided NIT.
@@ -47,7 +47,7 @@ supplierRouter.get('/:nit', verifyAuthToken, controller.getByNIT);
 
 /**
  * @swagger
- * /suppliers:
+ * /api/v1/suppliers:
  *   post:
  *     summary: Create a new supplier
  *     description: Registers a new supplier in the system.
@@ -92,7 +92,7 @@ supplierRouter.post('/', validateSupplier, verifyAuthToken, controller.create);
 
 /**
  * @swagger
- * /suppliers:
+ * /api/v1/suppliers:
  *   put:
  *     summary: Update an existing supplier
  *     description: Updates all supplier information using the provided NIT to locate the record.
@@ -154,7 +154,7 @@ supplierRouter.put('/:nit', validateSupplier, verifyAuthToken, controller.update
 
 /**
  * @swagger
- * /suppliers/{id}:
+ * /api/v1/suppliers/{id}:
  *   delete:
  *     summary: Delete a supplier by ID
  *     description: Deactivates or removes a supplier by its numeric ID.
@@ -182,7 +182,7 @@ supplierRouter.put('/:id', verifyAuthToken, controller.delete);
 
 /**
  * @swagger
- * /suppliers:
+ * /api/v1/suppliers:
  *   get:
  *     summary: Get all suppliers
  *     description: Retrieves the complete list of registered suppliers.

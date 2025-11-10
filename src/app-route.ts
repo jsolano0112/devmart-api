@@ -15,13 +15,13 @@ appRouter.get('/', (req: Request, res: Response) => {
   });
 });
 
-appRouter.use('/users', userRouter);
-appRouter.use('/auth', authRouter);
-appRouter.use('/orders', orderRouter);
-appRouter.use('/notifications', notificationRouter);
-appRouter.use('/suppliers', supplierRouter);
-appRouter.use('/shipments', shipmentRouter);
-appRouter.use('/categories', categoryRouter);
-appRouter.use('/products', productRouter);
+appRouter.use('/api/v1/users', userRouter);
+appRouter.use('/api/v1/auth', authRouter);
+appRouter.use('/api/v1/orders', orderRouter);
+appRouter.use('/api/v1/notifications', notificationRouter);
+appRouter.use('/api/v1/suppliers', supplierRouter);
+appRouter.use('/api/v1/shipments', shipmentRouter);
+appRouter.use('/api/v1/categories', categoryRouter);
+appRouter.use('/api/v1/products', productRouter);
 
 export default appRouter;

@@ -15,7 +15,7 @@ export class AuthenticateUser {
 
   async run(user: IUserCredentials): Promise<IUserCredentialsResponse> {
     const existingUser = await this.repo.users.getUserByEmail(user.email);
-    if (existingUser == null) throw new Exception('Invalid credentials', 401);
+    if (existingUser == null) throw new Exception('The email is not registered.', 401);
 
     if (existingUser.lockUntil && existingUser.lockUntil > new Date()) {
       const remaining = Math.ceil(

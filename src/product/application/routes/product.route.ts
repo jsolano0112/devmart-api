@@ -9,7 +9,7 @@ const productRouter: Router = Router();
 
 /**
  * @swagger
- * /products/{sku}:
+ * /api/v1/products/{sku}:
  *   get:
  *     summary: Get a product by SKU
  *     description: Retrieve a single product's details using its SKU.
@@ -42,7 +42,7 @@ productRouter.get('/:sku', validateSku, controller.getBySku);
 
 /**
  * @swagger
- * /products:
+ * /api/v1/products:
  *   post:
  *     summary: Create a new product
  *     description: Add a new product to the inventory.
@@ -68,7 +68,7 @@ productRouter.post('/', validateProductInfo, verifyAuthToken, controller.create)
 
 /**
  * @swagger
- * /products:
+ * /api/v1/products:
  *   get:
  *     summary: Get all products
  *     description: Retrieve the list of all products in the inventory.
@@ -102,7 +102,7 @@ productRouter.get('/', controller.getProducts);
 
 /**
  * @swagger
- * /products/{sku}:
+ * /api/v1/products/{sku}:
  *   put:
  *     summary: Update a product by SKU
  *     description: Update all product information based on its SKU.
@@ -148,7 +148,7 @@ productRouter.put('/:sku', validateProductInfo,verifyAuthToken, controller.updat
 
 /**
  * @swagger
- * /products/{sku}:
+ * /api/v1/products/{sku}:
  *   delete:
  *     summary: Delete a product by SKU
  *     description: Remove a product from the inventory using its SKU.
