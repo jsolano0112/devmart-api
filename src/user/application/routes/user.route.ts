@@ -59,13 +59,13 @@ userRouter.get(
  *           schema:
  *             type: object
  *             example:
- *               firstName: John
- *               lastName: Doe
- *               email: john.doe@example.com
+ *               firstName: "John"
+ *               lastName: "Doe"
+ *               email: "john.doe@example.com"
  *               address: "123 Main Street"
  *               mobilePhone: "312XXXXXX"
  *               city: "New York"
- *               zipCode: 10001
+ *               zipCode: "10001"
  *               password: "password123"
  *               isAdmin: false
  *     responses:
@@ -101,15 +101,15 @@ userRouter.post(
  *       content:
  *         application/json:
  *           example:
- *             firstName: John
- *             lastName: Doe
- *             email: john.doe@example.com
+ *             firstName: "John"
+ *             lastName: "Doe"
+ *             email: "john.doe@example.com"
  *             address: "123 Main Street"
  *             mobilePhone: "312XXXXXXX"
  *             city: "New York"
- *             zipCode: 10001
+ *             zipCode: "10002"
  *             isActive: true
- *             password: password123
+ *             password: "password123"
  *     responses:
  *       200:
  *         description: User updated successfully.

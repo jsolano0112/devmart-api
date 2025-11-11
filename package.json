@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/app.ts",
     "lint": "eslint . --ext .js,.ts",
@@ -39,7 +40,6 @@
     "@types/bcryptjs": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "bcryptjs": "^3.0.2",
-    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "email-existence": "^0.1.6",
     "express-validator": "^7.2.1",

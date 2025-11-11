@@ -12,15 +12,10 @@ export class updateShipment {
     if (!dbShipment) new Exception('Shipment not found', 404);
 
     const shipmentUpdated: IShipmentUpdate = {
-      trackingId: shipment.trackingId
-        ? shipment.trackingId
-        : dbShipment.trackingId,
+      // trackingId: shipment.trackingId? shipment.trackingId: dbShipment.trackingId,
       status: shipment.status ? shipment.status : dbShipment.status,
       updatedAt: shipment.updatedAt ? shipment.updatedAt : dbShipment.updatedAt,
     };
-    await this.repo.shipments.updateShipment(
-      shipment.trackingId,
-      shipmentUpdated,
-    );
+    await this.repo.shipments.updateShipment(trackingId, shipmentUpdated,);
   }
 }
