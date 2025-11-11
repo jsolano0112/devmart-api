@@ -58,7 +58,6 @@ shipmentRouter.get(
  *             orderId: 103
  *             status: "PENDIENTE"
  *             carrier: "Servientrega"
- *             trackingId: "TRK-20251011-00046"
  *     responses:
  *       201:
  *         description: Shipment created successfully
