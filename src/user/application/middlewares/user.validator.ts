@@ -18,7 +18,7 @@ export const validateUserInfo = [
   body('zipCode')
     .optional()
     .trim()
-    .isLength({ min: 6, max: 6 })
+    .isLength({ min: 5, max: 6 })
     .withMessage('The postal code must be exactly 6 digits.')
     .isNumeric({ no_symbols: true })
     .withMessage('The postal code must contain only numbers.'),
