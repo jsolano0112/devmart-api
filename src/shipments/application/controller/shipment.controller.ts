@@ -14,9 +14,10 @@ export class ShipmentController {
     next: NextFunction,
   ) {
     try {
-      const { trackingId } = request.params;
+      const { trackingNumber } = request.params;
+      console.log('trackingNumber:', trackingNumber);
       const tracking =
-        await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingId);
+        await ShipmentServiceContainer.getShipmentByTrackingId.run(trackingNumber);
       if (tracking === null) {
         return response.status(204).json();
       }
@@ -32,8 +33,11 @@ export class ShipmentController {
     next: NextFunction,
   ) {
     try {
-      await ShipmentServiceContainer.createShipment.run(request.body);
-      return response.status(200).json('Shipment created successfully.');
+      const created = await ShipmentServiceContainer.createShipment.run(request.body);
+
+      console.log('Resultado del servicio:', created);
+
+      return response.status(200).json(created);
     } catch (error) {
       next(error);
     }

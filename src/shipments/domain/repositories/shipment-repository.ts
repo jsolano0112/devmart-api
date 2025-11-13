@@ -49,59 +49,130 @@ export class ShipmentRepository {
     }
   }
 
-  public async createShipment(shipment: IShipmentsResponse): Promise<void> {
-    try {
-      // Ensure trackingNumber exists and is unique. If not provided, generate one.
-      if (!shipment.trackingId) {
-        shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
-      }
+  // public async createShipment(shipment: IShipmentsResponse): Promise<void> {
+  //   try {
+  //     // Ensure trackingNumber exists and is unique. If not provided, generate one.
+  //     if (!shipment.trackingId) {
+  //       shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+  //     }
 
-      const newShipment = new Shipment(shipment);
+  //     // const existingShipment = await this.getShipmentBytrackingId(
+  //     //   shipment.trackingId,
+  //     // );
+  //     // if (existingShipment)
+  //     //   throw new Exception('The trackingNumber already exists.', 409);
+
+  //     const newShipment = new Shipment(shipment);
+  //     try {
+  //       await newShipment.save();
+  //     } catch (err: any) {
+  //       // Handle potential duplicate key on trackingNumber: try regenerating a few times
+  //       if (
+  //         err &&
+  //         err.code === 11000 &&
+  //         err.keyPattern &&
+  //         err.keyPattern.trackingNumber
+  //       ) {
+  //         // attempt limited retries
+  //         const maxRetries = 5;
+  //         let saved = false;
+  //         for (let i = 0; i < maxRetries && !saved; i++) {
+  //           shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+  //           newShipment.trackingId = shipment.trackingId;
+  //           try {
+  //             await newShipment.save();
+  //             saved = true;
+  //           } catch (e: any) {
+  //             // continue retrying on duplicate key, otherwise throw
+  //             if (
+  //               !(
+  //                 e &&
+  //                 e.code === 11000 &&
+  //                 e.keyPattern &&
+  //                 e.keyPattern.trackingNumber
+  //               )
+  //             )
+  //               throw e;
+  //           }
+  //         }
+  //         if (!saved)
+  //           throw new Error(
+  //             'Failed to save shipment: trackingNumber collisions',
+  //           );
+  //       } else {
+  //         throw err;
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // }
+
+  public async createShipment(shipment: IShipmentsResponse): Promise<{
+  success: boolean;
+  message: string;
+  trackingId: string;
+  created?: boolean;
+  error?: string;
+}> {
+  try {
+    // Asegurar que trackingId exista
+    if (!shipment.trackingId) {
+      shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+    }
+
+    // // Verificar si ya existe
+    // const existingShipment = await this.getShipmentBytrackingId(shipment.trackingId);
+    // if (existingShipment) {
+    //   return {
+    //     success: true,
+    //     message: 'Shipment already exists.',
+    //     trackingId: shipment.trackingId,
+    //     created: false,
+    //   };
+    // }
+
+    // Intentar guardar el nuevo envío
+    const newShipment = new Shipment(shipment);
+    let saved = false;
+    let maxRetries = 5;
+
+    for (let i = 0; i < maxRetries && !saved; i++) {
       try {
         await newShipment.save();
+        saved = true;
       } catch (err: any) {
-        // Handle potential duplicate key on trackingNumber: try regenerating a few times
-        if (
-          err &&
-          err.code === 11000 &&
-          err.keyPattern &&
-          err.keyPattern.trackingNumber
-        ) {
-          // attempt limited retries
-          const maxRetries = 5;
-          let saved = false;
-          for (let i = 0; i < maxRetries && !saved; i++) {
-            shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
-            newShipment.trackingId = shipment.trackingId;
-            try {
-              await newShipment.save();
-              saved = true;
-            } catch (e: any) {
-              // continue retrying on duplicate key, otherwise throw
-              if (
-                !(
-                  e &&
-                  e.code === 11000 &&
-                  e.keyPattern &&
-                  e.keyPattern.trackingNumber
-                )
-              )
-                throw e;
-            }
-          }
-          if (!saved)
-            throw new Error(
-              'Failed to save shipment: trackingNumber collisions',
-            );
+        // Si es duplicado por trackingId, regenerar
+        if (err.code === 11000 && err.keyPattern?.trackingId) {
+          shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+          newShipment.trackingId = shipment.trackingId;
         } else {
-          throw err;
+          throw err; // Otro error → no continuar
         }
       }
-    } catch (error) {
-      console.error(error);
-      throw error;
     }
+
+    if (!saved) {
+      throw new Error('Failed to save shipment after retries due to trackingId collisions');
+    }
+
+    return {
+      success: true,
+      message: 'Shipment created successfully.',
+      trackingId: shipment.trackingId,
+      created: true,
+    };
+  } catch (error) {
+    console.error('Error in createShipment:', error);
+    return {
+      success: false,
+      message: 'Failed to process shipment.',
+      trackingId: shipment.trackingId || 'unknown',
+      error: error instanceof Error ? error.message : String(error),
+    };
   }
+}
 
   public async updateShipment(
     trackingId: string,
@@ -128,5 +199,5 @@ export class ShipmentRepository {
       console.error(error);
       throw error;
     }
-    }
+  }
 }
