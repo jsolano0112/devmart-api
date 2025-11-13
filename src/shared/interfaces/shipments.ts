@@ -19,7 +19,6 @@ export interface IShipment {
 }
 
 export interface IShipmentUpdate {
-    trackingId: string;
     status: string;
     updatedAt: Date;
 }
@@ -27,4 +26,12 @@ export interface IShipmentUpdate {
 
 export interface IShipmentParams {
   trackingId: string;
+}
+
+
+export interface ICreateShipmentResult {
+    success: boolean;
+    message: string;
+    trackingId?: string;
+    created?: boolean;
 }

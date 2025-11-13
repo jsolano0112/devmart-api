@@ -45,12 +45,7 @@ const orderRouter: Router = Router();
  *               createdAt: "2025-10-05T14:25:00Z"
  *               updatedAt: "2025-10-05T14:35:00Z"
  */
-orderRouter.get(
-  '/:id',
-  validateIdNumberParameter,
-  verifyAuthToken,
-  controller.getById,
-);
+orderRouter.get('/:id', validateIdNumberParameter,verifyAuthToken, controller.getById,);
 
 /**
  * @swagger
