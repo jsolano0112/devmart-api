@@ -83,6 +83,16 @@ export class ProductRepository {
     }
   }
 
+    public async getProductsBySkus(skus: string[]) {
+    try {
+      return await Product.find({ sku: { $in: skus } }).lean();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+
   public async incrementStock(sku: string, quantity: number) {
     await Product.updateOne({ sku }, { $inc: { stock: quantity } });
   }
