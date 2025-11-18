@@ -141,3 +141,12 @@ npm install --save-dev jest
 npm install -D node-mocks-http
 
 ````
+---
+
+## ↔ Socket
+
+```
+npx ts-node src/server.ts
+```
+
+---
