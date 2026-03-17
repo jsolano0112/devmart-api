@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import appRouter from './app-route';
 import { Server } from 'socket.io';
-import { dbConnection } from './shared/infraestructure/db/mongodb.config';
+import { dbConnection } from './shared/infraestructure/db/mongodb.config.ts';
 import { errorHandler } from './shared/helpers/error-handler';
 import { setupSwagger } from './swagger';
 import { Scheduler } from './shared/helpers/scheduler/clean-pending-orders';
@@ -14,6 +14,11 @@ const io = new Server(3001);
 // SWAGGER
 setupSwagger(app);
 // END - SWAGGER
+
+app.use((req, res, next) => {
+  console.log(`📡 ${process.env.HOST} -> ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(cors({
   origin: "http://localhost:5173 ", //Front
@@ -31,7 +36,7 @@ dbConnection();
 
 //SCHEDULER
 const scheduler = new Scheduler();
-scheduler.start();
+// scheduler.start();
 //END - SCHEDULER
 
 //SOCKET
@@ -44,6 +49,8 @@ io.on('connection', (socket) => {
 });
 
 //END - SOCKET
+
+
 
 app.listen(PORT, () => {
   console.log('SERVER RUNNING - http://localhost:3000/api/v1/');
