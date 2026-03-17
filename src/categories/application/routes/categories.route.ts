@@ -86,7 +86,7 @@ categoryRouter.post('/', validateCreateCategory, controller.createCategory);
  *         content:
  *           application/json:
  *             schema:
- *               type: arrays
+ *               type: array
  *               items:
  *                 type: object
  *                 properties:
