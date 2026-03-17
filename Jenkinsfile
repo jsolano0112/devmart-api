@@ -16,18 +16,6 @@ pipeline {
             }
         }
 
-        stage('Down containers') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'docker compose down'
-                    } else {
-                        bat 'docker compose down'
-                    }
-                }
-            }
-        }
-
          stage('Build and up containers') {
             steps {
                 script {
