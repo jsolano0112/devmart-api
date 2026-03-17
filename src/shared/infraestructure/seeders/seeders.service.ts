@@ -3,7 +3,7 @@ import { seedOrders } from '../../../order/infraestructure/seeders/order.seeder'
 import { seedProducts } from '../../../product/infraestructure/seeders/product.seeder';
 import { seedSuppliers } from '../../../supplier/infraestructure/seeders/supplier.seeder';
 import { seedUsers } from '../../../user/infraestructure/seeders/user.seeder';
-import { dbConnection } from '../db/mongodb.config';
+import { dbConnection } from '../db/mongodb.config.ts';
 
 (async () => {
   await dbConnection();
