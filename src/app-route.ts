@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
 import { orderRouter } from './order/application/routes/order.route';
-import { notificationRouter } from './notification/application/routes/notification.route';
 import { supplierRouter } from './supplier/application/routes/supplier.route';
 import { shipmentRouter } from './shipments/application/routes/shipment.route';
 import { productRouter } from './product/application/routes/product.route';
@@ -14,9 +13,7 @@ appRouter.get('/', (req: Request, res: Response) => {
   });
 });
 
-
 appRouter.use('/api/v1/orders', orderRouter);
-appRouter.use('/api/v1/notifications', notificationRouter);
 appRouter.use('/api/v1/suppliers', supplierRouter);
 appRouter.use('/api/v1/shipments', shipmentRouter);
 appRouter.use('/api/v1/categories', categoryRouter);
