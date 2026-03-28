@@ -4,10 +4,8 @@ import { OrderRepository } from '../../order/domain/repositories/order.repositor
 import { ProductRepository } from '../../product/domain/repositories/product.repository';
 import { ShipmentRepository } from '../../shipments/domain/repositories/shipment-repository';
 import { SupplierRepository } from '../../supplier/domain/repositories/supplier-repository';
-import { UserRepository } from '../../user/domain/repositories/user-repository';
 
 export class RepositoryContainer {
-  public readonly users: UserRepository;
   public readonly orders: OrderRepository;
   public readonly products: ProductRepository;
   public readonly categories: CategoriesRepository;
@@ -16,7 +14,6 @@ export class RepositoryContainer {
   public readonly suppliers: SupplierRepository;
 
   constructor() {
-    this.users = new UserRepository();
     this.orders = new OrderRepository();
     this.products = new ProductRepository();
     this.categories = new CategoriesRepository();
