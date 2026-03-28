@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import appRouter from './app-route';
 import { Server } from 'socket.io';
-import { dbConnection } from './shared/infraestructure/db/mongodb.config.ts';
+import { dbConnection } from './shared/infraestructure/db/mongodb.config';
 import { errorHandler } from './shared/helpers/error-handler';
 import { setupSwagger } from './swagger';
 import { Scheduler } from './shared/helpers/scheduler/clean-pending-orders';
