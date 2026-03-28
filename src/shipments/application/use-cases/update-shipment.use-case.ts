@@ -1,7 +1,6 @@
 import { Exception } from '../../../shared/helpers/exception-message';
 import { RepositoryContainer } from '../../../shared/infraestructure/respository-container';
 import { IShipmentUpdate } from '../../../shared/interfaces/shipments';
-import { NotificationClient } from '../../../shared/infraestructure/socket/socket-client';
 
 function buildNotificationPayload(status: string, trackingId: string) {
   const type = `shipment.${status.toLowerCase()}`;
@@ -56,7 +55,8 @@ export class updateShipment {
             type: payload.type,
           } as any;
 
-          NotificationClient.send(notification).catch((err: any) => console.error('Notification send error', err));
+          //TODO: Notification
+          // NotificationClient.send(notification).catch((err: any) => console.error('Notification send error', err));
         }
       }
     } catch (e) {
