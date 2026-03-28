@@ -64,7 +64,7 @@ The MongoDB connection requires credentials.
 Update the following file:
 
 ```bash
-src/db/config/mongodb.ts
+src\shared\infraestructure\db\mongodb.config.ts
 ```
 
 ```bash
