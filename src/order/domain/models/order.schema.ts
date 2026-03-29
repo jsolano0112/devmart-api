@@ -1,9 +1,7 @@
-import { connection, model, Schema } from 'mongoose';
-import { IOrder, IProduct } from '../../../shared/interfaces/orders';
+import { model, Schema } from 'mongoose';
 import { OrderStatus } from '../../../shared/interfaces/order-status';
-import AutoIncrementFactory from 'mongoose-sequence';
+import { IOrder, IProduct } from '../../../shared/interfaces/orders';
 
-const AutoIncrement = AutoIncrementFactory(connection);
 
 const productSchema = new Schema<IProduct>(
   {
@@ -15,7 +13,7 @@ const productSchema = new Schema<IProduct>(
 
 const orderSchema = new Schema<IOrder>(
   {
-    id: { type: Number, unique: true },
+    id: { type: Number, required: true, unique: true },
     userId: { type: Number, required: true },
     products: { type: [productSchema], required: true },
     paymentMethod: { type: Number, required: false },
@@ -30,8 +28,5 @@ const orderSchema = new Schema<IOrder>(
   { timestamps: true },
 );
 
-orderSchema.plugin(AutoIncrement, {
-  inc_field: 'id',
-  id: 'order_id_counter',
-});
+
 export const OrderSchema = model<IOrder>('Order', orderSchema);

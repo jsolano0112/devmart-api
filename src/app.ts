@@ -35,7 +35,7 @@ dbConnection();
 
 
 //SCHEDULER
-const scheduler = new Scheduler();
+// const scheduler = new Scheduler();
 // scheduler.start();
 //END - SCHEDULER
 
