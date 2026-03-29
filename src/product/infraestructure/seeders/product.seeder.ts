@@ -1,6 +1,7 @@
+import type { SeededCategoryIds } from '../../../categories/infraestructure/seeders/category.seeder';
 import { Product } from '../../domain/models/product.schema';
 
-export const seedProducts = async () => {
+export const seedProducts = async (categories: SeededCategoryIds) => {
   console.log('🌱 Initializing product seeders...');
 
   const products = [
@@ -12,7 +13,7 @@ export const seedProducts = async () => {
       stock: 150,
       images: 'https://example.com/images/mouse-logitech.jpg',
       sku: 'MOUSE-LOGI-M185',
-      categoryId: 1,
+      categoryId: categories.perifericos,
       supplierId: 1,
     },
     {
@@ -23,7 +24,7 @@ export const seedProducts = async () => {
       stock: 90,
       images: 'https://example.com/images/keyboard-redragon.jpg',
       sku: 'KEYB-REDR-KUMARA',
-      categoryId: 1,
+      categoryId: categories.perifericos,
       supplierId: 2,
     },
     {
@@ -34,7 +35,7 @@ export const seedProducts = async () => {
       stock: 40,
       images: 'https://example.com/images/monitor-samsung.jpg',
       sku: 'MONI-SAMS-27C',
-      categoryId: 2,
+      categoryId: categories.monitores,
       supplierId: 1,
     },
     {
@@ -45,7 +46,7 @@ export const seedProducts = async () => {
       stock: 25,
       images: 'https://example.com/images/laptop-hp.jpg',
       sku: 'LAPT-HP-PAV15',
-      categoryId: 3,
+      categoryId: categories.computadores,
       supplierId: 3,
     },
   ];
