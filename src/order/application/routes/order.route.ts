@@ -3,10 +3,7 @@ import { OrderController } from '../controller/orders.controller';
 import { validateOrderInformation } from '../middlewares/order.validator';
 import { verifyAuthToken } from '../../../shared/helpers/jwt-validator';
 import { validateIdNumberParameter } from '../../../shared/helpers/get-id-number.validator';
-import {
-  validateUserIdNumberBody,
-  validateUserIdNumberParameter,
-} from '../../../shared/helpers/user-id.validator';
+
 
 const controller = new OrderController();
 const orderRouter: Router = Router();
@@ -79,7 +76,6 @@ orderRouter.get('/:id', validateIdNumberParameter,verifyAuthToken, controller.ge
 orderRouter.post(
   '/',
   validateOrderInformation,
-  validateUserIdNumberBody,
   verifyAuthToken,
   controller.create,
 );
@@ -208,7 +204,6 @@ orderRouter.patch(
  */
 orderRouter.get(
   '/user/:userId',
-  validateUserIdNumberParameter,
   verifyAuthToken,
   controller.getOrdersByUserId,
 );

@@ -48,7 +48,7 @@ export class OrderRepository {
     }
   }
 
-  public async getOrders(userId: number) {
+  public async getOrders(userId: any) {
     try {
       return await OrderSchema.find({ userId }).lean();
     } catch (error) {

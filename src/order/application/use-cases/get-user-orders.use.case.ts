@@ -5,7 +5,7 @@ import { IUserOrderResponse } from '../../../shared/interfaces/orders';
 export class GetUserOrders {
   constructor(private repo: RepositoryContainer) {}
 
-  async run(userId: number): Promise<IUserOrderResponse[]> {
+  async run(userId: any): Promise<IUserOrderResponse[]> {
     try {
       const orders = await this.repo.orders.getOrders(userId);
 

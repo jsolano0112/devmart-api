@@ -80,7 +80,7 @@ export class OrderController {
     try {
       const { userId } = request.params;
       const userOrders = await OrderServiceContainer.getUserOrders.run(
-        Number(userId),
+        userId,
       );
       if (userOrders.length === 0) {
         return response.status(204).json();

@@ -6,6 +6,7 @@ export interface IShipmentsResponse {
     trackingId: string;
     createdAt: Date;
     updatedAt: Date;
+    userId?: number
 }
 
 export interface IShipment {
@@ -16,6 +17,7 @@ export interface IShipment {
     trackingId: string;
     createdAt: Date;
     updatedAt: Date;
+    userId?: number
 }
 
 export interface IShipmentUpdate {
