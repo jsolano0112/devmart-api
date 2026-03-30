@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 import { OrderStatus } from '../../../shared/interfaces/order-status';
 import { IOrder, IProduct } from '../../../shared/interfaces/orders';
 
@@ -14,7 +14,7 @@ const productSchema = new Schema<IProduct>(
 const orderSchema = new Schema<IOrder>(
   {
     id: { type: Number, required: true, unique: true },
-    userId: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
     products: { type: [productSchema], required: true },
     paymentMethod: { type: Number, required: false },
     address: { type: String, required: false },

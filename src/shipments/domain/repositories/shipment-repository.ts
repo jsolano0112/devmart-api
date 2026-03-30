@@ -5,6 +5,7 @@ import {
 import { Shipment } from '../models/shipments.schema';
 import { generateUniqueTrackingNumber } from '../../../shared/helpers/generate-tracking.helper';
 import { Exception } from '../../../shared/helpers/exception-message';
+import { OrderSchema } from '../../../order/domain/models/order.schema';
 
 export class ShipmentRepository {
   public async getShipmentBytrackingId(
@@ -31,19 +32,33 @@ export class ShipmentRepository {
 
   public async getAllShipmentsData(): Promise<IShipmentsResponse[]> {
     try {
+      // 1. Traer todos los envíos
       const shipments = await Shipment.find();
       if (shipments.length === 0)
         throw new Exception('No shipments found.', 404);
 
-      return shipments.map((s) => ({
-        id: s.id,
-        orderId: s.orderId,
-        status: s.status,
-        trackingId: s.trackingId,
-        carrier: s.carrier,
-        createdAt: s.createdAt,
-        updatedAt: s.updatedAt,
-      }));
+      // 2. Extraer todos los orderIds únicos para buscar sus dueños
+      const orderIds = [...new Set(shipments.map((s) => s.orderId))];
+
+      // 3. Buscar todas las órdenes de esos envíos en una sola consulta
+      // 'Order' es tu modelo/tabla de órdenes
+      const orders = await OrderSchema.find({ id: { $in: orderIds } });
+
+      // 4. Mapear los resultados uniendo la información
+      return shipments.map((s) => {
+        const relatedOrder = orders.find((o) => o.id === s.orderId);
+
+        return {
+          id: s.id,
+          orderId: s.orderId,
+          userId: relatedOrder ? relatedOrder.userId : 0,
+          status: s.status,
+          trackingId: s.trackingId,
+          carrier: s.carrier,
+          createdAt: s.createdAt,
+          updatedAt: s.updatedAt,
+        };
+      });
     } catch (error) {
       throw error;
     }
@@ -110,69 +125,71 @@ export class ShipmentRepository {
   // }
 
   public async createShipment(shipment: IShipmentsResponse): Promise<{
-  success: boolean;
-  message: string;
-  trackingId: string;
-  created?: boolean;
-  error?: string;
-}> {
-  try {
-    // Asegurar que trackingId exista
-    if (!shipment.trackingId) {
-      shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
-    }
+    success: boolean;
+    message: string;
+    trackingId: string;
+    created?: boolean;
+    error?: string;
+  }> {
+    try {
+      // Asegurar que trackingId exista
+      if (!shipment.trackingId) {
+        shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+      }
 
-    // // Verificar si ya existe
-    // const existingShipment = await this.getShipmentBytrackingId(shipment.trackingId);
-    // if (existingShipment) {
-    //   return {
-    //     success: true,
-    //     message: 'Shipment already exists.',
-    //     trackingId: shipment.trackingId,
-    //     created: false,
-    //   };
-    // }
+      // // Verificar si ya existe
+      // const existingShipment = await this.getShipmentBytrackingId(shipment.trackingId);
+      // if (existingShipment) {
+      //   return {
+      //     success: true,
+      //     message: 'Shipment already exists.',
+      //     trackingId: shipment.trackingId,
+      //     created: false,
+      //   };
+      // }
 
-    // Intentar guardar el nuevo envío
-    const newShipment = new Shipment(shipment);
-    let saved = false;
-    let maxRetries = 5;
+      // Intentar guardar el nuevo envío
+      const newShipment = new Shipment(shipment);
+      let saved = false;
+      let maxRetries = 5;
 
-    for (let i = 0; i < maxRetries && !saved; i++) {
-      try {
-        await newShipment.save();
-        saved = true;
-      } catch (err: any) {
-        // Si es duplicado por trackingId, regenerar
-        if (err.code === 11000 && err.keyPattern?.trackingId) {
-          shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
-          newShipment.trackingId = shipment.trackingId;
-        } else {
-          throw err; // Otro error → no continuar
+      for (let i = 0; i < maxRetries && !saved; i++) {
+        try {
+          await newShipment.save();
+          saved = true;
+        } catch (err: any) {
+          // Si es duplicado por trackingId, regenerar
+          if (err.code === 11000 && err.keyPattern?.trackingId) {
+            shipment.trackingId = await generateUniqueTrackingNumber(Shipment);
+            newShipment.trackingId = shipment.trackingId;
+          } else {
+            throw err; // Otro error → no continuar
+          }
         }
       }
-    }
 
-    if (!saved) {
-      throw new Error('Failed to save shipment after retries due to trackingId collisions');
-    }
+      if (!saved) {
+        throw new Error(
+          'Failed to save shipment after retries due to trackingId collisions',
+        );
+      }
 
-    return {
-      success: true,
-      message: 'Shipment created successfully.',
-      trackingId: shipment.trackingId,
-      created: true,
-    };
-  } catch (error) {
-    console.error('Error in createShipment:', error);
-    return {
-      success: false,
-      message: 'Failed to process shipment.',
-      trackingId: shipment.trackingId || 'unknown',
-      error: error instanceof Error ? error.message : String(error),
-    };
+      return {
+        success: true,
+        message: 'Shipment created successfully.',
+        trackingId: shipment.trackingId,
+        created: true,
+      };
+    } catch (error) {
+      console.error('Error in createShipment:', error);
+      return {
+        success: false,
+        message: 'Failed to process shipment.',
+        trackingId: shipment.trackingId || 'unknown',
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
   }
-}
 
   public async updateShipment(
     trackingId: string,
