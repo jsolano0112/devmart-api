@@ -5,20 +5,17 @@ pipeline {
         IMAGE_NAME = 'devmart-api'
         CONTAINER_NAME = 'devmart-api'
         PORT = '3000'
-        IS_WINDOWS = "${isUnix() ? 'false' : 'true'}"
     }
 
     stages {
         stage('Install Dependencies') {
             steps {
                 echo 'Instalando dependencias...'
-                dir('devmart-api') {
-                    script {
-                        if (isUnix()) {
-                            sh 'npm install'
-                        } else {
-                            bat 'npm install'
-                        }
+                script {
+                    if (isUnix()) {
+                        sh 'npm install'
+                    } else {
+                        bat 'npm install'
                     }
                 }
             }
@@ -27,13 +24,11 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Construyendo imagen Docker...'
-                dir('devmart-api') {
-                    script {
-                        if (isUnix()) {
-                            sh "docker build -t ${IMAGE_NAME}:latest ."
-                        } else {
-                            bat "docker build -t %IMAGE_NAME%:latest ."
-                        }
+                script {
+                    if (isUnix()) {
+                        sh "docker build -t ${IMAGE_NAME}:latest ."
+                    } else {
+                        bat "docker build -t %IMAGE_NAME%:latest ."
                     }
                 }
             }
@@ -50,7 +45,7 @@ pipeline {
                             docker run -d \\
                                 --name ${CONTAINER_NAME} \\
                                 --network devmart_network \\
-                                --env-file ./devmart-api/.env \\
+                                --env-file .env \\
                                 -p ${PORT}:${PORT} \\
                                 ${IMAGE_NAME}:latest
                         """
@@ -61,7 +56,7 @@ pipeline {
                             docker run -d ^
                                 --name %CONTAINER_NAME% ^
                                 --network devmart_network ^
-                                --env-file ./devmart-api/.env ^
+                                --env-file .env ^
                                 -p %PORT%:%PORT% ^
                                 %IMAGE_NAME%:latest
                         """
@@ -73,10 +68,10 @@ pipeline {
 
     post {
         success {
-            echo ' Devmart-api desplegado correctamente'
+            echo 'Devmart-api desplegado correctamente'
         }
         failure {
-            echo ' Error en el pipeline de devmart-api'
+            echo 'Error en el pipeline de devmart-api'
         }
     }
 }
