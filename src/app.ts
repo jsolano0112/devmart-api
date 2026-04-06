@@ -13,7 +13,7 @@ setupSwagger(app);
 // END - SWAGGER
 
 app.use(cors({
-  origin: "http://localhost:5173 ", //Front
+  origin: "http://localhost:5173", //Front
    credentials: false
 }));
 
