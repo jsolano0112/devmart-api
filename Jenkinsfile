@@ -44,7 +44,6 @@ pipeline {
                         sh """
                             docker run -d \\
                                 --name ${CONTAINER_NAME} \\
-                                --network devmart_network \\
                                 --env-file .env \\
                                 -p ${PORT}:${PORT} \\
                                 ${IMAGE_NAME}:latest
@@ -55,7 +54,6 @@ pipeline {
                         bat """
                             docker run -d ^
                                 --name %CONTAINER_NAME% ^
-                                --network devmart_network ^
                                 --env-file .env ^
                                 -p %PORT%:%PORT% ^
                                 %IMAGE_NAME%:latest
@@ -68,10 +66,10 @@ pipeline {
 
     post {
         success {
-            echo 'Devmart-api desplegado correctamente'
+            echo '✅ devmart-api desplegado correctamente'
         }
         failure {
-            echo 'Error en el pipeline de devmart-api'
+            echo '❌ Error en el pipeline de devmart-api'
         }
     }
 }
