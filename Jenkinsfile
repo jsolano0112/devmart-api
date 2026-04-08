@@ -3,12 +3,10 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devmart-api'
-        CONTAINER_NAME = 'devmart-api'
-        PORT = '3000'
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Instalar Dependencias') {
             steps {
                 echo 'Instalando dependencias...'
                 script {
@@ -21,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Construir Imagen Docker') {
             steps {
                 echo 'Construyendo imagen Docker...'
                 script {
@@ -33,43 +31,14 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy') {
-            steps {
-                echo 'Desplegando contenedor...'
-                script {
-                    if (isUnix()) {
-                        sh "docker stop ${CONTAINER_NAME} || true"
-                        sh "docker rm ${CONTAINER_NAME} || true"
-                        sh """
-                            docker run -d \\
-                                --name ${CONTAINER_NAME} \\
-                                --env-file .env \\
-                                -p ${PORT}:${PORT} \\
-                                ${IMAGE_NAME}:latest
-                        """
-                    } else {
-                        bat "docker stop %CONTAINER_NAME% || exit 0"
-                        bat "docker rm %CONTAINER_NAME% || exit 0"
-                        bat """
-                            docker run -d ^
-                                --name %CONTAINER_NAME% ^
-                                --env-file .env ^
-                                -p %PORT%:%PORT% ^
-                                %IMAGE_NAME%:latest
-                        """
-                    }
-                }
-            }
-        }
     }
 
     post {
         success {
-            echo '✅ devmart-api desplegado correctamente'
+            echo 'Imagen devmart-api construida correctamente'
         }
         failure {
-            echo '❌ Error en el pipeline de devmart-api'
+            echo 'Error al construir la imagen'
         }
     }
 }
