@@ -13,7 +13,11 @@ setupSwagger(app);
 // END - SWAGGER
 
 app.use((req, res, next) => {
-  console.log(`↔️ ${req.method} ${req.url}`);
+  const ip = req.headers['x-real-ip'] || 
+             req.headers['x-forwarded-for'] || 
+             req.socket.remoteAddress;
+             
+  console.log(`↔️ ${req.method} ${req.url} | IP: ${ip} | Host: ${req.headers.host}`);
   next();
 });
 
