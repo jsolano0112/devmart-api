@@ -8,8 +8,8 @@ export class updateProduct {
   async run(product: IUpdateProduct, sku: string): Promise<void> {
     const dbProduct = await this.repo.products.getProductBySku(sku);
     if (!dbProduct) throw new Exception('The product does not exist.', 404);
-    const existingSupplier = await this.repo.suppliers.getSupplierById(product.supplierId,);
-    if (!existingSupplier) throw new Exception('The supplier not found.', 404);
+    // const existingSupplier = await this.repo.suppliers.getSupplierById(product.supplierId,);
+    // if (!existingSupplier) throw new Exception('The supplier not found.', 404);
     const productUpdated: IUpdateProduct = {
       name: product.name ? product.name : dbProduct.name,
       description: product.description ? product.description : dbProduct.description,
