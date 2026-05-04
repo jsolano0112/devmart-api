@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'devmart-api'
+        COMPOSE_DIR = 'C:\\Users\\LENOVO\\Desktop\\electiva 3'  // ← faltaba esto
     }
 
     stages {
@@ -31,14 +32,34 @@ pipeline {
                 }
             }
         }
+
+        stage('Desplegar Contenedores') {
+            steps {
+                echo 'Desplegando todas las instancias de devmart-api...'
+                script {
+                    if (isUnix()) {
+                        sh """
+                            cd "${COMPOSE_DIR}"
+                            docker compose --env-file ./devmart-api/.env up -d --no-deps --force-recreate \
+                                devmart-api-1 devmart-api-2 devmart-api-3
+                        """
+                    } else {
+                        bat """
+                            cd "%COMPOSE_DIR%"
+                            docker compose --env-file ./devmart-api/.env up -d --no-deps --force-recreate devmart-api-1 devmart-api-2 devmart-api-3
+                        """
+                    }
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'Imagen devmart-api construida correctamente'
+            echo 'devmart-api desplegado correctamente en las 3 instancias'
         }
         failure {
-            echo 'Error al construir la imagen'
+            echo 'Error al desplegar devmart-api'
         }
     }
 }
