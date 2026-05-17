@@ -2,53 +2,47 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'devmart-api'
-        COMPOSE_DIR = 'C:\\Users\\LENOVO\\Desktop\\electiva 3'  // ← faltaba esto
+        IMAGE_NAME        = 'devmart-api'
+        COMPOSE_SERVICES  = 'devmart-api-1 devmart-api-2 devmart-api-3'
+        REMOTE_DEPLOY_DIR = '/opt/devmart'
+        COMPOSE_FILE      = 'docker-compose.prod.yml'
+        DEVMART_EC2_HOST  = credentials('DEVMART_EC2_HOST')
+    }
+
+    triggers {
+        githubPush()
     }
 
     stages {
-        stage('Instalar Dependencias') {
+        stage('Instalar dependencias') {
             steps {
-                echo 'Instalando dependencias...'
-                script {
-                    if (isUnix()) {
-                        sh 'npm install'
-                    } else {
-                        bat 'npm install'
-                    }
+                bat 'npm ci || npm install'
+            }
+        }
+
+        stage('Tests (opcional)') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                    bat 'npm test --if-present'
                 }
             }
         }
 
-        stage('Construir Imagen Docker') {
+        stage('Construir imagen Docker') {
             steps {
-                echo 'Construyendo imagen Docker...'
-                script {
-                    if (isUnix()) {
-                        sh "docker build -t ${IMAGE_NAME}:latest ."
-                    } else {
-                        bat "docker build -t %IMAGE_NAME%:latest ."
-                    }
-                }
+                bat 'docker build -t %IMAGE_NAME%:latest .'
             }
         }
 
-        stage('Desplegar Contenedores') {
+        stage('Desplegar en EC2') {
             steps {
-                echo 'Desplegando todas las instancias de devmart-api...'
-                script {
-                    if (isUnix()) {
-                        sh """
-                            cd "${COMPOSE_DIR}"
-                            docker compose --env-file ./devmart-api/.env up -d --no-deps --force-recreate \
-                                devmart-api-1 devmart-api-2 devmart-api-3
-                        """
-                    } else {
-                        bat """
-                            cd "%COMPOSE_DIR%"
-                            docker compose --env-file ./devmart-api/.env up -d --no-deps --force-recreate devmart-api-1 devmart-api-2 devmart-api-3
-                        """
-                    }
+                sshagent(credentials: ['DEVMART_EC2_SSH']) {
+                    bat '''
+                        docker save %IMAGE_NAME%:latest -o image.tar
+                        scp -o StrictHostKeyChecking=no image.tar ubuntu@%DEVMART_EC2_HOST%:/tmp/%IMAGE_NAME%.tar
+                        ssh -o StrictHostKeyChecking=no ubuntu@%DEVMART_EC2_HOST% "docker load -i /tmp/%IMAGE_NAME%.tar && rm -f /tmp/%IMAGE_NAME%.tar"
+                        ssh -o StrictHostKeyChecking=no ubuntu@%DEVMART_EC2_HOST% "cd %REMOTE_DEPLOY_DIR% && docker compose -f %COMPOSE_FILE% up -d --no-deps %COMPOSE_SERVICES%"
+                    '''
                 }
             }
         }
@@ -56,10 +50,10 @@ pipeline {
 
     post {
         success {
-            echo 'devmart-api desplegado correctamente en las 3 instancias'
+            echo 'devmart-api desplegado tras Nginx (3 replicas). Atlas debe permitir IP de EC2.'
         }
         failure {
-            echo 'Error al desplegar devmart-api'
+            echo 'Error en pipeline devmart-api.'
         }
     }
 }
